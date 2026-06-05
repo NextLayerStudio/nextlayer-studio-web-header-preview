@@ -1,0 +1,644 @@
+"use client";
+
+import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import emailjs from '@emailjs/browser';
+
+export default function Home() {
+  const [scrollY, setScrollY] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [displayedText, setDisplayedText] = useState("");
+  const [loadingFadeOut, setLoadingFadeOut] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [aboutVideoIndex, setAboutVideoIndex] = useState(0);
+  const aboutVideos = ["/videos/andrej.mov", "/videos/andrej2.mov", "/videos/andrej3.mov"];
+
+  const formRef = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const showHamburger = isMobile ? true : scrollY > 400;
+
+  const loadingText = "Budujeme značky, ktoré sa nezabúdajú.";
+
+  useEffect(() => {
+    emailjs.init('VBkXVCwNKLhntRGyJ');
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading) return;
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= loadingText.length) {
+        setDisplayedText(loadingText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+        setTimeout(() => {
+          setLoadingFadeOut(true);
+          setTimeout(() => setIsLoading(false), 800);
+        }, 500);
+      }
+    }, 50);
+    return () => clearInterval(typingInterval);
+  }, [isLoading]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const handleScroll = () => setScrollY(container.scrollTop);
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, [isLoading]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAboutVideoIndex(i => (i + 1) % aboutVideos.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const heroOpacity = Math.max(0, 1 - scrollY / 600);
+  const section2Progress = Math.min(1, Math.max(0, (scrollY - 300) / 500));
+  const section3Progress = Math.min(1, Math.max(0, (scrollY - 900) / 500));
+  const section4Progress = Math.min(1, Math.max(0, (scrollY - 1500) / 500));
+  const section5Progress = Math.min(1, Math.max(0, (scrollY - 2100) / 500));
+  const section6Progress = Math.min(1, Math.max(0, (scrollY - 2700) / 500));
+
+  const scrollToSection = (sectionIndex: number) => {
+    if (containerRef.current) {
+      containerRef.current.scrollTo({
+        top: sectionIndex * window.innerHeight,
+        behavior: 'smooth'
+      });
+      setIsMenuOpen(false);
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+    const formData = new FormData(formRef.current!);
+    const name = formData.get('user_name') as string;
+    const email = formData.get('user_email') as string;
+    const message = formData.get('message') as string;
+    if (!name || name.trim().length < 2) newErrors.name = 'Meno musí mať aspoň 2 znaky';
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = 'Zadajte platný email';
+    if (!message || message.trim().length < 10) newErrors.message = 'Správa musí mať aspoň 10 znakov';
+    setFormErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const sendEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formRef.current) return;
+    if (!validateForm()) return;
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setFormErrors({});
+    try {
+      await emailjs.sendForm('service_1fedtkm', 'template_6u08llf', formRef.current, 'VBkXVCwNKLhntRGyJ');
+      setSubmitStatus('success');
+      formRef.current.reset();
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const clients = [
+    { name: "Bombafasada", logo: "/logos/bombafasada.png", link: "https://www.instagram.com/bombafasada/" },
+    { name: "Kávička u Janíčka", logo: "/logos/janicko.png", link: "https://www.instagram.com/kavicka_u_janicka" },
+    { name: "Karin Art", logo: "/logos/karinart.png", link: "https://www.karinart.sk" },
+    { name: "Beauty Institute", logo: "/logos/sisi.png", link: "https://www.sisikovacsova.com" },
+    { name: "Know3D", logo: "/logos/know3d.png", link: "https://www.know3d.sk" },
+    { name: "Stopalerg", logo: "/logos/stopalerg.webp", link: "https://www.instagram.com/stopalerg" },
+    { name: "Takeoff", logo: "/logos/takeoff.png", link: "https://www.instagram.com/takeoff" },
+    { name: "Autoškola Zvyky", logo: "/logos/zvyky.webp", link: "https://www.instagram.com/autoskola.zvyky" },
+    { name: "NIE RAKOVINE", logo: "/logos/nie-rakovine.png", link: "https://onkoklub.sk" },
+  ];
+
+  return (
+    <div ref={containerRef} className="bg-[#BAFF57] h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
+
+      {/* Loading Screen */}
+      {isLoading && (
+        <div className={`fixed inset-0 z-50 bg-[#BAFF57] flex items-center justify-center transition-opacity duration-700 ${loadingFadeOut ? 'opacity-0' : 'opacity-100'}`}>
+          <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-normal text-black text-center px-8 max-w-4xl">
+            {displayedText}<span className="animate-pulse">|</span>
+          </p>
+        </div>
+      )}
+
+      {/* Hamburger Button */}
+      {showHamburger && !isMenuOpen && (
+        <div
+          onClick={() => setIsMenuOpen(true)}
+          className={`fixed z-[60] cursor-pointer touch-manipulation ${isMobile ? 'top-4 right-4' : 'top-4 right-4 sm:top-6 sm:right-6'}`}
+          role="button" tabIndex={0} aria-label="Open menu"
+        >
+          <div className={`relative bg-black flex flex-col items-center justify-center gap-2 hover:bg-black/80 active:bg-black/60 transition-colors ${isMobile ? 'w-14 h-14' : 'w-14 h-14 sm:w-12 sm:h-12'}`}>
+            <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-black"></div>
+            <div className="absolute -top-1 -right-1 w-2 h-2 border-t border-r border-black"></div>
+            <div className="absolute -bottom-1 -left-1 w-2 h-2 border-b border-l border-black"></div>
+            <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-black"></div>
+            <span className="w-5 h-[2px] bg-[#BAFF57]"></span>
+            <span className="w-5 h-[2px] bg-[#BAFF57]"></span>
+          </div>
+        </div>
+      )}
+
+      {/* Full Screen Menu */}
+      <div className={`fixed inset-0 z-50 transition-all duration-500 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <div className="absolute inset-0 bg-[#212121]"></div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute h-[1px] bg-[#BAFF57]/20 animate-float-slow-1" style={{ top: '30%', left: '0', width: '100%' }}></div>
+          <div className="absolute h-[1px] bg-[#BAFF57]/15 animate-float-slow-3" style={{ top: '70%', left: '0', width: '100%' }}></div>
+          <div className="absolute w-[1px] bg-[#BAFF57]/15 animate-float-vertical-1" style={{ left: '20%', top: '0', height: '100%' }}></div>
+          <div className="absolute w-[1px] bg-[#BAFF57]/10 animate-float-vertical-3" style={{ right: '25%', top: '0', height: '100%' }}></div>
+          <div className="absolute top-8 left-8 w-16 h-16 border-t border-l border-[#BAFF57]/30"></div>
+          <div className="absolute top-8 right-8 w-16 h-16 border-t border-r border-[#BAFF57]/30"></div>
+          <div className="absolute bottom-8 left-8 w-16 h-16 border-b border-l border-[#BAFF57]/30"></div>
+          <div className="absolute bottom-8 right-8 w-16 h-16 border-b border-r border-[#BAFF57]/30"></div>
+        </div>
+        <button onClick={() => setIsMenuOpen(false)} className="absolute top-4 right-4 sm:top-6 sm:right-6 group z-50 cursor-pointer touch-manipulation" aria-label="Close menu">
+          <div className="relative w-14 h-14 sm:w-12 sm:h-12 bg-[#BAFF57] flex items-center justify-center pointer-events-auto active:bg-[#BAFF57]/80 transition-colors">
+            <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-[#BAFF57]"></div>
+            <div className="absolute -top-1 -right-1 w-2 h-2 border-t border-r border-[#BAFF57]"></div>
+            <div className="absolute -bottom-1 -left-1 w-2 h-2 border-b border-l border-[#BAFF57]"></div>
+            <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-[#BAFF57]"></div>
+            <div className="relative w-5 h-5 pointer-events-none">
+              <span className="absolute top-1/2 left-0 w-full h-[2px] bg-black -translate-y-1/2 rotate-45"></span>
+              <span className="absolute top-1/2 left-0 w-full h-[2px] bg-black -translate-y-1/2 -rotate-45"></span>
+            </div>
+          </div>
+        </button>
+        <nav className="relative z-10 h-full flex flex-col items-start justify-center pl-6 sm:pl-12 md:pl-24 lg:pl-32 gap-3 sm:gap-4">
+          <button onClick={() => scrollToSection(0)} className="group flex items-center gap-3 sm:gap-6 transition-all duration-300 touch-manipulation py-2">
+            <span className="text-[#BAFF57]/40 text-xs sm:text-sm font-light">01</span>
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Home</span>
+            <span className="w-0 h-[1px] bg-[#BAFF57] group-hover:w-12 transition-all duration-300"></span>
+          </button>
+          <button onClick={() => setIsMenuOpen(false)} className="group flex items-center gap-3 sm:gap-6 transition-all duration-300 touch-manipulation py-2">
+            <span className="text-[#BAFF57]/40 text-xs sm:text-sm font-light">02</span>
+            <a href="/marketing" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Marketing</a>
+            <span className="w-0 h-[1px] bg-[#BAFF57] group-hover:w-12 transition-all duration-300"></span>
+          </button>
+          <button onClick={() => setIsMenuOpen(false)} className="group flex items-center gap-3 sm:gap-6 transition-all duration-300 touch-manipulation py-2">
+            <span className="text-[#BAFF57]/40 text-xs sm:text-sm font-light">03</span>
+            <a href="/development" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Development</a>
+            <span className="w-0 h-[1px] bg-[#BAFF57] group-hover:w-12 transition-all duration-300"></span>
+          </button>
+          <button onClick={() => setIsMenuOpen(false)} className="group flex items-center gap-3 sm:gap-6 transition-all duration-300 touch-manipulation py-2">
+            <span className="text-[#BAFF57]/40 text-xs sm:text-sm font-light">04</span>
+            <a href="/design" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Design</a>
+            <span className="w-0 h-[1px] bg-[#BAFF57] group-hover:w-12 transition-all duration-300"></span>
+          </button>
+          <Link href="/projekty" onClick={() => setIsMenuOpen(false)} className="group flex items-center gap-3 sm:gap-6 transition-all duration-300 touch-manipulation py-2">
+            <span className="text-[#BAFF57]/40 text-xs sm:text-sm font-light">05</span>
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Projekty</span>
+            <span className="w-0 h-[1px] bg-[#BAFF57] group-hover:w-12 transition-all duration-300"></span>
+          </Link>
+          <div className="absolute bottom-12 left-12 md:left-24 lg:left-32 text-[#BAFF57]/50 text-sm font-light">
+            <p>team@nextlayer.studio</p>
+            <p>+421 902 238 309</p>
+          </div>
+        </nav>
+      </div>
+
+      {/* ── HERO ── */}
+      <main className="min-h-screen h-screen bg-[#BAFF57] pt-8 md:pt-12 flex flex-col overflow-hidden snap-start snap-always" style={{ opacity: heroOpacity }}>
+        <div className="absolute top-3 sm:top-4 md:top-6 lg:top-8 left-4 sm:left-8 md:left-16 lg:left-24 xl:left-32 z-10 transition-transform duration-300 ease-out" style={{ transform: `translateX(-${scrollY * 0.8}px)` }}>
+          <Image src="/fonts/Group.png" alt="Logo" width={80} height={80} className={`w-auto ${isMobile ? 'h-20' : 'h-10 sm:h-12 md:h-16 lg:h-20'}`} priority />
+        </div>
+
+        {!isMobile && (
+          <nav className="flex flex-row items-center justify-center gap-8 lg:gap-12 xl:gap-16 transition-transform duration-300 ease-out" style={{ transform: `translateX(-${scrollY * 1.2}px)` }}>
+            <a href="/marketing" className="text-sm md:text-base lg:text-lg font-normal hover:opacity-70 transition-opacity uppercase px-2 py-1">MARKETING</a>
+            <a href="/development" className="text-sm md:text-base lg:text-lg font-normal hover:opacity-70 transition-opacity uppercase px-2 py-1">DEVELOPMENT</a>
+            <a href="/design" className="text-sm md:text-base lg:text-lg font-normal hover:opacity-70 transition-opacity uppercase px-2 py-1">DESIGN</a>
+            <a href="/projekty" className="text-sm md:text-base lg:text-lg font-normal hover:opacity-70 transition-opacity uppercase px-2 py-1">ÚSPEŠNÉ PROJEKTY</a>
+          </nav>
+        )}
+
+        {!isMobile && (
+          <a href="#kontakt" className="absolute top-6 md:top-8 lg:top-12 right-4 md:right-8 lg:right-12 text-sm md:text-base lg:text-lg font-normal hover:opacity-70 transition-transform duration-300 ease-out uppercase px-2 py-1" style={{ transform: `translateX(${scrollY * 1.5}px)` }}>
+            KONTAKT
+          </a>
+        )}
+
+        <div
+          className={`absolute top-1/2 transition-transform duration-300 ease-out ${isMobile ? 'left-1/2 w-full max-w-full px-4 text-center' : 'left-4 sm:left-8 md:left-12 lg:left-24 xl:left-32 w-[85%] sm:w-auto'}`}
+          style={{ transform: isMobile ? 'translate(-50%, -50%)' : `translateX(-${scrollY * 2}px) translateY(-50%)` }}
+        >
+          <p className={`leading-relaxed ${isMobile ? 'text-3xl w-full px-2' : 'text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl max-w-xs sm:max-w-sm md:max-w-md'}`}>
+            <span className={`block ${isMobile ? 'break-words' : 'whitespace-nowrap'}`}>Profesionálna produkcia.</span>
+            <span className={`block ${isMobile ? 'mt-3' : 'mt-1 sm:mt-2 md:mt-3 lg:mt-4'}`}>Tvoja značka online.</span>
+          </p>
+          <button onClick={() => scrollToSection(1)} className={`bg-black text-white font-normal hover:bg-gray-800 transition-colors uppercase ${isMobile ? 'mt-6 px-8 py-4 text-lg mx-auto block' : 'mt-4 sm:mt-6 md:mt-8 lg:mt-10 px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 text-sm sm:text-base md:text-lg lg:text-xl'}`}>
+            Objaviť viac
+          </button>
+        </div>
+
+        <div className="mt-auto w-screen -mb-[2vw] transition-transform duration-300 ease-out overflow-hidden" style={{ transform: `translateX(${scrollY * 3}px)` }}>
+          <h1 className="text-[10vw] sm:text-[11vw] md:text-[12vw] lg:text-[13vw] font-bold leading-none whitespace-nowrap w-full text-center tracking-tighter -ml-[1vw] px-2">
+            NextLayer Studio
+          </h1>
+        </div>
+      </main>
+
+      {/* ── SEKCIA 2 — O NÁS ── */}
+      <section className="min-h-screen h-screen bg-[#BAFF57] flex items-center justify-start px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 relative overflow-hidden snap-start snap-always">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-full h-full transition-all duration-700 ease-out" style={{ transform: `translateX(${100 - section2Progress * 100}%)`, opacity: section2Progress * 0.8 }}>
+            <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
+              <line x1="60" y1="0" x2="100" y2="40" stroke="black" strokeWidth="0.2" opacity="0.5" />
+              <line x1="70" y1="0" x2="100" y2="30" stroke="black" strokeWidth="0.15" opacity="0.4" />
+              <line x1="50" y1="0" x2="100" y2="50" stroke="black" strokeWidth="0.2" opacity="0.45" />
+              <line x1="40" y1="0" x2="100" y2="60" stroke="black" strokeWidth="0.15" opacity="0.4" />
+            </svg>
+          </div>
+          <div className="absolute top-1/4 right-0 h-px bg-black transition-all duration-500 ease-out" style={{ width: `${section2Progress * 33}%`, opacity: section2Progress * 0.4 }}></div>
+          <div className="absolute top-1/3 right-10 h-px bg-black transition-all duration-700 ease-out" style={{ width: `${section2Progress * 25}%`, opacity: section2Progress * 0.35 }}></div>
+          <div className="absolute top-2/3 right-0 h-px bg-black transition-all duration-600 ease-out" style={{ width: `${section2Progress * 40}%`, opacity: section2Progress * 0.3 }}></div>
+          <div className="absolute top-20 right-20 w-32 h-32 border border-black transition-all duration-700 ease-out" style={{ opacity: section2Progress * 0.25, transform: `rotate(${45 + (1 - section2Progress) * 45}deg) scale(${section2Progress})` }}></div>
+          <div className="absolute bottom-32 right-32 w-24 h-24 border border-black transition-all duration-800 ease-out" style={{ opacity: section2Progress * 0.3, transform: `rotate(${12 + (1 - section2Progress) * 30}deg) scale(${section2Progress})` }}></div>
+        </div>
+
+        <div
+          className={`relative z-10 w-full max-w-6xl transition-all duration-700 ease-out grid ${isMobile ? 'grid-cols-1 gap-10' : 'grid-cols-1 lg:grid-cols-2 gap-16'} items-center`}
+          style={{ transform: `translateY(${(1 - section2Progress) * 30}px)`, opacity: section2Progress }}
+        >
+          {/* Ľavá strana — text */}
+          <div>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-[1px] bg-black/50"></div>
+              <span className="text-black/50 text-xs uppercase tracking-widest font-mono">Kto sme</span>
+            </div>
+            <p className={`${isMobile ? 'text-sm leading-[2.4] font-medium' : 'font-normal text-left text-sm md:text-base lg:text-lg leading-[2.5] md:leading-[2.8] lg:leading-[3]'}`}>
+              Sme produkčné a marketingové štúdio. Pomáhame firmám budovať profesionálnu prítomnosť na sociálnych sieťach — so scenárom, produkciou, réžiou aj strihom. Všetko v jednom.
+            </p>
+            <p className={`mt-6 ${isMobile ? 'text-sm leading-[2.4] font-medium' : 'font-normal text-left text-sm md:text-base lg:text-lg leading-[2.5] md:leading-[2.8] lg:leading-[3]'}`}>
+              Nezabúdame ani na web a digitálne systémy — vyvíjame aplikácie a e-shopy, ktoré nielen dobre vyzerajú, ale hlavne fungujú. Každý projekt berieme ako príležitosť posunúť značku ďalej.
+            </p>
+            <div className="mt-10 flex gap-4 flex-wrap">
+              <a href="/marketing" className="bg-black text-[#BAFF57] font-normal hover:bg-black/80 transition-colors uppercase px-6 py-3 text-sm tracking-wider">
+                Marketing
+              </a>
+              <a href="/development" className="border border-black text-black font-normal hover:bg-black/10 transition-colors uppercase px-6 py-3 text-sm tracking-wider">
+                Development
+              </a>
+            </div>
+            <a
+              href="https://instagram.com/nextlayerstudio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-3 text-sm text-black/60 hover:text-black transition-colors group"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="shrink-0">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+              @nextlayerstudio
+              <span className="w-0 h-[1px] bg-black group-hover:w-8 transition-all duration-300"></span>
+            </a>
+          </div>
+
+          {/* Pravá strana — video */}
+          {!isMobile && (
+            <div className="flex items-center justify-center h-full">
+              <div className="relative overflow-hidden border border-black/20 w-full max-w-sm" style={{ height: '420px' }}>
+                <div className="absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-black/40 z-10"></div>
+                <div className="absolute top-0 right-0 w-5 h-5 border-t-2 border-r-2 border-black/40 z-10"></div>
+                <div className="absolute bottom-0 left-0 w-5 h-5 border-b-2 border-l-2 border-black/40 z-10"></div>
+                <div className="absolute bottom-0 right-0 w-5 h-5 border-b-2 border-r-2 border-black/40 z-10"></div>
+                {aboutVideos.map((src, i) => (
+                  <video
+                    key={src}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+                    style={{ opacity: i === aboutVideoIndex ? 1 : 0 }}
+                    src={src}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── SEKCIA 3 — VYBRANÉ PRÁCE ── */}
+      <section className={`bg-[#BAFF57] flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 relative snap-start snap-always ${isMobile ? 'min-h-screen py-32 overflow-y-auto' : 'min-h-screen h-screen py-12 overflow-hidden'}`}>
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 w-full h-full transition-all duration-700 ease-out" style={{ transform: `translateX(${-100 + section3Progress * 100}%)`, opacity: section3Progress * 0.8 }}>
+            <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
+              <line x1="0" y1="40" x2="40" y2="0" stroke="black" strokeWidth="0.2" opacity="0.5" />
+              <line x1="0" y1="50" x2="50" y2="0" stroke="black" strokeWidth="0.2" opacity="0.45" />
+            </svg>
+          </div>
+          <div className="absolute top-1/4 left-0 h-px bg-black transition-all duration-500 ease-out" style={{ width: `${section3Progress * 25}%`, opacity: section3Progress * 0.4 }}></div>
+          <div className="absolute bottom-1/4 left-0 h-px bg-black transition-all duration-700 ease-out" style={{ width: `${section3Progress * 33}%`, opacity: section3Progress * 0.35 }}></div>
+        </div>
+
+        <div className="relative z-10 w-full max-w-7xl" style={{ opacity: section3Progress, transform: `translateY(${(1 - section3Progress) * 40}px)` }}>
+          <div className="flex items-center justify-between mb-8 sm:mb-10">
+            <div>
+              <div className="flex items-center gap-4 mb-2">
+                <div className="w-8 h-[1px] bg-black/50"></div>
+                <span className="text-black/50 text-xs uppercase tracking-widest font-mono">Vybrané práce</span>
+              </div>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">Naše projekty</h2>
+            </div>
+            <Link href="/projekty" className="hidden sm:flex items-center gap-3 border border-black/40 px-5 py-2 text-sm uppercase tracking-wider hover:bg-black hover:text-[#BAFF57] transition-all duration-300">
+              Všetky projekty
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </Link>
+          </div>
+
+          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full ${isMobile ? 'gap-10 my-4' : 'gap-4 sm:gap-6 md:gap-8'}`}>
+
+            {/* Bombafasada */}
+            <div className="group" style={{ transform: `translateY(${(1 - section3Progress) * 100}px)`, opacity: section3Progress, transition: 'transform 0.7s ease-out, opacity 0.7s ease-out' }}>
+              <div className="relative overflow-hidden border border-black/20 group-hover:border-black/50 transition-colors duration-500">
+                <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-black/50 group-hover:w-8 group-hover:h-8 transition-all duration-300 z-10"></div>
+                <div className="absolute bottom-0 right-0 w-5 h-5 border-b border-r border-black/50 group-hover:w-8 group-hover:h-8 transition-all duration-300 z-10"></div>
+                <div className="relative overflow-hidden bg-black" style={{ height: '380px' }}>
+                  <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="/videos/bombafasada/video1.mp4" />
+                </div>
+              </div>
+              <div className="mt-4 px-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-black/40 text-xs font-mono uppercase tracking-wider">Bombafasada</span>
+                  <span className="w-1 h-1 bg-black/30 rounded-full"></span>
+                  <span className="text-black/40 text-xs font-mono">Social Media</span>
+                </div>
+                <p className="text-black/70 text-sm font-light leading-relaxed">Profesionálna fasádna spoločnosť — brand na sieťach.</p>
+              </div>
+            </div>
+
+            {/* Kavičká u Janíčka */}
+            <div className="group" style={{ transform: `translateY(${(1 - section3Progress) * 150}px)`, opacity: section3Progress, transition: 'transform 0.7s ease-out 100ms, opacity 0.7s ease-out 100ms' }}>
+              <div className="relative overflow-hidden border border-black/20 group-hover:border-black/50 transition-colors duration-500">
+                <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-black/50 group-hover:w-8 group-hover:h-8 transition-all duration-300 z-10"></div>
+                <div className="absolute bottom-0 right-0 w-5 h-5 border-b border-r border-black/50 group-hover:w-8 group-hover:h-8 transition-all duration-300 z-10"></div>
+                <div className="relative overflow-hidden" style={{ height: '380px' }}>
+                  <Image src="/screenshots/janicko-post.png" alt="Kávička u Janíčka" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                </div>
+              </div>
+              <div className="mt-4 px-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-black/40 text-xs font-mono uppercase tracking-wider">Kávička u Janíčka</span>
+                  <span className="w-1 h-1 bg-black/30 rounded-full"></span>
+                  <span className="text-black/40 text-xs font-mono">Social Media</span>
+                </div>
+                <p className="text-black/70 text-sm font-light leading-relaxed">Kaviareň — video produkcia a správa profilu.</p>
+              </div>
+            </div>
+
+            {/* New Era Microblading — Sisi */}
+            <div className="group" style={{ transform: `translateY(${(1 - section3Progress) * 200}px)`, opacity: section3Progress, transition: 'transform 0.7s ease-out 200ms, opacity 0.7s ease-out 200ms' }}>
+              <div className="relative overflow-hidden border border-black/20 group-hover:border-black/50 transition-colors duration-500">
+                <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-black/50 group-hover:w-8 group-hover:h-8 transition-all duration-300 z-10"></div>
+                <div className="absolute bottom-0 right-0 w-5 h-5 border-b border-r border-black/50 group-hover:w-8 group-hover:h-8 transition-all duration-300 z-10"></div>
+                <div className="relative overflow-hidden" style={{ height: '380px' }}>
+                  <Image src="/screenshots/sisi-eshop.png" alt="New Era Microblading" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                </div>
+              </div>
+              <div className="mt-4 px-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-black/40 text-xs font-mono uppercase tracking-wider">New Era Microblading</span>
+                  <span className="w-1 h-1 bg-black/30 rounded-full"></span>
+                  <span className="text-black/40 text-xs font-mono">E-shop</span>
+                </div>
+                <p className="text-black/70 text-sm font-light leading-relaxed">E-shop pre kozmetické studio Beauty Institute.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div className="mt-8 sm:hidden">
+            <Link href="/projekty" className="flex items-center justify-center gap-3 border border-black/40 px-5 py-3 text-sm uppercase tracking-wider hover:bg-black hover:text-[#BAFF57] transition-all duration-300 w-full">
+              Všetky projekty
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SEKCIA 4 — NIE RAKOVINE ── */}
+      <section className={`bg-[#212121] relative snap-start snap-always overflow-hidden ${isMobile ? 'min-h-screen py-24 flex flex-col justify-center px-6' : 'min-h-screen h-screen flex items-center px-8 lg:px-24 xl:px-32'}`}>
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-8 left-8 w-20 h-20 border-t border-l border-[#BAFF57]/20"></div>
+          <div className="absolute top-8 right-8 w-20 h-20 border-t border-r border-[#BAFF57]/20"></div>
+          <div className="absolute bottom-8 left-8 w-20 h-20 border-b border-l border-[#BAFF57]/20"></div>
+          <div className="absolute bottom-8 right-8 w-20 h-20 border-b border-r border-[#BAFF57]/20"></div>
+          <div className="absolute top-1/3 left-0 h-px w-1/4 bg-gradient-to-r from-[#BAFF57]/20 to-transparent" style={{ opacity: section4Progress }}></div>
+          <div className="absolute bottom-1/3 right-0 h-px w-1/4 bg-gradient-to-l from-[#BAFF57]/20 to-transparent" style={{ opacity: section4Progress }}></div>
+        </div>
+
+        <div className={`relative z-10 w-full max-w-6xl mx-auto grid ${isMobile ? 'grid-cols-1 gap-12' : 'grid-cols-1 lg:grid-cols-2 gap-16'} items-center`}>
+          {/* Ľavá strana — text */}
+          <div style={{ opacity: section4Progress, transform: `translateX(${(1 - section4Progress) * -60}px)` }} className="transition-all duration-700 ease-out">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-8 h-[1px] bg-[#BAFF57]/50"></div>
+              <span className="text-[#BAFF57]/50 text-xs uppercase tracking-widest font-mono">Spoločenská zodpovednosť</span>
+            </div>
+            <div className="mb-8">
+              <Image src="/logos/nie-rakovine.png" alt="NIE RAKOVINE" width={160} height={60} className="w-auto h-12 object-contain brightness-0 invert" />
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#BAFF57] mb-6 leading-tight">
+              Produkciou<br />za lepší svet.
+            </h2>
+            <p className="text-[#BAFF57]/70 text-base md:text-lg leading-relaxed font-light mb-6">
+              Spolupracujeme s občianskym združením <strong className="text-[#BAFF57]">NIE RAKOVINE, o. z.</strong> pri tvorbe a vylepšovaní ich digitálnych systémov. Naša práca pomáha šíriť osvetu a podporovať onkologických pacientov na Slovensku.
+            </p>
+            <p className="text-[#BAFF57]/60 text-sm leading-relaxed font-light mb-10">
+              Vyvinuli sme pre nich platformu OnkoKlub — systém, ktorý spája pacientov, rodiny a odborníkov. Pretože dobre navrhnutá technológia môže zachrániť životy.
+            </p>
+            <span className="inline-flex items-center gap-4 px-8 py-4 bg-[#BAFF57]/40 text-[#212121]/50 font-medium uppercase tracking-wider text-sm cursor-not-allowed select-none">
+              Navštíviť OnkoKlub
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </span>
+          </div>
+
+          {/* Pravá strana — screenshot */}
+          <div style={{ opacity: section4Progress, transform: `translateX(${(1 - section4Progress) * 60}px)` }} className="transition-all duration-700 ease-out">
+            <div className="relative group">
+              <div className="absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-[#BAFF57]/60"></div>
+              <div className="absolute -top-2 -right-2 w-8 h-8 border-t-2 border-r-2 border-[#BAFF57]/60"></div>
+              <div className="absolute -bottom-2 -left-2 w-8 h-8 border-b-2 border-l-2 border-[#BAFF57]/60"></div>
+              <div className="absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-[#BAFF57]/60"></div>
+              <Image src="/screenshots/nie-rakovine-redesign.png" alt="NIE RAKOVINE redesign" width={700} height={450} className="w-full object-cover" />
+              <div className="absolute bottom-4 left-4 bg-[#BAFF57] text-[#212121] text-xs uppercase tracking-wider px-3 py-1 font-mono">Redesign webu</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SEKCIA 5 — KLIENTI ── */}
+      <section className={`bg-[#BAFF57] relative snap-start snap-always ${isMobile ? 'min-h-screen py-24 px-6 flex flex-col justify-center' : 'min-h-screen h-screen flex flex-col justify-center px-8 lg:px-24 xl:px-32 overflow-hidden'}`}>
+        <div className="absolute inset-0 pointer-events-none" style={{ opacity: section5Progress * 0.15 }}>
+          <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <line x1="0" y1="25" x2="100" y2="25" stroke="black" strokeWidth="0.05" />
+            <line x1="0" y1="50" x2="100" y2="50" stroke="black" strokeWidth="0.05" />
+            <line x1="0" y1="75" x2="100" y2="75" stroke="black" strokeWidth="0.05" />
+            <line x1="25" y1="0" x2="25" y2="100" stroke="black" strokeWidth="0.05" />
+            <line x1="50" y1="0" x2="50" y2="100" stroke="black" strokeWidth="0.05" />
+            <line x1="75" y1="0" x2="75" y2="100" stroke="black" strokeWidth="0.05" />
+          </svg>
+        </div>
+
+        <div className="relative z-10 w-full max-w-6xl mx-auto" style={{ opacity: section5Progress, transform: `translateY(${(1 - section5Progress) * 40}px)` }}>
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-8 h-[1px] bg-black/50"></div>
+            <span className="text-black/50 text-xs uppercase tracking-widest font-mono">Naši klienti & partneri</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Pracujeme s tými najlepšími.</h2>
+
+          <div className={`grid ${isMobile ? 'grid-cols-2 gap-6' : 'grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8'}`}>
+            {clients.map((client, i) => (
+              <a
+                key={i}
+                href={client.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative flex items-center justify-center p-5 border border-black/15 aspect-video"
+              >
+                <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-black/30"></div>
+                <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-black/30"></div>
+                <Image
+                  src={client.logo}
+                  alt={client.name}
+                  width={120}
+                  height={60}
+                  className="w-auto max-h-10 object-contain grayscale"
+                />
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SEKCIA 6 — KONTAKT ── */}
+      <section id="kontakt" className="min-h-screen h-screen bg-[#BAFF57] flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 py-12 sm:py-16 md:py-20 relative overflow-hidden snap-start snap-always">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 transition-all duration-700 ease-out" style={{ opacity: section6Progress * 0.15 }}>
+            <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
+              <line x1="0" y1="20" x2="100" y2="20" stroke="black" strokeWidth="0.05" />
+              <line x1="0" y1="40" x2="100" y2="40" stroke="black" strokeWidth="0.05" />
+              <line x1="0" y1="60" x2="100" y2="60" stroke="black" strokeWidth="0.05" />
+              <line x1="0" y1="80" x2="100" y2="80" stroke="black" strokeWidth="0.05" />
+              <line x1="20" y1="0" x2="20" y2="100" stroke="black" strokeWidth="0.05" />
+              <line x1="40" y1="0" x2="40" y2="100" stroke="black" strokeWidth="0.05" />
+              <line x1="60" y1="0" x2="60" y2="100" stroke="black" strokeWidth="0.05" />
+              <line x1="80" y1="0" x2="80" y2="100" stroke="black" strokeWidth="0.05" />
+            </svg>
+          </div>
+          <div className="absolute top-20 left-0 h-px bg-black transition-all duration-700 ease-out" style={{ width: `${section6Progress * 40}%`, opacity: section6Progress * 0.3 }}></div>
+          <div className="absolute bottom-20 right-0 h-px bg-black transition-all duration-700 ease-out" style={{ width: `${section6Progress * 40}%`, opacity: section6Progress * 0.3 }}></div>
+          <div className="absolute top-16 left-16 w-20 h-20 border border-black transition-all duration-700 ease-out" style={{ opacity: section6Progress * 0.2, transform: `rotate(${45 * section6Progress}deg) scale(${section6Progress})` }}></div>
+          <div className="absolute bottom-16 right-16 w-16 h-16 border border-black transition-all duration-700 ease-out" style={{ opacity: section6Progress * 0.15, transform: `rotate(${-45 * section6Progress}deg) scale(${section6Progress})` }}></div>
+        </div>
+
+        <div className="w-full max-w-6xl relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+          <div className="transition-all duration-700 ease-out" style={{ transform: `translateX(${(1 - section6Progress) * -80}px)`, opacity: section6Progress }}>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8">Kontakt</h2>
+            <div className="mb-8">
+              <div className="text-sm uppercase tracking-wider mb-2 opacity-60">Telefón</div>
+              <a href="tel:+421902238309" className="text-xl md:text-2xl font-normal hover:opacity-70 transition-opacity flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" /></svg>
+                +421 902 238 309
+              </a>
+            </div>
+            <div className="mb-8">
+              <div className="text-sm uppercase tracking-wider mb-2 opacity-60">Email</div>
+              <a href="mailto:team@nextlayer.studio" className="text-xl md:text-2xl font-normal hover:opacity-70 transition-opacity flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
+                team@nextlayer.studio
+              </a>
+            </div>
+            <div>
+              <div className="text-sm uppercase tracking-wider mb-4 opacity-60">Sociálne siete</div>
+              <div className="flex gap-6">
+                <a href="https://instagram.com/nextlayerstudio" target="_blank" rel="noopener noreferrer" className="w-10 h-10 border border-black/30 rounded-sm flex items-center justify-center hover:bg-black hover:text-[#BAFF57] transition-all duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
+                </a>
+                <a href="https://x.com/NextLayerStudio" target="_blank" rel="noopener noreferrer" className="w-10 h-10 border border-black/30 rounded-sm flex items-center justify-center hover:bg-black hover:text-[#BAFF57] transition-all duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" /></svg>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 border border-black/30 rounded-sm flex items-center justify-center hover:bg-black hover:text-[#BAFF57] transition-all duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
+                </a>
+                <a href="https://www.tiktok.com/@nextlayerstudio" target="_blank" rel="noopener noreferrer" className="w-10 h-10 border border-black/30 rounded-sm flex items-center justify-center hover:bg-black hover:text-[#BAFF57] transition-all duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z" /></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="transition-all duration-700 ease-out" style={{ transform: `translateX(${(1 - section6Progress) * 80}px)`, opacity: section6Progress }}>
+            <div className="relative">
+              <div className="absolute -top-2 -left-2 w-6 h-6 border-t-2 border-l-2 border-black/40"></div>
+              <div className="absolute -top-2 -right-2 w-6 h-6 border-t-2 border-r-2 border-black/40"></div>
+              <div className="absolute -bottom-2 -left-2 w-6 h-6 border-b-2 border-l-2 border-black/40"></div>
+              <div className="absolute -bottom-2 -right-2 w-6 h-6 border-b-2 border-r-2 border-black/40"></div>
+              <form ref={formRef} onSubmit={sendEmail} className="bg-black/5 backdrop-blur-sm p-8 md:p-10 space-y-6" noValidate>
+                <div>
+                  <label className="block text-sm uppercase tracking-wider mb-2" htmlFor="user_name">Meno <span className="text-red-600">*</span></label>
+                  <input type="text" name="user_name" id="user_name" required className={`w-full bg-transparent border-b-2 border-black/30 px-0 py-3 text-lg focus:outline-none focus:border-black transition-colors ${formErrors.name ? 'border-red-500' : ''}`} placeholder="Vaše meno" />
+                  {formErrors.name && <p className="text-red-600 text-sm mt-1">{formErrors.name}</p>}
+                </div>
+                <div>
+                  <label className="block text-sm uppercase tracking-wider mb-2" htmlFor="user_email">Email <span className="text-red-600">*</span></label>
+                  <input type="email" name="user_email" id="user_email" required className={`w-full bg-transparent border-b-2 border-black/30 px-0 py-3 text-lg focus:outline-none focus:border-black transition-colors ${formErrors.email ? 'border-red-500' : ''}`} placeholder="vas@email.sk" />
+                  {formErrors.email && <p className="text-red-600 text-sm mt-1">{formErrors.email}</p>}
+                </div>
+                <div>
+                  <label className="block text-sm uppercase tracking-wider mb-2" htmlFor="message">Správa <span className="text-red-600">*</span></label>
+                  <textarea name="message" id="message" rows={5} required className={`w-full bg-transparent border-b-2 border-black/30 px-0 py-3 text-lg focus:outline-none focus:border-black transition-colors resize-none ${formErrors.message ? 'border-red-500' : ''}`} placeholder="Napíšte nám vašu správu..." />
+                  {formErrors.message && <p className="text-red-600 text-sm mt-1">{formErrors.message}</p>}
+                </div>
+                {submitStatus === 'success' && (
+                  <div className="bg-green-500/20 border border-green-500/50 text-green-800 px-4 py-3 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                    Správa bola úspešne odoslaná!
+                  </div>
+                )}
+                {submitStatus === 'error' && (
+                  <div className="bg-red-500/20 border border-red-500/50 text-red-800 px-4 py-3 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" /></svg>
+                    Nastala chyba. Skúste to znovu.
+                  </div>
+                )}
+                <button type="submit" disabled={isSubmitting} className="w-full bg-black text-[#BAFF57] py-4 text-lg uppercase tracking-wider font-normal hover:bg-black/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                  {isSubmitting ? (
+                    <><svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Odosielam...</>
+                  ) : 'Odoslať správu'}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

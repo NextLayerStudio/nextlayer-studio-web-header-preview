@@ -1,0 +1,244 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #BAFF57;
+  --foreground: #171717;
+  --font-aero: "At Aero", system-ui, -apple-system, sans-serif;
+}
+
+/* At Aero font face declarations */
+/* Font files are in: public/fonts/Aero/ */
+@font-face {
+  font-family: "At Aero";
+  src: url("/fonts/Aero/AtAero-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "At Aero";
+  src: url("/fonts/Aero/AtAero-RegularItalic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "At Aero";
+  src: url("/fonts/Aero/AtAero-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "At Aero";
+  src: url("/fonts/Aero/AtAero-BoldItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "At Aero";
+  src: url("/fonts/Aero/AtAero-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "At Aero";
+  src: url("/fonts/Aero/AtAero-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+@layer base {
+  * {
+    font-family: var(--font-aero);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Scroll snap improvements */
+html, body {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Hide scrollbar but keep functionality */
+.snap-y::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+.snap-y {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Floating line animations for menu */
+@keyframes float-slow-horizontal {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(30px) translateY(-10px);
+  }
+  50% {
+    transform: translateX(50px) translateY(5px);
+  }
+  75% {
+    transform: translateX(20px) translateY(-5px);
+  }
+}
+
+@keyframes float-slow-vertical {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(-10px) translateY(30px);
+  }
+  50% {
+    transform: translateX(5px) translateY(50px);
+  }
+  75% {
+    transform: translateX(-5px) translateY(20px);
+  }
+}
+
+@keyframes float-rotate {
+  0%, 100% {
+    transform: rotate(45deg) translateX(0) translateY(0);
+  }
+  25% {
+    transform: rotate(50deg) translateX(10px) translateY(-15px);
+  }
+  50% {
+    transform: rotate(40deg) translateX(-5px) translateY(10px);
+  }
+  75% {
+    transform: rotate(48deg) translateX(15px) translateY(-5px);
+  }
+}
+
+@keyframes float-dot {
+  0%, 100% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+  25% {
+    transform: translateX(20px) translateY(-20px) scale(1.2);
+  }
+  50% {
+    transform: translateX(-10px) translateY(15px) scale(0.9);
+  }
+  75% {
+    transform: translateX(15px) translateY(-10px) scale(1.1);
+  }
+}
+
+.animate-float-slow-1 {
+  animation: float-slow-horizontal 15s ease-in-out infinite;
+}
+
+.animate-float-slow-2 {
+  animation: float-slow-horizontal 18s ease-in-out infinite reverse;
+  animation-delay: -2s;
+}
+
+.animate-float-slow-3 {
+  animation: float-slow-horizontal 20s ease-in-out infinite;
+  animation-delay: -5s;
+}
+
+.animate-float-slow-4 {
+  animation: float-slow-horizontal 16s ease-in-out infinite reverse;
+  animation-delay: -8s;
+}
+
+.animate-float-slow-5 {
+  animation: float-slow-horizontal 22s ease-in-out infinite;
+  animation-delay: -3s;
+}
+
+.animate-float-vertical-1 {
+  animation: float-slow-vertical 17s ease-in-out infinite;
+}
+
+.animate-float-vertical-2 {
+  animation: float-slow-vertical 19s ease-in-out infinite reverse;
+  animation-delay: -4s;
+}
+
+.animate-float-vertical-3 {
+  animation: float-slow-vertical 21s ease-in-out infinite;
+  animation-delay: -7s;
+}
+
+.animate-float-vertical-4 {
+  animation: float-slow-vertical 16s ease-in-out infinite reverse;
+  animation-delay: -10s;
+}
+
+.animate-float-diagonal-1 {
+  animation: float-slow-horizontal 14s ease-in-out infinite;
+}
+
+.animate-float-diagonal-2 {
+  animation: float-slow-horizontal 18s ease-in-out infinite reverse;
+  animation-delay: -3s;
+}
+
+.animate-float-diagonal-3 {
+  animation: float-slow-horizontal 16s ease-in-out infinite;
+  animation-delay: -6s;
+}
+
+.animate-float-diagonal-4 {
+  animation: float-slow-horizontal 20s ease-in-out infinite reverse;
+  animation-delay: -9s;
+}
+
+.animate-float-rotate-1 {
+  animation: float-rotate 25s ease-in-out infinite;
+}
+
+.animate-float-rotate-2 {
+  animation: float-rotate 30s ease-in-out infinite reverse;
+  animation-delay: -5s;
+}
+
+.animate-float-rotate-3 {
+  animation: float-rotate 22s ease-in-out infinite;
+  animation-delay: -10s;
+}
+
+.animate-float-dot-1 {
+  animation: float-dot 12s ease-in-out infinite;
+}
+
+.animate-float-dot-2 {
+  animation: float-dot 15s ease-in-out infinite reverse;
+  animation-delay: -3s;
+}
+
+.animate-float-dot-3 {
+  animation: float-dot 18s ease-in-out infinite;
+  animation-delay: -7s;
+}
