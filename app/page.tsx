@@ -129,7 +129,7 @@ export default function Home() {
     { name: "Stopalerg", logo: "/logos/stopalerg.webp", link: "https://www.instagram.com/stopalerg" },
     { name: "Takeoff", logo: "/logos/takeoff.png", link: "https://www.instagram.com/takeoff" },
     { name: "Autoškola Zvyky", logo: "/logos/zvyky.webp", link: "https://www.instagram.com/autoskola.zvyky" },
-    { name: "NIE RAKOVINE", logo: "/logos/nie-rakovine.png", link: "https://onkoklub.sk" },
+    { name: "NIE RAKOVINE", logo: "/logos/nie-rakovine.png", link: "https://nierakovine.sk" },
   ];
 
   return (
@@ -222,12 +222,12 @@ export default function Home() {
 
       {/* ── HERO ── */}
       <main className="min-h-screen h-screen bg-[#BAFF57] pt-8 md:pt-12 flex flex-col overflow-hidden snap-start snap-always" style={{ opacity: heroOpacity }}>
-        <div className="absolute top-3 sm:top-4 md:top-6 lg:top-8 left-4 sm:left-8 md:left-16 lg:left-24 xl:left-32 z-10 transition-transform duration-300 ease-out" style={{ transform: `translateX(-${scrollY * 0.8}px)` }}>
+        <div className="absolute top-3 sm:top-4 md:top-6 lg:top-8 left-4 sm:left-8 md:left-16 lg:left-24 xl:left-32 z-10 transition-transform duration-300 ease-out" style={{ transform: `translateX(-${scrollY * 0.4}px)` }}>
           <Image src="/fonts/Group.png" alt="Logo" width={80} height={80} className={`w-auto ${isMobile ? 'h-20' : 'h-10 sm:h-12 md:h-16 lg:h-20'}`} priority />
         </div>
 
         {!isMobile && (
-          <nav className="flex flex-row items-center justify-center gap-8 lg:gap-12 xl:gap-16 transition-transform duration-300 ease-out" style={{ transform: `translateX(-${scrollY * 1.2}px)` }}>
+          <nav className="flex flex-row items-center justify-center gap-8 lg:gap-12 xl:gap-16 transition-transform duration-300 ease-out" style={{ transform: `translateX(-${scrollY * 0.6}px)` }}>
             <a href="/marketing" className="text-sm md:text-base lg:text-lg font-normal hover:opacity-70 transition-opacity uppercase px-2 py-1">MARKETING</a>
             <a href="/development" className="text-sm md:text-base lg:text-lg font-normal hover:opacity-70 transition-opacity uppercase px-2 py-1">DEVELOPMENT</a>
             <a href="/design" className="text-sm md:text-base lg:text-lg font-normal hover:opacity-70 transition-opacity uppercase px-2 py-1">DESIGN</a>
@@ -236,25 +236,56 @@ export default function Home() {
         )}
 
         {!isMobile && (
-          <a href="#kontakt" className="absolute top-6 md:top-8 lg:top-12 right-4 md:right-8 lg:right-12 text-sm md:text-base lg:text-lg font-normal hover:opacity-70 transition-transform duration-300 ease-out uppercase px-2 py-1" style={{ transform: `translateX(${scrollY * 1.5}px)` }}>
+          <a href="#kontakt" className="absolute top-6 md:top-8 lg:top-12 right-4 md:right-8 lg:right-12 text-sm md:text-base lg:text-lg font-normal hover:opacity-70 transition-transform duration-300 ease-out uppercase px-2 py-1" style={{ transform: `translateX(${scrollY * 0.8}px)` }}>
             KONTAKT
           </a>
         )}
 
         <div
           className={`absolute top-1/2 transition-transform duration-300 ease-out ${isMobile ? 'left-1/2 w-full max-w-full px-4 text-center' : 'left-4 sm:left-8 md:left-12 lg:left-24 xl:left-32 w-[85%] sm:w-auto'}`}
-          style={{ transform: isMobile ? 'translate(-50%, -50%)' : `translateX(-${scrollY * 2}px) translateY(-50%)` }}
+          style={{ transform: isMobile ? 'translate(-50%, -50%)' : `translateX(-${scrollY * 1.2}px) translateY(-50%)` }}
         >
-          <p className={`leading-relaxed ${isMobile ? 'text-3xl w-full px-2' : 'text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl max-w-xs sm:max-w-sm md:max-w-md'}`}>
-            <span className={`block ${isMobile ? 'break-words' : 'whitespace-nowrap'}`}>Profesionálna produkcia.</span>
-            <span className={`block ${isMobile ? 'mt-3' : 'mt-1 sm:mt-2 md:mt-3 lg:mt-4'}`}>Tvoja značka online.</span>
+          {!isMobile && (
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-8 h-[1px] bg-black/40"></div>
+              <span className="text-black/50 text-xs uppercase tracking-widest font-mono">Full-service studio · Bratislava</span>
+            </div>
+          )}
+          <p className={`leading-tight ${isMobile ? 'text-3xl w-full px-2' : 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl max-w-sm sm:max-w-lg'}`}>
+            <span className={`block font-bold ${isMobile ? 'break-words' : 'whitespace-nowrap'}`}>Profesionálna produkcia.</span>
+            <span className={`block font-light ${isMobile ? 'mt-2' : 'mt-1 sm:mt-2 md:mt-3'}`}>Tvoja značka online.</span>
           </p>
-          <button onClick={() => scrollToSection(1)} className={`bg-black text-white font-normal hover:bg-gray-800 transition-colors uppercase ${isMobile ? 'mt-6 px-8 py-4 text-lg mx-auto block' : 'mt-4 sm:mt-6 md:mt-8 lg:mt-10 px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 text-sm sm:text-base md:text-lg lg:text-xl'}`}>
+          <button
+            onClick={() => scrollToSection(1)}
+            className={`relative group bg-black text-white font-normal hover:bg-black/80 transition-all duration-300 uppercase flex items-center gap-3 ${isMobile ? 'mt-8 px-8 py-4 text-sm mx-auto' : 'mt-8 sm:mt-10 px-8 py-4 text-sm tracking-wider'}`}
+          >
+            <span className="absolute -top-[3px] -left-[3px] w-2 h-2 border-t border-l border-white/25"></span>
+            <span className="absolute -top-[3px] -right-[3px] w-2 h-2 border-t border-r border-white/25"></span>
+            <span className="absolute -bottom-[3px] -left-[3px] w-2 h-2 border-b border-l border-white/25"></span>
+            <span className="absolute -bottom-[3px] -right-[3px] w-2 h-2 border-b border-r border-white/25"></span>
             Objaviť viac
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
           </button>
         </div>
 
-        <div className="mt-auto w-screen -mb-[2vw] transition-transform duration-300 ease-out overflow-hidden" style={{ transform: `translateX(${scrollY * 3}px)` }}>
+        {/* Vertikálny dekoratívny prvok */}
+        {!isMobile && (
+          <div className="absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 flex flex-col items-center gap-3" style={{ opacity: heroOpacity * 0.35 }}>
+            <div className="w-px h-14 bg-black/50"></div>
+            <span className="text-[10px] font-mono text-black/50 uppercase tracking-[0.2em]" style={{ writingMode: 'vertical-rl' }}>Bratislava · 2026</span>
+            <div className="w-px h-14 bg-black/50"></div>
+          </div>
+        )}
+
+        {/* Scroll indikátor */}
+        {!isMobile && (
+          <div className="absolute bottom-6 left-4 sm:left-8 md:left-12 lg:left-24 xl:left-32 flex items-center gap-3" style={{ opacity: heroOpacity * 0.4 }}>
+            <div className="w-px h-8 bg-black/40"></div>
+            <span className="text-[10px] font-mono text-black/40 uppercase tracking-widest">Scroll</span>
+          </div>
+        )}
+
+        <div className="mt-auto w-screen -mb-[2vw] transition-transform duration-300 ease-out overflow-hidden" style={{ transform: `translateX(${scrollY * 2}px)` }}>
           <h1 className="text-[10vw] sm:text-[11vw] md:text-[12vw] lg:text-[13vw] font-bold leading-none whitespace-nowrap w-full text-center tracking-tighter -ml-[1vw] px-2">
             NextLayer Studio
           </h1>
@@ -381,7 +412,7 @@ export default function Home() {
               <div className="relative overflow-hidden border border-black/20 group-hover:border-black/50 transition-colors duration-500">
                 <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-black/50 group-hover:w-8 group-hover:h-8 transition-all duration-300 z-10"></div>
                 <div className="absolute bottom-0 right-0 w-5 h-5 border-b border-r border-black/50 group-hover:w-8 group-hover:h-8 transition-all duration-300 z-10"></div>
-                <div className="relative overflow-hidden bg-black" style={{ height: '380px' }}>
+                <div className="relative overflow-hidden bg-black aspect-[4/5]">
                   <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="/videos/bombafasada/video1.mp4" />
                 </div>
               </div>
@@ -400,8 +431,8 @@ export default function Home() {
               <div className="relative overflow-hidden border border-black/20 group-hover:border-black/50 transition-colors duration-500">
                 <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-black/50 group-hover:w-8 group-hover:h-8 transition-all duration-300 z-10"></div>
                 <div className="absolute bottom-0 right-0 w-5 h-5 border-b border-r border-black/50 group-hover:w-8 group-hover:h-8 transition-all duration-300 z-10"></div>
-                <div className="relative overflow-hidden" style={{ height: '380px' }}>
-                  <Image src="/screenshots/janicko-post.png" alt="Kávička u Janíčka" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="relative overflow-hidden aspect-[4/5]">
+                  <Image src="/screenshots/janicko-post.png" alt="Kávička u Janíčka" fill className="object-cover object-top transition-transform duration-700 group-hover:scale-105" />
                 </div>
               </div>
               <div className="mt-4 px-1">
@@ -419,8 +450,8 @@ export default function Home() {
               <div className="relative overflow-hidden border border-black/20 group-hover:border-black/50 transition-colors duration-500">
                 <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-black/50 group-hover:w-8 group-hover:h-8 transition-all duration-300 z-10"></div>
                 <div className="absolute bottom-0 right-0 w-5 h-5 border-b border-r border-black/50 group-hover:w-8 group-hover:h-8 transition-all duration-300 z-10"></div>
-                <div className="relative overflow-hidden" style={{ height: '380px' }}>
-                  <Image src="/screenshots/sisi-eshop.png" alt="New Era Microblading" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="relative overflow-hidden aspect-[4/5]">
+                  <Image src="/screenshots/sisi-eshop.png" alt="New Era Microblading" fill className="object-cover object-top transition-transform duration-700 group-hover:scale-105" />
                 </div>
               </div>
               <div className="mt-4 px-1">
@@ -444,96 +475,109 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── SEKCIA 4 — NIE RAKOVINE ── */}
+      {/* ── SEKCIA 4 — ČO ROBÍME ── */}
       <section className={`bg-[#212121] relative snap-start snap-always overflow-hidden ${isMobile ? 'min-h-screen py-24 flex flex-col justify-center px-6' : 'min-h-screen h-screen flex items-center px-8 lg:px-24 xl:px-32'}`}>
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-8 left-8 w-20 h-20 border-t border-l border-[#BAFF57]/20"></div>
-          <div className="absolute top-8 right-8 w-20 h-20 border-t border-r border-[#BAFF57]/20"></div>
-          <div className="absolute bottom-8 left-8 w-20 h-20 border-b border-l border-[#BAFF57]/20"></div>
-          <div className="absolute bottom-8 right-8 w-20 h-20 border-b border-r border-[#BAFF57]/20"></div>
-          <div className="absolute top-1/3 left-0 h-px w-1/4 bg-gradient-to-r from-[#BAFF57]/20 to-transparent" style={{ opacity: section4Progress }}></div>
-          <div className="absolute bottom-1/3 right-0 h-px w-1/4 bg-gradient-to-l from-[#BAFF57]/20 to-transparent" style={{ opacity: section4Progress }}></div>
+          <div className="absolute top-8 left-8 w-20 h-20 border-t border-l border-[#BAFF57]/15"></div>
+          <div className="absolute top-8 right-8 w-20 h-20 border-t border-r border-[#BAFF57]/15"></div>
+          <div className="absolute bottom-8 left-8 w-20 h-20 border-b border-l border-[#BAFF57]/15"></div>
+          <div className="absolute bottom-8 right-8 w-20 h-20 border-b border-r border-[#BAFF57]/15"></div>
         </div>
 
-        <div className={`relative z-10 w-full max-w-6xl mx-auto grid ${isMobile ? 'grid-cols-1 gap-12' : 'grid-cols-1 lg:grid-cols-2 gap-16'} items-center`}>
-          {/* Ľavá strana — text */}
-          <div style={{ opacity: section4Progress, transform: `translateX(${(1 - section4Progress) * -60}px)` }} className="transition-all duration-700 ease-out">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-8 h-[1px] bg-[#BAFF57]/50"></div>
-              <span className="text-[#BAFF57]/50 text-xs uppercase tracking-widest font-mono">Spoločenská zodpovednosť</span>
-            </div>
-            <div className="mb-8">
-              <Image src="/logos/nie-rakovine.png" alt="NIE RAKOVINE" width={160} height={60} className="w-auto h-12 object-contain brightness-0 invert" />
-            </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#BAFF57] mb-6 leading-tight">
-              Produkciou<br />za lepší svet.
-            </h2>
-            <p className="text-[#BAFF57]/70 text-base md:text-lg leading-relaxed font-light mb-6">
-              Spolupracujeme s občianskym združením <strong className="text-[#BAFF57]">NIE RAKOVINE, o. z.</strong> pri tvorbe a vylepšovaní ich digitálnych systémov. Naša práca pomáha šíriť osvetu a podporovať onkologických pacientov na Slovensku.
-            </p>
-            <p className="text-[#BAFF57]/60 text-sm leading-relaxed font-light mb-10">
-              Vyvinuli sme pre nich platformu OnkoKlub — systém, ktorý spája pacientov, rodiny a odborníkov. Pretože dobre navrhnutá technológia môže zachrániť životy.
-            </p>
-            <span className="inline-flex items-center gap-4 px-8 py-4 bg-[#BAFF57]/40 text-[#212121]/50 font-medium uppercase tracking-wider text-sm cursor-not-allowed select-none">
-              Navštíviť OnkoKlub
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-            </span>
+        <div className="relative z-10 w-full max-w-6xl mx-auto" style={{ opacity: section4Progress, transform: `translateY(${(1 - section4Progress) * 40}px)` }}>
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-8 h-[1px] bg-[#BAFF57]/40"></div>
+            <span className="text-[#BAFF57]/40 text-xs uppercase tracking-widest font-mono">Čo robíme</span>
           </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#BAFF57] mb-4">
+            Komplexná starostlivosť<br />o tvoju značku.
+          </h2>
+          <p className="text-[#BAFF57]/50 text-base font-light mb-12 max-w-xl">
+            Nemusíš riešiť viacero dodávateľov. Produkciu, web aj dizajn zvládneme pod jednou strechou — od prvého nápadu až po výsledok.
+          </p>
 
-          {/* Pravá strana — screenshot */}
-          <div style={{ opacity: section4Progress, transform: `translateX(${(1 - section4Progress) * 60}px)` }} className="transition-all duration-700 ease-out">
-            <div className="relative group">
-              <div className="absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-[#BAFF57]/60"></div>
-              <div className="absolute -top-2 -right-2 w-8 h-8 border-t-2 border-r-2 border-[#BAFF57]/60"></div>
-              <div className="absolute -bottom-2 -left-2 w-8 h-8 border-b-2 border-l-2 border-[#BAFF57]/60"></div>
-              <div className="absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-[#BAFF57]/60"></div>
-              <Image src="/screenshots/nie-rakovine-redesign.png" alt="NIE RAKOVINE redesign" width={700} height={450} className="w-full object-cover" />
-              <div className="absolute bottom-4 left-4 bg-[#BAFF57] text-[#212121] text-xs uppercase tracking-wider px-3 py-1 font-mono">Redesign webu</div>
-            </div>
+          <div className={`grid border border-[#BAFF57]/15 ${isMobile ? 'grid-cols-1' : 'grid-cols-3'}`}>
+            {[
+              {
+                num: '01',
+                title: 'Marketing',
+                desc: 'Spravujeme sociálne siete, píšeme scenáre, natáčame a strihame videá. Každý post má zámer, každé video príbeh.',
+                href: '/marketing',
+              },
+              {
+                num: '02',
+                title: 'Development',
+                desc: 'Vyvíjame webové aplikácie, e-shopy a digitálne platformy na mieru. Od návrhu architektúry až po nasadenie.',
+                href: '/development',
+              },
+              {
+                num: '03',
+                title: 'Design',
+                desc: 'Tvoríme vizuálnu identitu, grafiku pre sociálne siete a UI/UX dizajn, ktorý vyzerá profesionálne a konvertuje.',
+                href: '/design',
+              },
+            ].map((item, i) => (
+              <a
+                key={item.num}
+                href={item.href}
+                className={`group p-8 md:p-10 flex flex-col gap-6 border-[#BAFF57]/15 hover:bg-[#BAFF57]/5 transition-colors duration-300 ${isMobile ? 'border-b last:border-b-0' : i < 2 ? 'border-r' : ''}`}
+              >
+                <span className="text-[#BAFF57]/25 text-xs font-mono uppercase tracking-widest">{item.num}</span>
+                <div>
+                  <h3 className="text-[#BAFF57] text-2xl md:text-3xl font-bold mb-4">{item.title}</h3>
+                  <p className="text-[#BAFF57]/50 text-sm font-light leading-relaxed">{item.desc}</p>
+                </div>
+                <div className="flex items-center gap-3 text-[#BAFF57]/40 text-xs uppercase tracking-wider font-mono group-hover:text-[#BAFF57] transition-colors duration-200 mt-auto">
+                  Zistiť viac
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── SEKCIA 5 — KLIENTI ── */}
+      {/* ── SEKCIA 5 — ČÍSLA & KLIENTI ── */}
       <section className={`bg-[#BAFF57] relative snap-start snap-always ${isMobile ? 'min-h-screen py-24 px-6 flex flex-col justify-center' : 'min-h-screen h-screen flex flex-col justify-center px-8 lg:px-24 xl:px-32 overflow-hidden'}`}>
-        <div className="absolute inset-0 pointer-events-none" style={{ opacity: section5Progress * 0.15 }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ opacity: section5Progress * 0.08 }}>
           <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
-            <line x1="0" y1="25" x2="100" y2="25" stroke="black" strokeWidth="0.05" />
             <line x1="0" y1="50" x2="100" y2="50" stroke="black" strokeWidth="0.05" />
-            <line x1="0" y1="75" x2="100" y2="75" stroke="black" strokeWidth="0.05" />
-            <line x1="25" y1="0" x2="25" y2="100" stroke="black" strokeWidth="0.05" />
             <line x1="50" y1="0" x2="50" y2="100" stroke="black" strokeWidth="0.05" />
-            <line x1="75" y1="0" x2="75" y2="100" stroke="black" strokeWidth="0.05" />
           </svg>
         </div>
 
         <div className="relative z-10 w-full max-w-6xl mx-auto" style={{ opacity: section5Progress, transform: `translateY(${(1 - section5Progress) * 40}px)` }}>
           <div className="flex items-center gap-4 mb-4">
             <div className="w-8 h-[1px] bg-black/50"></div>
-            <span className="text-black/50 text-xs uppercase tracking-widest font-mono">Naši klienti & partneri</span>
+            <span className="text-black/50 text-xs uppercase tracking-widest font-mono">NextLayer v číslach</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Pracujeme s tými najlepšími.</h2>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-12 md:mb-16">Výsledky hovoria za nás.</h2>
 
-          <div className={`grid ${isMobile ? 'grid-cols-2 gap-6' : 'grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8'}`}>
-            {clients.map((client, i) => (
-              <a
-                key={i}
-                href={client.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative flex items-center justify-center p-5 border border-black/15 aspect-video"
-              >
-                <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-black/30"></div>
-                <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-black/30"></div>
-                <Image
-                  src={client.logo}
-                  alt={client.name}
-                  width={120}
-                  height={60}
-                  className="w-auto max-h-10 object-contain grayscale"
-                />
-              </a>
+          <div className={`grid gap-0 border border-black/15 ${isMobile ? 'grid-cols-2' : 'grid-cols-2 lg:grid-cols-4'}`}>
+            {[
+              { number: '10+', label: 'Spokojných klientov', desc: 'Od živnostníkov po neziskovky' },
+              { number: '50+', label: 'Videí vyrobených', desc: 'Produkcia, strih, titulky' },
+              { number: '30+', label: 'Softvérové projekty', desc: 'E-shopy, platformy, webapky' },
+              { number: '2', label: 'Roky na trhu', desc: 'Bratislava, Slovensko' },
+            ].map((stat, i) => (
+              <div key={i} className={`p-8 md:p-10 border-black/15 ${isMobile ? (i % 2 === 0 ? 'border-r' : '') + (i < 2 ? ' border-b' : '') : (i < 3 ? 'border-r' : '')}`}>
+                <p className="text-5xl md:text-6xl font-bold leading-none mb-3">{stat.number}</p>
+                <p className="text-sm font-medium uppercase tracking-wider mb-1">{stat.label}</p>
+                <p className="text-black/40 text-xs font-light">{stat.desc}</p>
+              </div>
             ))}
+          </div>
+
+          <div className="mt-10 md:mt-12">
+            <p className="text-black/30 text-xs uppercase tracking-widest font-mono mb-5">Dôverujú nám</p>
+            <div className="flex flex-wrap gap-x-8 gap-y-3">
+              {clients.map((client, i) => (
+                <a key={i} href={client.link} target="_blank" rel="noopener noreferrer"
+                  className="text-sm font-light text-black/50 hover:text-black transition-colors duration-200 uppercase tracking-wider">
+                  {client.name}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -638,7 +682,78 @@ export default function Home() {
             </div>
           </div>
         </div>
+
       </section>
+
+      {/* ── PÄTIČKA ── */}
+      <footer className={`bg-[#212121] snap-start snap-always flex flex-col px-8 lg:px-24 xl:px-32 ${isMobile ? 'min-h-screen py-20 justify-between' : 'min-h-screen h-screen py-16 justify-between'}`}>
+        <div className="w-full max-w-6xl mx-auto">
+          <div className={`grid gap-12 ${isMobile ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-3 gap-16'}`}>
+
+            {/* Logo + popis */}
+            <div>
+              <Image src="/fonts/Group.png" alt="NextLayer Studio" width={80} height={80} className="h-14 w-auto mb-6 brightness-0 invert" />
+              <p className="text-[#BAFF57]/50 text-sm font-light leading-relaxed max-w-xs">
+                Produkčné a marketingové štúdio z Bratislavy. Pomáhame firmám budovať profesionálnu prítomnosť online — od videa a sociálnych sietí až po weby a aplikácie.
+              </p>
+            </div>
+
+            {/* Navigácia */}
+            <div>
+              <p className="text-[#BAFF57]/30 text-xs uppercase tracking-widest font-mono mb-6">Navigácia</p>
+              <nav className="flex flex-col gap-4">
+                {[
+                  { label: 'Marketing', href: '/marketing' },
+                  { label: 'Development', href: '/development' },
+                  { label: 'Design', href: '/design' },
+                  { label: 'Projekty', href: '/projekty' },
+                ].map(({ label, href }) => (
+                  <a key={href} href={href} className="text-[#BAFF57]/60 text-sm font-light hover:text-[#BAFF57] transition-colors duration-200 flex items-center gap-2 group">
+                    <span className="w-0 h-px bg-[#BAFF57] group-hover:w-4 transition-all duration-300"></span>
+                    {label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+
+            {/* Kontakt */}
+            <div>
+              <p className="text-[#BAFF57]/30 text-xs uppercase tracking-widest font-mono mb-6">Kontakt</p>
+              <div className="flex flex-col gap-3 mb-8">
+                <a href="mailto:team@nextlayer.studio" className="text-[#BAFF57]/60 text-sm font-light hover:text-[#BAFF57] transition-colors duration-200">
+                  team@nextlayer.studio
+                </a>
+                <a href="tel:+421902238309" className="text-[#BAFF57]/60 text-sm font-light hover:text-[#BAFF57] transition-colors duration-200">
+                  +421 902 238 309
+                </a>
+                <p className="text-[#BAFF57]/30 text-xs font-light pt-2">Bratislava, Slovensko</p>
+              </div>
+              <div className="flex gap-4">
+                {[
+                  { href: 'https://instagram.com/nextlayerstudio', label: 'IG' },
+                  { href: 'https://x.com/NextLayerStudio', label: 'X' },
+                  { href: 'https://www.tiktok.com/@nextlayerstudio', label: 'TT' },
+                ].map(({ href, label }) => (
+                  <a key={label} href={href} target="_blank" rel="noopener noreferrer"
+                    className="w-9 h-9 border border-[#BAFF57]/20 flex items-center justify-center text-[#BAFF57]/40 text-xs font-mono hover:border-[#BAFF57]/60 hover:text-[#BAFF57] transition-all duration-200">
+                    {label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Spodná lišta */}
+        <div className="w-full max-w-6xl mx-auto pt-8 border-t border-[#BAFF57]/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p className="text-[#BAFF57]/25 text-xs font-mono uppercase tracking-widest">© 2026 NextLayer Studio s.r.o. · IČO: 57141282 · Bratislava, SK</p>
+          <div className="flex gap-5 text-[#BAFF57]/25 text-xs font-mono">
+            <a href="/obchodne-podmienky" className="hover:text-[#BAFF57]/60 transition-colors">Obchodné podmienky</a>
+            <a href="/ochrana-sukromia" className="hover:text-[#BAFF57]/60 transition-colors">Ochrana údajov</a>
+            <a href="/informacie-o-firme" className="hover:text-[#BAFF57]/60 transition-colors">O firme</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
