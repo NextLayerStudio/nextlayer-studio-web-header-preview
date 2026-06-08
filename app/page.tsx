@@ -14,7 +14,11 @@ export default function Home() {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [aboutVideoIndex, setAboutVideoIndex] = useState(0);
-  const aboutVideos = ["/videos/andrej.mov", "/videos/andrej2.mov", "/videos/andrej3.mov"];
+  const aboutVideos = [
+    "https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/andrej.mp4",
+    "https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/andrej2.mp4",
+    "https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/andrej3.mp4",
+  ];
 
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -413,7 +417,7 @@ export default function Home() {
                 <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-black/50 group-hover:w-8 group-hover:h-8 transition-all duration-300 z-10"></div>
                 <div className="absolute bottom-0 right-0 w-5 h-5 border-b border-r border-black/50 group-hover:w-8 group-hover:h-8 transition-all duration-300 z-10"></div>
                 <div className="relative overflow-hidden bg-black aspect-[4/5]">
-                  <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="/videos/bombafasada/video1.mp4" />
+                  <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/bombafasada/video1.mp4" />
                 </div>
               </div>
               <div className="mt-4 px-1">

@@ -197,7 +197,7 @@ export default function MarketingPage() {
                 <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-[#BAFF57]/50 group-hover:w-8 group-hover:h-8 transition-all duration-300"></div>
                 <div className="absolute bottom-0 right-0 w-5 h-5 border-b border-r border-[#BAFF57]/50 group-hover:w-8 group-hover:h-8 transition-all duration-300"></div>
                 <div className="relative overflow-hidden bg-black" style={{ height: '420px' }}>
-                  <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="/videos/bombafasada/video1.mp4" />
+                  <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/bombafasada/video1.mp4" />
                 </div>
               </div>
               <div className="mt-4 px-1">
@@ -218,7 +218,7 @@ export default function MarketingPage() {
                 <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-[#BAFF57]/50 group-hover:w-8 group-hover:h-8 transition-all duration-300"></div>
                 <div className="absolute bottom-0 right-0 w-5 h-5 border-b border-r border-[#BAFF57]/50 group-hover:w-8 group-hover:h-8 transition-all duration-300"></div>
                 <div className="relative overflow-hidden bg-black" style={{ height: '420px' }}>
-                  <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="/videos/bombafasada/video2.mp4" />
+                  <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/bombafasada/video2.mp4" />
                 </div>
               </div>
               <div className="mt-4 px-1">
@@ -239,7 +239,7 @@ export default function MarketingPage() {
                 <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-[#BAFF57]/50 group-hover:w-8 group-hover:h-8 transition-all duration-300"></div>
                 <div className="absolute bottom-0 right-0 w-5 h-5 border-b border-r border-[#BAFF57]/50 group-hover:w-8 group-hover:h-8 transition-all duration-300"></div>
                 <div className="relative overflow-hidden bg-black" style={{ height: '420px' }}>
-                  <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="/videos/janicko/video1.mp4" />
+                  <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/janicko/video1.mp4" />
                 </div>
               </div>
               <div className="mt-4 px-1">
