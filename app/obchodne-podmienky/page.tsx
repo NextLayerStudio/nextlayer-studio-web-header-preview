@@ -32,7 +32,7 @@ export default function ObchodnePodmienky() {
 
           <section>
             <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">1. Základné ustanovenia</h2>
-            <p className="mb-3">Tieto obchodné podmienky (ďalej len „Podmienky") upravujú zmluvný vzťah medzi spoločnosťou NextLayer Studio s.r.o. (ďalej len „Poskytovateľ") a fyzickými alebo právnickými osobami, ktoré si objednávajú jej služby (ďalej len „Klient").</p>
+            <p className="mb-3">Tieto obchodné podmienky (ďalej len &bdquo;Podmienky&ldquo;) upravujú zmluvný vzťah medzi spoločnosťou NextLayer Studio s.r.o. (ďalej len &bdquo;Poskytovateľ&ldquo;) a fyzickými alebo právnickými osobami, ktoré si objednávajú jej služby (ďalej len &bdquo;Klient&ldquo;).</p>
             <p className="mb-3">Poskytovateľom je spoločnosť <strong className="text-[#BAFF57]/90">NextLayer Studio s.r.o.</strong>, so sídlom Wienerova alej 929/20, 900 42 Miloslavov, IČO: 57141282, DIČ: 2122583133 (nie je platcom DPH). Kontakt: team@nextlayer.studio.</p>
             <p>Odoslaním objednávky alebo podpísaním zmluvy o dielo Klient potvrdzuje, že sa oboznámil s týmito Podmienkami a súhlasí s nimi v plnom rozsahu.</p>
           </section>

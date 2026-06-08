@@ -77,7 +77,7 @@ export default function OchranaSukromia() {
             <ul className="list-none space-y-2 mb-3 pl-4">
               <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span><strong className="text-[#BAFF57]/80">na prístup</strong> k svojim osobným údajom,</li>
               <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span><strong className="text-[#BAFF57]/80">na opravu</strong> nesprávnych alebo neúplných údajov,</li>
-              <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span><strong className="text-[#BAFF57]/80">na vymazanie</strong> (právo „na zabudnutie"), ak nie sú dané zákonné dôvody na ďalšie spracovanie,</li>
+              <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span><strong className="text-[#BAFF57]/80">na vymazanie</strong> (právo &bdquo;na zabudnutie&ldquo;), ak nie sú dané zákonné dôvody na ďalšie spracovanie,</li>
               <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span><strong className="text-[#BAFF57]/80">na obmedzenie spracovania</strong> v prípadoch stanovených GDPR,</li>
               <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span><strong className="text-[#BAFF57]/80">na prenosnosť</strong> osobných údajov,</li>
               <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span><strong className="text-[#BAFF57]/80">namietať</strong> voči spracovaniu na základe oprávneného záujmu,</li>
