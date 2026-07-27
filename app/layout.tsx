@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import CookieConsent from "./components/CookieConsent";
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         {children}
         <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );
