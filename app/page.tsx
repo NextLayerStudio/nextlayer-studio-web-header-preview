@@ -26,6 +26,7 @@ export default function Home() {
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [heroHover, setHeroHover] = useState<'produkcia' | 'vyvoj' | null>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -123,6 +124,20 @@ export default function Home() {
       setIsSubmitting(false);
     }
   };
+
+  const produkciaItems = [
+    "Video produkcia",
+    "Správa sociálnych sietí",
+    "Reklamné kampane",
+    "Content stratégia",
+  ];
+
+  const vyvojItems = [
+    "Web & e-shop",
+    "UI/UX dizajn",
+    "Brand identity",
+    "Údržba & optimalizácia",
+  ];
 
   const clients = [
     { name: "Bombafasada", logo: "/logos/bombafasada.png", link: "https://www.instagram.com/bombafasada/" },
@@ -245,32 +260,73 @@ export default function Home() {
           </a>
         )}
 
-        <div
-          className={`absolute top-1/2 transition-transform duration-300 ease-out ${isMobile ? 'left-1/2 w-full max-w-full px-4 text-center' : 'left-4 sm:left-8 md:left-12 lg:left-24 xl:left-32 w-[85%] sm:w-auto'}`}
-          style={{ transform: isMobile ? 'translate(-50%, -50%)' : `translateX(-${scrollY * 1.2}px) translateY(-50%)` }}
-        >
-          {!isMobile && (
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-8 h-[1px] bg-black/40"></div>
-              <span className="text-black/50 text-xs uppercase tracking-widest font-mono">Full-service studio · Bratislava</span>
+        {/* Blur overlay — zvyšok obrazovky sa rozmaže, keď je aktívny hover na Produkcia / Vývoj */}
+        {!isMobile && (
+          <div
+            className={`absolute inset-0 z-20 backdrop-blur-md bg-black/10 transition-opacity duration-300 ease-out ${heroHover ? 'opacity-100' : 'opacity-0'}`}
+            style={{ pointerEvents: 'none' }}
+          ></div>
+        )}
+
+        {/* Produkcia (vľavo) / Vývoj (vpravo) */}
+        {!isMobile && (
+          <div className="absolute inset-0 flex items-center justify-center gap-8 sm:gap-10 md:gap-16 lg:gap-24 pointer-events-none">
+            {/* Produkcia */}
+            <div
+              className={`group relative pointer-events-auto transition-all duration-300 max-w-[200px] sm:max-w-[240px] md:max-w-xs lg:max-w-sm ${heroHover === 'vyvoj' ? 'z-10' : 'z-30'}`}
+              onMouseEnter={() => setHeroHover('produkcia')}
+              onMouseLeave={() => setHeroHover(null)}
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" className="text-black/50"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                <span className="text-black/40 text-xs font-mono">01</span>
+                <div className="w-8 h-px bg-black/30"></div>
+              </div>
+              <Link href="/marketing" className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-black hover:opacity-70 transition-opacity">
+                Online prítomnosť a získavanie nových zákazníkov
+              </Link>
+              <div className="w-0 h-[2px] bg-black mt-4 group-hover:w-16 transition-all duration-300"></div>
+              <div className="mt-4 flex items-center gap-2 text-black/50 text-xs uppercase tracking-wider font-mono group-hover:text-black transition-colors">
+                Zistiť viac
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+              </div>
+              <div className={`absolute top-full left-0 pt-6 space-y-3 transition-all duration-300 ease-out ${heroHover === 'produkcia' ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}`}>
+                {produkciaItems.map((item) => (
+                  <Link key={item} href="/marketing" className="block origin-left text-black/70 hover:text-black hover:scale-110 text-sm uppercase tracking-wider whitespace-nowrap transition-all duration-200">{item}</Link>
+                ))}
+              </div>
             </div>
-          )}
-          <p className={`leading-tight ${isMobile ? 'text-3xl w-full px-2' : 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl max-w-sm sm:max-w-lg'}`}>
-            <span className={`block font-bold ${isMobile ? 'break-words' : 'whitespace-nowrap'}`}>Profesionálna produkcia.</span>
-            <span className={`block font-light ${isMobile ? 'mt-2' : 'mt-1 sm:mt-2 md:mt-3'}`}>Tvoja značka online.</span>
-          </p>
-          <button
-            onClick={() => scrollToSection(1)}
-            className={`relative group bg-black text-white font-normal hover:bg-black/80 transition-all duration-300 uppercase flex items-center gap-3 ${isMobile ? 'mt-8 px-8 py-4 text-sm mx-auto' : 'mt-8 sm:mt-10 px-8 py-4 text-sm tracking-wider'}`}
-          >
-            <span className="absolute -top-[3px] -left-[3px] w-2 h-2 border-t border-l border-white/25"></span>
-            <span className="absolute -top-[3px] -right-[3px] w-2 h-2 border-t border-r border-white/25"></span>
-            <span className="absolute -bottom-[3px] -left-[3px] w-2 h-2 border-b border-l border-white/25"></span>
-            <span className="absolute -bottom-[3px] -right-[3px] w-2 h-2 border-b border-r border-white/25"></span>
-            Objaviť viac
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-          </button>
-        </div>
+
+            {/* Deliaca čiara */}
+            <div className="w-px h-40 bg-black/20 self-center shrink-0"></div>
+
+            {/* Vývoj */}
+            <div
+              className={`group relative text-right pointer-events-auto transition-all duration-300 max-w-[200px] sm:max-w-[240px] md:max-w-xs lg:max-w-sm ${heroHover === 'produkcia' ? 'z-10' : 'z-30'}`}
+              onMouseEnter={() => setHeroHover('vyvoj')}
+              onMouseLeave={() => setHeroHover(null)}
+            >
+              <div className="flex items-center justify-end gap-3 mb-4">
+                <div className="w-8 h-px bg-black/30"></div>
+                <span className="text-black/40 text-xs font-mono">02</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" className="text-black/50"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              </div>
+              <Link href="/development" className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-black hover:opacity-70 transition-opacity">
+                Softvérové riešenia na mieru
+              </Link>
+              <div className="w-0 h-[2px] bg-black mt-4 ml-auto group-hover:w-16 transition-all duration-300"></div>
+              <div className="mt-4 flex items-center justify-end gap-2 text-black/50 text-xs uppercase tracking-wider font-mono group-hover:text-black transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200 order-2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                Zistiť viac
+              </div>
+              <div className={`absolute top-full right-0 pt-6 space-y-3 transition-all duration-300 ease-out ${heroHover === 'vyvoj' ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}`}>
+                {vyvojItems.map((item) => (
+                  <Link key={item} href="/development" className="block origin-right text-black/70 hover:text-black hover:scale-110 text-sm uppercase tracking-wider whitespace-nowrap transition-all duration-200">{item}</Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Vertikálny dekoratívny prvok */}
         {!isMobile && (
