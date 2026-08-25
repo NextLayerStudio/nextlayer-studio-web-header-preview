@@ -27,6 +27,7 @@ export default function Home() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [heroHover, setHeroHover] = useState<'produkcia' | 'vyvoj' | null>(null);
+  const [disciplinesHover, setDisciplinesHover] = useState<'produkcia' | 'vyvoj' | null>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -137,6 +138,20 @@ export default function Home() {
     "UI/UX dizajn",
     "Brand identity",
     "Údržba & optimalizácia",
+  ];
+
+  const produkciaExtras = [
+    "Scenár & réžia",
+    "Natáčanie",
+    "Strih & postprodukcia",
+    "Grafika pre siete",
+  ];
+
+  const vyvojExtras = [
+    "Webové aplikácie",
+    "API & Backend",
+    "CMS integrácia",
+    "Optimalizácia výkonu",
   ];
 
   const clients = [
@@ -491,32 +506,54 @@ export default function Home() {
             <div className="w-8 h-px bg-black"></div>
             <span className="text-black/50 text-xs uppercase tracking-widest font-mono">Čo robíme</span>
           </div>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-none">Jedna strecha.<br />Tri disciplíny.</h2>
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-none">Jedna strecha.<br />Dve disciplíny.</h2>
         </div>
 
         <div className="w-full" style={{ opacity: section4Progress, transform: `translateY(${(1 - section4Progress) * 30}px)` }}>
           {[
-            { num: '01', title: 'Marketing', desc: 'Spravujeme sociálne siete, píšeme scenáre, natáčame a strihame videá. Každý post má zámer, každé video príbeh.', href: '/marketing', dark: false },
-            { num: '02', title: 'Development', desc: 'Vyvíjame webové aplikácie, e-shopy a digitálne platformy na mieru. Od návrhu architektúry až po nasadenie.', href: '/development', dark: true },
-            { num: '03', title: 'Design', desc: 'Tvoríme vizuálnu identitu, grafiku pre sociálne siete a UI/UX dizajn, ktorý vyzerá profesionálne a konvertuje.', href: '/design', dark: false },
-          ].map((item) => (
-            <a
-              key={item.num}
-              href={item.href}
-              className={`group grid grid-cols-12 items-center gap-4 px-5 md:px-12 lg:px-16 py-6 md:py-8 border-t border-black/15 last:border-b transition-colors duration-300 ${
-                item.dark
-                  ? 'bg-[#212121] text-[#BAFF57] border-transparent'
-                  : 'text-black hover:bg-black hover:text-[#BAFF57]'
-              }`}
-            >
-              <span className={`col-span-2 md:col-span-1 text-sm font-mono ${item.dark ? 'text-[#BAFF57]/40' : 'text-black/30 group-hover:text-[#BAFF57]/40'}`}>{item.num}</span>
-              <h3 className="col-span-10 md:col-span-3 text-2xl md:text-4xl font-bold">{item.title}</h3>
-              <p className={`col-span-12 md:col-span-6 text-sm font-light leading-relaxed ${item.dark ? 'text-[#BAFF57]/60' : 'text-black/55 group-hover:text-[#BAFF57]/70'}`}>{item.desc}</p>
-              <span className={`col-span-12 md:col-span-2 md:text-right text-xs uppercase tracking-wider font-mono ${item.dark ? 'text-[#BAFF57]/50' : 'text-black/40 group-hover:text-[#BAFF57]/50'}`}>
-                ↗ Zistiť viac
-              </span>
-            </a>
-          ))}
+            { id: 'produkcia' as const, num: '01', title: 'Online prítomnosť a získavanie nových zákazníkov', extras: produkciaExtras, href: '/marketing' },
+            { id: 'vyvoj' as const, num: '02', title: 'Softvérové riešenia na mieru', extras: vyvojExtras, href: '/development' },
+          ].map((item) => {
+            const extrasVisible = isMobile || disciplinesHover === item.id;
+            const isOpen = !isMobile && disciplinesHover === item.id;
+            const isDimmed = !isMobile && disciplinesHover !== null && disciplinesHover !== item.id;
+            return (
+              <a
+                key={item.num}
+                href={item.href}
+                onMouseEnter={() => !isMobile && setDisciplinesHover(item.id)}
+                onMouseLeave={() => !isMobile && setDisciplinesHover(null)}
+                className={`group grid grid-cols-12 items-start md:items-center gap-4 px-5 md:px-12 lg:px-16 py-8 md:py-10 border-t border-black/15 last:border-b text-black transition-all duration-300 ${
+                  isOpen ? 'bg-white' : 'bg-transparent'
+                } ${isDimmed ? 'opacity-30' : 'opacity-100'}`}
+              >
+                <span className="col-span-2 md:col-span-1 text-sm font-mono pt-1 text-black/30">{item.num}</span>
+                <div className="col-span-10 md:col-span-6">
+                  <h3 className="text-xl md:text-3xl lg:text-4xl font-bold leading-tight">{item.title}</h3>
+                  <div className={`overflow-hidden transition-all duration-500 ease-out ${extrasVisible ? 'max-h-48 mt-5 opacity-100' : 'max-h-0 mt-0 opacity-0'}`}>
+                    <div className="flex flex-col gap-2">
+                      {item.extras.map((opt, i) => (
+                        <span
+                          key={opt}
+                          className="text-xs md:text-sm uppercase tracking-wider font-mono text-black/55"
+                          style={{
+                            transitionDelay: extrasVisible ? `${i * 70}ms` : '0ms',
+                            transform: extrasVisible ? 'translateY(0)' : 'translateY(-8px)',
+                            opacity: extrasVisible ? 1 : 0,
+                          }}
+                        >
+                          {opt}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <span className="col-span-12 md:col-span-5 md:text-right text-xs uppercase tracking-wider font-mono pt-1 text-black/40">
+                  ↗ Zistiť viac
+                </span>
+              </a>
+            );
+          })}
         </div>
       </section>
 
