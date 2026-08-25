@@ -242,3 +242,12 @@ html, body {
   animation: float-dot 18s ease-in-out infinite;
   animation-delay: -7s;
 }
+
+@keyframes client-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-client-marquee {
+  animation: client-marquee 28s linear infinite;
+}
