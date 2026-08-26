@@ -263,17 +263,11 @@ export default function Home() {
 
         {!isMobile && (
           <nav className="absolute top-8 left-1/2 -translate-x-1/2 z-40 flex items-center gap-8 lg:gap-12">
-            <a href="/marketing" className="text-sm lg:text-base font-normal hover:opacity-60 transition-opacity uppercase">MARKETING</a>
-            <a href="/development" className="text-sm lg:text-base font-normal hover:opacity-60 transition-opacity uppercase">DEVELOPMENT</a>
-            <a href="/design" className="text-sm lg:text-base font-normal hover:opacity-60 transition-opacity uppercase">DESIGN</a>
+            <button onClick={() => scrollToSection(1)} className="text-sm lg:text-base font-normal hover:opacity-60 transition-opacity uppercase cursor-pointer">O NÁS</button>
+            <button onClick={() => scrollToSection(5)} className="text-sm lg:text-base font-normal hover:opacity-60 transition-opacity uppercase cursor-pointer">KONTAKT</button>
+            <a href="/cena" className="text-sm lg:text-base font-normal hover:opacity-60 transition-opacity uppercase">CENA</a>
             <a href="/projekty" className="text-sm lg:text-base font-normal hover:opacity-60 transition-opacity uppercase">PROJEKTY</a>
           </nav>
-        )}
-
-        {!isMobile && (
-          <a href="#kontakt" className="absolute top-8 right-8 lg:right-12 z-40 text-sm lg:text-base font-normal hover:opacity-60 transition-opacity uppercase">
-            KONTAKT
-          </a>
         )}
 
         {!isMobile && (
@@ -373,7 +367,7 @@ export default function Home() {
       </main>
 
       {/* ── O NÁS — large landscape reel, text overlapping on lime ── */}
-      <section className="relative min-h-screen h-screen bg-[#BAFF57] overflow-hidden snap-start snap-always">
+      <section id="o-nas" className="relative min-h-screen h-screen bg-[#BAFF57] overflow-hidden snap-start snap-always">
         <div
           className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-[62%] xl:w-[64%]"
           style={{ opacity: section2Progress }}
