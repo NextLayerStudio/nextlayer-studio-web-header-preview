@@ -242,8 +242,13 @@ export default function Home() {
             <a href="/design" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Design</a>
             <span className="w-0 h-[1px] bg-[#BAFF57] group-hover:w-12 transition-all duration-300"></span>
           </button>
-          <Link href="/projekty" onClick={() => setIsMenuOpen(false)} className="group flex items-center gap-3 sm:gap-6 transition-all duration-300 touch-manipulation py-2">
+          <Link href="/cena" onClick={() => setIsMenuOpen(false)} className="group flex items-center gap-3 sm:gap-6 transition-all duration-300 touch-manipulation py-2">
             <span className="text-[#BAFF57]/40 text-xs sm:text-sm font-light">05</span>
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Cena</span>
+            <span className="w-0 h-[1px] bg-[#BAFF57] group-hover:w-12 transition-all duration-300"></span>
+          </Link>
+          <Link href="/projekty" onClick={() => setIsMenuOpen(false)} className="group flex items-center gap-3 sm:gap-6 transition-all duration-300 touch-manipulation py-2">
+            <span className="text-[#BAFF57]/40 text-xs sm:text-sm font-light">06</span>
             <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Projekty</span>
             <span className="w-0 h-[1px] bg-[#BAFF57] group-hover:w-12 transition-all duration-300"></span>
           </Link>
@@ -660,6 +665,7 @@ export default function Home() {
             <a href="/marketing" className="hover:text-white transition-colors">Marketing</a>
             <a href="/development" className="hover:text-white transition-colors">Development</a>
             <a href="/design" className="hover:text-white transition-colors">Design</a>
+            <a href="/cena" className="hover:text-white transition-colors">Cena</a>
             <a href="/projekty" className="hover:text-white transition-colors">Projekty</a>
           </nav>
         </div>

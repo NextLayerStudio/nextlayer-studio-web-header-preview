@@ -12,6 +12,7 @@ export default function PageFooter() {
           <Link href="/marketing" className="hover:text-white transition-colors">Marketing</Link>
           <Link href="/development" className="hover:text-white transition-colors">Development</Link>
           <Link href="/design" className="hover:text-white transition-colors">Design</Link>
+          <Link href="/cena" className="hover:text-white transition-colors">Cena</Link>
           <Link href="/projekty" className="hover:text-white transition-colors">Projekty</Link>
         </nav>
       </div>

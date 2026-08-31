@@ -76,7 +76,7 @@ export default function ProjektyPage() {
 
       <PageHero
         activeNav="projekty"
-        num="05"
+        num="06"
         eyebrow="Portfólio"
         title={<>Naše<br />projekty.</>}
         lead="Prezrite si výber našich najlepších prác z oblasti vývoja, dizajnu a marketingu. Každý projekt je príbeh úspechu."
@@ -155,7 +155,7 @@ export default function ProjektyPage() {
       </section>
 
       <PageCta
-        num="06"
+        num="07"
         eyebrow="Začnime spoluprácu"
         title={<>Máte projekt<br />na mysli?</>}
         lead="Radi by sme aj váš projekt pridali do nášho portfólia. Kontaktujte nás a poďme spolupracovať."

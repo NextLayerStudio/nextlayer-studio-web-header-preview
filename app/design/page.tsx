@@ -69,7 +69,6 @@ export default function DesignPage() {
       <SiteMenu active="design" />
 
       <PageHero
-        activeNav="design"
         num="04"
         eyebrow="Vizuálna identita"
         title={<>Dizajn podľa<br />najnovších trendov.</>}

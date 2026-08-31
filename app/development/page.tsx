@@ -90,7 +90,6 @@ export default function DevelopmentPage() {
       <SiteMenu active="development" />
 
       <PageHero
-        activeNav="development"
         num="03"
         eyebrow="Software na mieru"
         title={<>Softvérové riešenia<br />na mieru.</>}

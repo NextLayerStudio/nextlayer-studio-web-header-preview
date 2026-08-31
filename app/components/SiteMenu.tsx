@@ -3,14 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 
-type PageKey = "home" | "marketing" | "development" | "design" | "projekty";
+type PageKey = "home" | "marketing" | "development" | "design" | "cena" | "projekty";
 
 const links: { key: PageKey; num: string; label: string; href: string }[] = [
   { key: "home", num: "01", label: "Home", href: "/" },
   { key: "marketing", num: "02", label: "Marketing", href: "/marketing" },
   { key: "development", num: "03", label: "Development", href: "/development" },
   { key: "design", num: "04", label: "Design", href: "/design" },
-  { key: "projekty", num: "05", label: "Projekty", href: "/projekty" },
+  { key: "cena", num: "05", label: "Cena", href: "/cena" },
+  { key: "projekty", num: "06", label: "Projekty", href: "/projekty" },
 ];
 
 export default function SiteMenu({ active }: { active: PageKey }) {

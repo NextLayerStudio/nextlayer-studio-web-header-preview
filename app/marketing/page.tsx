@@ -85,7 +85,6 @@ export default function MarketingPage() {
       <SiteMenu active="marketing" />
 
       <PageHero
-        activeNav="marketing"
         num="02"
         eyebrow="Social Media Production"
         title={<>Tvoja značka.<br />Profesionálne.</>}

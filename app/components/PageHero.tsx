@@ -15,13 +15,14 @@ type PageHeroProps = {
   panelItems: string[];
   ctaLabel?: string;
   ctaHref?: string;
-  activeNav: "marketing" | "development" | "design" | "projekty";
+  /** Highlights the matching top-nav entry; omit on pages absent from the nav */
+  activeNav?: "cena" | "projekty";
 };
 
 const nav = [
-  { key: "marketing", label: "Marketing", href: "/marketing" },
-  { key: "development", label: "Development", href: "/development" },
-  { key: "design", label: "Design", href: "/design" },
+  { key: "o-nas", label: "O nás", href: "/#o-nas" },
+  { key: "kontakt", label: "Kontakt", href: "/#kontakt" },
+  { key: "cena", label: "Cena", href: "/cena" },
   { key: "projekty", label: "Projekty", href: "/projekty" },
 ] as const;
 
@@ -56,10 +57,6 @@ export default function PageHero({
           </Link>
         ))}
       </nav>
-
-      <Link href="/#kontakt" className="hidden md:block absolute top-8 right-24 lg:right-28 z-40 text-sm lg:text-base font-normal hover:opacity-60 transition-opacity uppercase">
-        KONTAKT
-      </Link>
 
       {/* LEFT — lime, the pitch */}
       <div className="relative z-30 flex-1 bg-[#BAFF57] flex flex-col justify-center px-6 md:px-12 lg:px-16 pt-28 md:pt-0 pb-10 md:pb-32 overflow-hidden">
