@@ -1,633 +1,246 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import SiteMenu from "../components/SiteMenu";
+import PageHero from "../components/PageHero";
+import PageCta from "../components/PageCta";
+import PageFooter from "../components/PageFooter";
+import Reveal from "../components/Reveal";
+
+const disciplines = [
+  {
+    num: "01",
+    title: "UI/UX dizajn",
+    extras: ["Wireframy", "Prototypy", "Dizajn systém", "Použiteľnosť"],
+    desc: "Intuitívne rozhrania zamerané na používateľa — od prvého wireframu po hotový dizajn systém.",
+  },
+  {
+    num: "02",
+    title: "Brand identity",
+    extras: ["Logo", "Typografia", "Farebná paleta", "Brand manuál"],
+    desc: "Vizuálna identita, ktorá zaujme a zostane konzistentná na každom nosiči.",
+  },
+  {
+    num: "03",
+    title: "Graphic design",
+    extras: ["Tlačoviny", "Sociálne siete", "Prezentácie", "Merch"],
+    desc: "Vizuály, ktoré oživia váš projekt — online aj v tlači.",
+  },
+];
+
+const palette = [
+  { name: "Lime", role: "Primary", hex: "#BAFF57", rgb: "RGB 186, 255, 87", swatch: "bg-[#BAFF57]", type: "text-black", border: "border-black" },
+  { name: "Black", role: "Contrast", hex: "#000000", rgb: "RGB 0, 0, 0", swatch: "bg-black", type: "text-[#BAFF57]", border: "border-transparent" },
+  { name: "White", role: "Surface", hex: "#FFFFFF", rgb: "RGB 255, 255, 255", swatch: "bg-white", type: "text-black", border: "border-black/10" },
+];
+
+const works = [
+  { image: "/fonts/Screenshot 2026-01-25 at 16.50.43.png", tag: "Brand Identity", title: "Hlavičkový papier", fit: "contain" },
+  { image: "/fonts/Screenshot 2026-01-25 at 16.51.43.png", tag: "Brand Identity", title: "Dizajn letáčiku", fit: "contain" },
+  { image: "/fonts/Screenshot 2026-01-25 at 16.51.14.png", tag: "Brand Identity", title: "Voucher dizajn", fit: "cover" },
+  { image: "/fonts/Screenshot 2026-01-25 at 16.53.00.png", tag: "Web Design", title: "New Era eshop", fit: "cover" },
+  { image: "/fonts/Screenshot 2026-01-25 at 16.53.32.png", tag: "Web Design", title: "Autoškola Zvyky", fit: "cover" },
+  { image: "/fonts/Screenshot 2026-01-25 at 16.55.23.png", tag: "Web Design", title: "QR eshop", fit: "cover" },
+  { image: "/fonts/Screenshot 2026-01-25 at 16.56.20 1.png", tag: "Brand Design", title: "Visual Identity", fit: "cover" },
+];
+
+const process = [
+  { num: "01", title: "Brief", desc: "Zistíme, komu hovoríte a čo má dizajn dosiahnuť." },
+  { num: "02", title: "Koncept", desc: "Postavíme vizuálny smer — typografiu, farby, tón." },
+  { num: "03", title: "Dizajn", desc: "Rozkreslíme všetky obrazovky a nosiče do detailu." },
+  { num: "04", title: "Handoff", desc: "Odovzdáme zdrojáky, dizajn systém a podklady pre vývoj." },
+];
 
 export default function DesignPage() {
-  const [scrollY, setScrollY] = useState(0);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [hover, setHover] = useState<string | null>(null);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      setScrollY(container.scrollTop);
-    };
-
-    container.addEventListener("scroll", handleScroll, { passive: true });
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const showHamburger = !isMenuOpen;
-
-  const scrollToContent = () => {
-    if (containerRef.current) {
-      containerRef.current.scrollTo({
-        top: window.innerHeight,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   return (
-    <div ref={containerRef} className="bg-[#212121] h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
-      
-      {/* Hamburger Button */}
-      {showHamburger && (
-        <div 
-          onClick={() => setIsMenuOpen(true)}
-          className="fixed top-4 right-4 sm:top-6 sm:right-6 z-[60] cursor-pointer touch-manipulation"
-          role="button"
-          tabIndex={0}
-          aria-label="Open menu"
-        >
-          <div className="relative w-14 h-14 sm:w-12 sm:h-12 bg-[#BAFF57] flex flex-col items-center justify-center gap-2 hover:bg-[#BAFF57]/80 active:bg-[#BAFF57]/60 transition-colors">
-            <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-[#BAFF57]"></div>
-            <div className="absolute -top-1 -right-1 w-2 h-2 border-t border-r border-[#BAFF57]"></div>
-            <div className="absolute -bottom-1 -left-1 w-2 h-2 border-b border-l border-[#BAFF57]"></div>
-            <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-[#BAFF57]"></div>
-            <span className="w-5 h-[2px] bg-[#212121]"></span>
-            <span className="w-5 h-[2px] bg-[#212121]"></span>
-          </div>
-        </div>
-      )}
+    <div className="bg-[#BAFF57] text-black h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
+      <SiteMenu active="design" />
 
-      {/* Full Screen Menu Overlay */}
-      <div 
-        className={`fixed inset-0 z-50 transition-all duration-500 ${
-          isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-      >
-        <div className="absolute inset-0 bg-[#212121]"></div>
-        
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute h-[1px] bg-[#BAFF57]/20 animate-float-slow-1" style={{ top: '30%', left: '0', width: '100%' }}></div>
-          <div className="absolute h-[1px] bg-[#BAFF57]/15 animate-float-slow-3" style={{ top: '70%', left: '0', width: '100%' }}></div>
-          <div className="absolute w-[1px] bg-[#BAFF57]/15 animate-float-vertical-1" style={{ left: '20%', top: '0', height: '100%' }}></div>
-          <div className="absolute w-[1px] bg-[#BAFF57]/10 animate-float-vertical-3" style={{ right: '25%', top: '0', height: '100%' }}></div>
-          <div className="absolute top-8 left-8 w-16 h-16 border-t border-l border-[#BAFF57]/30"></div>
-          <div className="absolute top-8 right-8 w-16 h-16 border-t border-r border-[#BAFF57]/30"></div>
-          <div className="absolute bottom-8 left-8 w-16 h-16 border-b border-l border-[#BAFF57]/30"></div>
-          <div className="absolute bottom-8 right-8 w-16 h-16 border-b border-r border-[#BAFF57]/30"></div>
-        </div>
-        
-        <button
-          onClick={() => setIsMenuOpen(false)}
-          className="absolute top-4 right-4 sm:top-6 sm:right-6 group z-50 cursor-pointer touch-manipulation"
-          aria-label="Close menu"
-        >
-          <div className="relative w-14 h-14 sm:w-12 sm:h-12 bg-[#BAFF57] flex items-center justify-center pointer-events-auto active:bg-[#BAFF57]/80 transition-colors">
-            <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-[#BAFF57]"></div>
-            <div className="absolute -top-1 -right-1 w-2 h-2 border-t border-r border-[#BAFF57]"></div>
-            <div className="absolute -bottom-1 -left-1 w-2 h-2 border-b border-l border-[#BAFF57]"></div>
-            <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-[#BAFF57]"></div>
-            <div className="relative w-5 h-5 pointer-events-none">
-              <span className="absolute top-1/2 left-0 w-full h-[2px] bg-[#212121] -translate-y-1/2 rotate-45"></span>
-              <span className="absolute top-1/2 left-0 w-full h-[2px] bg-[#212121] -translate-y-1/2 -rotate-45"></span>
-            </div>
-          </div>
-        </button>
-        
-        <nav className="relative z-10 h-full flex flex-col items-start justify-center pl-12 md:pl-24 lg:pl-32 gap-4">
-          <Link href="/" className="group flex items-center gap-6 transition-all duration-300">
-            <span className="text-[#BAFF57]/40 text-sm font-light">01</span>
-            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Home</span>
-            <span className="w-0 h-[1px] bg-[#BAFF57] group-hover:w-12 transition-all duration-300"></span>
-          </Link>
-          
-          <Link href="/development" className="group flex items-center gap-6 transition-all duration-300">
-            <span className="text-[#BAFF57]/40 text-sm font-light">02</span>
-            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Development</span>
-            <span className="w-0 h-[1px] bg-[#BAFF57] group-hover:w-12 transition-all duration-300"></span>
-          </Link>
-          
-          <div className="group flex items-center gap-6 transition-all duration-300">
-            <span className="text-[#BAFF57]/40 text-sm font-light">03</span>
-            <span className="text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.2em] text-[#BAFF57]/50">Design</span>
-            <span className="w-4 h-[1px] bg-[#BAFF57]/50"></span>
-          </div>
-          
-          <Link href="/marketing" className="group flex items-center gap-6 transition-all duration-300">
-            <span className="text-[#BAFF57]/40 text-sm font-light">04</span>
-            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Marketing</span>
-            <span className="w-0 h-[1px] bg-[#BAFF57] group-hover:w-12 transition-all duration-300"></span>
-          </Link>
-          
-          <Link href="/projekty" onClick={() => setIsMenuOpen(false)} className="group flex items-center gap-6 transition-all duration-300">
-            <span className="text-[#BAFF57]/40 text-sm font-light">05</span>
-            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Projekty</span>
-            <span className="w-0 h-[1px] bg-[#BAFF57] group-hover:w-12 transition-all duration-300"></span>
-          </Link>
-          
-          <div className="absolute bottom-12 left-12 md:left-24 lg:left-32 text-[#BAFF57]/50 text-sm font-light">
-            <p>team@nextlayer.studio</p>
-            <p>+421 902 238 309</p>
-          </div>
-        </nav>
-      </div>
+      <PageHero
+        activeNav="design"
+        num="04"
+        eyebrow="Vizuálna identita"
+        title={<>Dizajn podľa<br />najnovších trendov.</>}
+        lead="Napredujeme vo svete dizajnu a kreativity. Naše produkty razia cestu v modernom digitálnom svete — od identity značky až po hotové rozhranie."
+        wordmark="Design"
+        panelLabel="Čo pre teba tvoríme"
+        panelItems={["UI/UX dizajn", "Brand identity", "Graphic design", "Web design"]}
+      />
 
-      {/* Hero Section with Logo */}
-      <section className="min-h-screen h-screen snap-start snap-always flex items-center justify-center relative overflow-hidden">
-        {/* Design lines and numbers around the logo */}
-        <div className="absolute inset-0 pointer-events-none">
-          {/* Grid lines */}
-          <div className="absolute top-1/4 left-0 w-full h-px bg-[#BAFF57]/10"></div>
-          <div className="absolute top-3/4 left-0 w-full h-px bg-[#BAFF57]/10"></div>
-          <div className="absolute top-0 left-1/4 w-px h-full bg-[#BAFF57]/10"></div>
-          <div className="absolute top-0 right-1/4 w-px h-full bg-[#BAFF57]/10"></div>
-          
-          {/* Corner measurements */}
-          <div className="absolute top-20 left-20">
-            <div className="w-20 h-px bg-[#BAFF57]/30"></div>
-            <div className="w-px h-20 bg-[#BAFF57]/30"></div>
-            <span className="absolute top-2 left-2 text-[#BAFF57]/30 text-xs font-mono">x: 0</span>
+      {/* ── DISCIPLÍNY — full-width index rows ── */}
+      <section className={`bg-[#BAFF57] relative snap-start snap-always overflow-hidden ${isMobile ? "min-h-screen py-20 flex flex-col justify-center" : "min-h-screen h-screen flex flex-col justify-center"}`}>
+        <Reveal className="px-5 md:px-12 lg:px-16 mb-8 md:mb-10">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="text-black/40 text-xs font-mono">01</span>
+            <div className="w-8 h-px bg-black"></div>
+            <span className="text-black/50 text-xs uppercase tracking-widest font-mono">O dizajne</span>
           </div>
-          <div className="absolute top-20 right-20">
-            <div className="w-20 h-px bg-[#BAFF57]/30 ml-auto"></div>
-            <div className="w-px h-20 bg-[#BAFF57]/30 ml-auto"></div>
-            <span className="absolute top-2 right-2 text-[#BAFF57]/30 text-xs font-mono">y: 0</span>
-          </div>
-          <div className="absolute bottom-20 left-20">
-            <div className="w-px h-20 bg-[#BAFF57]/30"></div>
-            <div className="w-20 h-px bg-[#BAFF57]/30"></div>
-            <span className="absolute bottom-2 left-2 text-[#BAFF57]/30 text-xs font-mono">1920</span>
-          </div>
-          <div className="absolute bottom-20 right-20">
-            <div className="w-px h-20 bg-[#BAFF57]/30 ml-auto"></div>
-            <div className="w-20 h-px bg-[#BAFF57]/30 ml-auto"></div>
-            <span className="absolute bottom-2 right-2 text-[#BAFF57]/30 text-xs font-mono">1080</span>
-          </div>
-          
-          {/* Floating design numbers */}
-          <span className="absolute top-1/3 left-16 text-[#BAFF57]/20 text-6xl font-bold font-mono">01</span>
-          <span className="absolute bottom-1/3 right-16 text-[#BAFF57]/20 text-6xl font-bold font-mono">02</span>
-          <span className="absolute top-1/2 left-8 text-[#BAFF57]/15 text-4xl font-mono -rotate-90 origin-center">DESIGN</span>
-          <span className="absolute top-1/2 right-8 text-[#BAFF57]/15 text-4xl font-mono rotate-90 origin-center">STUDIO</span>
-          
-          {/* Decorative circles */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-[#BAFF57]/10 rounded-full"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-[#BAFF57]/5 rounded-full"></div>
-          
-          {/* Small accent lines */}
-          <div className="absolute top-1/2 left-32 w-16 h-px bg-gradient-to-r from-[#BAFF57]/40 to-transparent"></div>
-          <div className="absolute top-1/2 right-32 w-16 h-px bg-gradient-to-l from-[#BAFF57]/40 to-transparent"></div>
-          <div className="absolute top-32 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-[#BAFF57]/40 to-transparent"></div>
-          <div className="absolute bottom-32 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-t from-[#BAFF57]/40 to-transparent"></div>
-        </div>
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-none">Tri disciplíny.<br />Jeden vizuálny jazyk.</h2>
+        </Reveal>
 
-        {/* Logo and button container */}
-        <div className="relative z-10 flex flex-col items-center">
-          {/* Logo */}
-          <div 
-            onClick={scrollToContent}
-            className="cursor-pointer group relative"
-          >
-            {/* Logo frame */}
-            <div className="absolute -inset-8 border border-[#BAFF57]/20 group-hover:border-[#BAFF57]/40 transition-colors duration-500"></div>
-            <div className="absolute -inset-4 border border-[#BAFF57]/30 group-hover:border-[#BAFF57]/60 transition-colors duration-500"></div>
-            
-            {/* Corner brackets */}
-            <div className="absolute -top-12 -left-12 w-6 h-6 border-t-2 border-l-2 border-[#BAFF57]/50 group-hover:border-[#BAFF57] transition-colors duration-300"></div>
-            <div className="absolute -top-12 -right-12 w-6 h-6 border-t-2 border-r-2 border-[#BAFF57]/50 group-hover:border-[#BAFF57] transition-colors duration-300"></div>
-            <div className="absolute -bottom-12 -left-12 w-6 h-6 border-b-2 border-l-2 border-[#BAFF57]/50 group-hover:border-[#BAFF57] transition-colors duration-300"></div>
-            <div className="absolute -bottom-12 -right-12 w-6 h-6 border-b-2 border-r-2 border-[#BAFF57]/50 group-hover:border-[#BAFF57] transition-colors duration-300"></div>
-            
-            <Image 
-              src="/fonts/logoajksn.png" 
-              alt="Design Logo" 
-              width={200}
-              height={200}
-              className="w-40 h-40 md:w-52 md:h-52 lg:w-64 lg:h-64 object-contain group-hover:scale-105 transition-transform duration-500"
-              priority
-            />
-          </div>
-          
-          {/* Button */}
-          <button 
-            onClick={scrollToContent}
-            className="mt-16 px-8 py-4 border border-[#BAFF57]/50 text-[#BAFF57] uppercase tracking-widest text-sm hover:bg-[#BAFF57] hover:text-[#212121] transition-all duration-300 group"
-          >
-            <span className="flex items-center gap-3">
-              Klikni
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-y-1 transition-transform duration-300">
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <polyline points="19 12 12 19 5 12"></polyline>
-              </svg>
-            </span>
-          </button>
-        </div>
+        <Reveal className="w-full">
+          {disciplines.map((item) => {
+            const extrasVisible = isMobile || hover === item.num;
+            const isOpen = !isMobile && hover === item.num;
+            const isDimmed = !isMobile && hover !== null && hover !== item.num;
+            return (
+              <div
+                key={item.num}
+                onMouseEnter={() => !isMobile && setHover(item.num)}
+                onMouseLeave={() => !isMobile && setHover(null)}
+                className={`group grid grid-cols-12 items-start md:items-center gap-4 px-5 md:px-12 lg:px-16 py-7 md:py-9 border-t border-black/15 last:border-b text-black transition-all duration-300 ${
+                  isOpen ? "bg-white" : "bg-transparent"
+                } ${isDimmed ? "opacity-30" : "opacity-100"}`}
+              >
+                <span className="col-span-2 md:col-span-1 text-sm font-mono pt-1 text-black/30">{item.num}</span>
+                <div className="col-span-10 md:col-span-5">
+                  <h3 className="text-xl md:text-3xl font-bold leading-tight">{item.title}</h3>
+                  <div className={`overflow-hidden transition-all duration-500 ease-out ${extrasVisible ? "max-h-40 mt-4 opacity-100" : "max-h-0 mt-0 opacity-0"}`}>
+                    <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+                      {item.extras.map((opt, i) => (
+                        <span
+                          key={opt}
+                          className="text-[10px] md:text-xs uppercase tracking-wider font-mono text-black/55"
+                          style={{
+                            transitionDelay: extrasVisible ? `${i * 60}ms` : "0ms",
+                            transform: extrasVisible ? "translateY(0)" : "translateY(-8px)",
+                            opacity: extrasVisible ? 1 : 0,
+                          }}
+                        >
+                          {opt}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="col-span-12 md:col-span-6 text-sm md:text-base leading-relaxed text-black/60">{item.desc}</p>
+              </div>
+            );
+          })}
+        </Reveal>
       </section>
 
-      {/* Content Section */}
-      <section className="min-h-screen h-screen snap-start snap-always flex items-center px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-0 w-1/3 h-px bg-gradient-to-r from-[#BAFF57]/20 to-transparent"></div>
-          <div className="absolute bottom-1/4 right-0 w-1/3 h-px bg-gradient-to-l from-[#BAFF57]/20 to-transparent"></div>
-        </div>
-
-        <div className="w-full max-w-6xl mx-auto">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-[1px] bg-[#BAFF57]/50"></div>
-            <span className="text-[#BAFF57]/50 text-sm uppercase tracking-widest">O dizajne</span>
+      {/* ── PALETA ── */}
+      <section className={`bg-[#BAFF57] relative snap-start snap-always overflow-hidden ${isMobile ? "min-h-screen py-20 px-5" : "min-h-screen h-screen flex flex-col px-8 lg:px-12 xl:px-16 py-10"}`}>
+        <Reveal className="mb-6 md:mb-8 shrink-0">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="text-black/40 text-xs font-mono">02</span>
+            <div className="w-8 h-px bg-black"></div>
+            <span className="text-black/50 text-xs uppercase tracking-widest font-mono">Naša paleta</span>
           </div>
-          
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#BAFF57] mb-6 sm:mb-8 leading-tight max-w-4xl">
-            Dizajnujeme podľa najnovších trendov
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-none">Tri farby. Nič viac.</h2>
+        </Reveal>
+
+        <Reveal className={`flex-1 grid min-h-0 ${isMobile ? "grid-cols-1 gap-6" : "grid-cols-3 gap-4"}`} delay={100}>
+          {palette.map((color) => (
+            <div key={color.name} className={`group relative ${color.swatch} border ${color.border} flex flex-col justify-between p-6 md:p-8 ${isMobile ? "aspect-[4/3]" : ""} overflow-hidden`}>
+              <span className={`text-[10px] font-mono uppercase tracking-[0.2em] ${color.type} opacity-50`}>{color.role}</span>
+              <div>
+                <p className={`text-4xl md:text-6xl lg:text-7xl font-bold leading-none tracking-tighter ${color.type}`}>{color.name}</p>
+                <div className={`mt-5 flex flex-wrap items-baseline justify-between gap-2 border-t pt-4 ${color.name === "Black" ? "border-[#BAFF57]/25" : "border-black/20"}`}>
+                  <span className={`font-mono text-sm md:text-base ${color.type}`}>{color.hex}</span>
+                  <span className={`text-[10px] md:text-xs font-mono ${color.type} opacity-50`}>{color.rgb}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </Reveal>
+      </section>
+
+      {/* ── PRÁCE ── */}
+      <section className={`bg-[#BAFF57] relative snap-start snap-always flex flex-col ${isMobile ? "min-h-screen py-24 px-5 overflow-y-auto" : "min-h-screen h-screen px-8 lg:px-12 xl:px-16 py-10 overflow-hidden"}`}>
+        <Reveal className="flex items-end justify-between mb-6 md:mb-8 shrink-0">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="text-black/40 text-xs font-mono">03</span>
+              <div className="w-8 h-px bg-black"></div>
+              <span className="text-black/50 text-xs uppercase tracking-widest font-mono">Naše práce</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-none">Vybrané vizuály.</h2>
+          </div>
+        </Reveal>
+
+        <Reveal className={`flex-1 grid min-h-0 ${isMobile ? "grid-cols-1 gap-5" : "grid-cols-2 grid-rows-4 lg:grid-cols-4 lg:grid-rows-2 gap-3 lg:gap-4"}`} delay={100}>
+          {works.map((work) => (
+            <div key={work.image} className="group relative bg-white p-2 hover:p-3 flex flex-col border border-black/10 hover:border-black transition-all duration-300">
+              <div className={`relative overflow-hidden bg-[#212121] ${isMobile ? "aspect-[4/3]" : "flex-1 min-h-0"}`}>
+                <Image
+                  src={work.image}
+                  alt={work.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 25vw"
+                  className={`${work.fit === "contain" ? "object-contain p-2" : "object-cover"} group-hover:scale-105 transition-transform duration-700`}
+                />
+              </div>
+              <div className="pt-3 pb-1 px-1">
+                <span className="text-[9px] md:text-[10px] font-mono uppercase tracking-wider text-black/40">{work.tag}</span>
+                <p className="mt-1 text-sm md:text-base font-bold leading-tight">{work.title}</p>
+              </div>
+            </div>
+          ))}
+
+          <Link href="/projekty" className="group relative bg-black text-[#BAFF57] flex flex-col justify-between p-5 md:p-6 hover:bg-white hover:text-black transition-colors duration-300">
+            <span className="text-[10px] font-mono uppercase tracking-[0.2em] opacity-50">08</span>
+            <div>
+              <p className="text-xl md:text-2xl font-bold leading-none">Všetky projekty</p>
+              <span className="mt-3 inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider opacity-60">
+                Pozrieť
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+              </span>
+            </div>
+          </Link>
+        </Reveal>
+      </section>
+
+      {/* ── PROCES — dark slab ── */}
+      <section className={`bg-[#212121] text-[#BAFF57] relative snap-start snap-always overflow-hidden ${isMobile ? "min-h-screen py-20 px-5" : "min-h-screen h-screen flex flex-col justify-center px-8 lg:px-12 xl:px-16 py-12"}`}>
+        <p className="absolute -right-6 bottom-0 text-[20vw] font-bold leading-none tracking-tighter text-[#BAFF57]/[0.05] select-none pointer-events-none">
+          04
+        </p>
+
+        <Reveal className="relative z-10 mb-10 md:mb-12">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-[#BAFF57]/40 text-xs font-mono">04</span>
+            <div className="w-8 h-px bg-[#BAFF57]"></div>
+            <span className="text-[#BAFF57]/50 text-xs uppercase tracking-widest font-mono">Ako pracujeme</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-[0.95] tracking-tight">
+            Od briefu<br />po handoff.
           </h2>
-          
-          <p className="text-lg md:text-xl lg:text-2xl text-[#BAFF57]/60 max-w-3xl leading-relaxed font-light mb-12">
-            Napredujeme vo svete dizajnu a kreativity. Naše produkty razia cestu v modernom digitálnom svete.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 border border-[#BAFF57]/20 hover:border-[#BAFF57]/40 transition-colors">
-              <span className="text-[#BAFF57]/30 text-sm">01</span>
-              <h3 className="text-xl font-bold text-[#BAFF57] mt-2 mb-2">UI/UX Dizajn</h3>
-              <p className="text-[#BAFF57]/50 text-sm font-light">Intuitívne rozhrania zamerané na používateľa</p>
+        </Reveal>
+
+        <Reveal className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#BAFF57]/15" delay={120}>
+          {process.map((step) => (
+            <div key={step.num} className="group bg-[#212121] hover:bg-[#BAFF57] hover:text-black p-6 md:p-8 transition-colors duration-300">
+              <span className="text-[10px] font-mono text-[#BAFF57]/40 group-hover:text-black/40 transition-colors">{step.num}</span>
+              <h3 className="mt-4 text-lg md:text-xl font-bold leading-tight">{step.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-[#BAFF57]/55 group-hover:text-black/60 transition-colors">{step.desc}</p>
             </div>
-            <div className="p-6 border border-[#BAFF57]/20 hover:border-[#BAFF57]/40 transition-colors">
-              <span className="text-[#BAFF57]/30 text-sm">02</span>
-              <h3 className="text-xl font-bold text-[#BAFF57] mt-2 mb-2">Brand Identity</h3>
-              <p className="text-[#BAFF57]/50 text-sm font-light">Vizuálna identita ktorá zaujme</p>
-            </div>
-            <div className="p-6 border border-[#BAFF57]/20 hover:border-[#BAFF57]/40 transition-colors">
-              <span className="text-[#BAFF57]/30 text-sm">03</span>
-              <h3 className="text-xl font-bold text-[#BAFF57] mt-2 mb-2">Graphic Design</h3>
-              <p className="text-[#BAFF57]/50 text-sm font-light">vizuály, ktoré oživia váš projekt</p>
-            </div>
-          </div>
-        </div>
+          ))}
+        </Reveal>
       </section>
 
-      {/* Color Palette Section */}
-      <section className={`snap-start snap-always flex items-center justify-center px-8 md:px-16 lg:px-24 xl:px-32 relative ${
-        isMobile 
-          ? 'min-h-screen py-40 overflow-y-auto' 
-          : 'min-h-screen h-screen overflow-hidden'
-      }`}>
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-16 left-16 w-24 h-24 border border-[#BAFF57]/10 rotate-45"></div>
-          <div className="absolute bottom-16 right-16 w-20 h-20 border border-[#BAFF57]/10 -rotate-12"></div>
-        </div>
+      <PageCta
+        num="05"
+        eyebrow="Začnime spoluprácu"
+        title={<>Poďme tvoriť<br />spolu.</>}
+        lead="Máte víziu? My ju pretvoríme na vizuálnu realitu. Kontaktujte nás."
+        ghost="DESIGN"
+      />
 
-        <div className="w-full max-w-6xl mx-auto">
-          <div className="flex items-center gap-4 mb-12">
-            <div className="w-12 h-[1px] bg-[#BAFF57]/50"></div>
-            <span className="text-[#BAFF57]/50 text-sm uppercase tracking-widest">Naša paleta</span>
-          </div>
-
-          <div className={`grid grid-cols-1 md:grid-cols-3 ${
-            isMobile ? 'gap-8 my-8' : 'gap-6 lg:gap-8'
-          }`}>
-            {/* Color 1 - Green */}
-            <div className="group relative">
-              <div className="aspect-[3/4] bg-[#BAFF57] relative overflow-hidden">
-                {/* Corner accents */}
-                <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#212121]/30 group-hover:w-12 group-hover:h-12 transition-all duration-300"></div>
-                <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-[#212121]/30 group-hover:w-12 group-hover:h-12 transition-all duration-300"></div>
-                
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#212121]/20 to-transparent">
-                  <span className="text-[#212121]/50 text-xs font-mono uppercase tracking-wider">Primary</span>
-                  <h3 className="text-3xl md:text-4xl font-bold text-[#212121] mt-1">Lime</h3>
-                </div>
-              </div>
-              <div className="mt-4 flex items-center justify-between">
-                <span className="text-[#BAFF57] font-mono text-lg">#BAFF57</span>
-                <span className="text-[#BAFF57]/50 text-sm">RGB 186, 255, 87</span>
-              </div>
-            </div>
-
-            {/* Color 2 - Dark */}
-            <div className="group relative">
-              <div className="aspect-[3/4] bg-[#212121] border border-[#BAFF57]/30 relative overflow-hidden">
-                {/* Corner accents */}
-                <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#BAFF57]/30 group-hover:w-12 group-hover:h-12 group-hover:border-[#BAFF57]/60 transition-all duration-300"></div>
-                <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-[#BAFF57]/30 group-hover:w-12 group-hover:h-12 group-hover:border-[#BAFF57]/60 transition-all duration-300"></div>
-                
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <span className="text-[#BAFF57]/50 text-xs font-mono uppercase tracking-wider">Background</span>
-                  <h3 className="text-3xl md:text-4xl font-bold text-[#BAFF57] mt-1">Dark</h3>
-                </div>
-              </div>
-              <div className="mt-4 flex items-center justify-between">
-                <span className="text-[#BAFF57] font-mono text-lg">#212121</span>
-                <span className="text-[#BAFF57]/50 text-sm">RGB 33, 33, 33</span>
-              </div>
-            </div>
-
-            {/* Color 3 - White */}
-            <div className="group relative">
-              <div className="aspect-[3/4] bg-[#FFFFFF] relative overflow-hidden">
-                {/* Corner accents */}
-                <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#212121]/20 group-hover:w-12 group-hover:h-12 transition-all duration-300"></div>
-                <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-[#212121]/20 group-hover:w-12 group-hover:h-12 transition-all duration-300"></div>
-                
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#212121]/10 to-transparent">
-                  <span className="text-[#212121]/50 text-xs font-mono uppercase tracking-wider">Accent</span>
-                  <h3 className="text-3xl md:text-4xl font-bold text-[#212121] mt-1">White</h3>
-                </div>
-              </div>
-              <div className="mt-4 flex items-center justify-between">
-                <span className="text-[#BAFF57] font-mono text-lg">#FFFFFF</span>
-                <span className="text-[#BAFF57]/50 text-sm">RGB 255, 255, 255</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Design Projects Showcase */}
-      <section className={`snap-start snap-always flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 relative ${
-        isMobile 
-          ? 'min-h-screen py-40 overflow-y-auto' 
-          : 'min-h-screen py-8 sm:py-12 md:py-16 overflow-hidden'
-      }`}>
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 right-20 w-32 h-32 border border-[#BAFF57]/10 rotate-12"></div>
-          <div className="absolute bottom-20 left-20 w-24 h-24 border border-[#BAFF57]/10 -rotate-6"></div>
-          <div className="absolute top-1/3 left-0 w-1/4 h-px bg-gradient-to-r from-[#BAFF57]/20 to-transparent"></div>
-          <div className="absolute bottom-1/3 right-0 w-1/4 h-px bg-gradient-to-l from-[#BAFF57]/20 to-transparent"></div>
-        </div>
-
-        <div className="w-full max-w-7xl mx-auto relative z-10">
-          <div className="flex items-center gap-4 mb-12">
-            <div className="w-12 h-[1px] bg-[#BAFF57]/50"></div>
-            <span className="text-[#BAFF57]/50 text-sm uppercase tracking-widest">Naše práce</span>
-          </div>
-
-          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-stretch ${
-            isMobile ? 'gap-8 my-8' : 'gap-4 sm:gap-6 md:gap-8'
-          }`}>
-            {/* Project 1 */}
-            <div className="group relative transition-all duration-700 ease-out h-full">
-              {/* Card container */}
-              <div className="relative border border-[#BAFF57]/20 bg-[#BAFF57]/5 backdrop-blur-sm overflow-hidden h-full flex flex-col">
-                {/* Image container - top part */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#212121]/20">
-                  <Image 
-                    src="/fonts/Screenshot 2026-01-25 at 16.50.43.png" 
-                    alt="Design Project 1" 
-                    fill
-                    className="object-contain transition-transform duration-700 group-hover:scale-105 p-2"
-                  />
-                  {/* Corner accents on image */}
-                  <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#BAFF57]/50 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]"></div>
-                  <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#BAFF57]/50 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]"></div>
-                </div>
-                
-                {/* Content - bottom part */}
-                <div className="p-6 bg-[#212121]/80 flex-1 flex flex-col">
-                  <span className="text-[#BAFF57]/40 text-xs font-mono uppercase tracking-wider">Brand Identity</span>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-[#BAFF57] mt-2">Hlavičkový papier</h3>
-                  <p className="text-[#BAFF57]/60 text-sm mt-2 font-light">
-                    ukážka moderného technologického dizajnu
-                  </p>
-                </div>
-                
-                {/* Bottom corner accents */}
-                <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#BAFF57]/30 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]/60"></div>
-                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#BAFF57]/30 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]/60"></div>
-              </div>
-            </div>
-
-            {/* Project 2 */}
-            <div className="group relative transition-all duration-700 ease-out h-full">
-              {/* Card container */}
-              <div className="relative border border-[#BAFF57]/20 bg-[#BAFF57]/5 backdrop-blur-sm overflow-hidden h-full flex flex-col">
-                {/* Image container - top part */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#212121]/20">
-                  <Image 
-                    src="/fonts/Screenshot 2026-01-25 at 16.51.43.png" 
-                    alt="Design Project 2" 
-                    fill
-                    className="object-contain transition-transform duration-700 group-hover:scale-105 p-2"
-                  />
-                  {/* Corner accents on image */}
-                  <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#BAFF57]/50 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]"></div>
-                  <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#BAFF57]/50 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]"></div>
-                </div>
-                
-                {/* Content - bottom part */}
-                <div className="p-6 bg-[#212121]/80">
-                  <span className="text-[#BAFF57]/40 text-xs font-mono uppercase tracking-wider">BRAND IDENTITY</span>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-[#BAFF57] mt-2">Dizajn letáčiku</h3>
-                  <p className="text-[#BAFF57]/60 text-sm mt-2 font-light">
-                    jednoduchý a prehladný dizajn
-                  </p>
-                </div>
-                
-                {/* Bottom corner accents */}
-                <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#BAFF57]/30 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]/60"></div>
-                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#BAFF57]/30 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]/60"></div>
-              </div>
-            </div>
-
-            {/* Project 3 */}
-            <div className="group relative transition-all duration-700 ease-out h-full">
-              {/* Card container */}
-              <div className="relative border border-[#BAFF57]/20 bg-[#BAFF57]/5 backdrop-blur-sm overflow-hidden h-full flex flex-col">
-                {/* Image container - top part */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image 
-                    src="/fonts/Screenshot 2026-01-25 at 16.51.14.png" 
-                    alt="Design Project 3" 
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  {/* Corner accents on image */}
-                  <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#BAFF57]/50 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]"></div>
-                  <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#BAFF57]/50 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]"></div>
-                </div>
-                
-                {/* Content - bottom part */}
-                <div className="p-6 bg-[#212121]/80">
-                  <span className="text-[#BAFF57]/40 text-xs font-mono uppercase tracking-wider">BRAND IDENTITY</span>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-[#BAFF57] mt-2">Voucher dizajn</h3>
-                  <p className="text-[#BAFF57]/60 text-sm mt-2 font-light">
-                    jednoduchý dizajn pre zľavovú kartičku
-                  </p>
-                </div>
-                
-                {/* Bottom corner accents */}
-                <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#BAFF57]/30 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]/60"></div>
-                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#BAFF57]/30 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]/60"></div>
-              </div>
-            </div>
-
-            {/* Project 4 */}
-            <div className="group relative transition-all duration-700 ease-out h-full">
-              {/* Card container */}
-              <div className="relative border border-[#BAFF57]/20 bg-[#BAFF57]/5 backdrop-blur-sm overflow-hidden h-full flex flex-col">
-                {/* Image container - top part */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image 
-                    src="/fonts/Screenshot 2026-01-25 at 16.53.00.png" 
-                    alt="Design Project 4" 
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  {/* Corner accents on image */}
-                  <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#BAFF57]/50 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]"></div>
-                  <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#BAFF57]/50 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]"></div>
-                </div>
-                
-                {/* Content - bottom part */}
-                <div className="p-6 bg-[#212121]/80">
-                  <span className="text-[#BAFF57]/40 text-xs font-mono uppercase tracking-wider">WEB DESIGN</span>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-[#BAFF57] mt-2">New Era eshop</h3>
-                  <p className="text-[#BAFF57]/60 text-sm mt-2 font-light">
-                    dizajn nového eshopu
-                  </p>
-                </div>
-                
-                {/* Bottom corner accents */}
-                <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#BAFF57]/30 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]/60"></div>
-                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#BAFF57]/30 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]/60"></div>
-              </div>
-            </div>
-
-            {/* Project 5 */}
-            <div className="group relative transition-all duration-700 ease-out h-full">
-              {/* Card container */}
-              <div className="relative border border-[#BAFF57]/20 bg-[#BAFF57]/5 backdrop-blur-sm overflow-hidden h-full flex flex-col">
-                {/* Image container - top part */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image 
-                    src="/fonts/Screenshot 2026-01-25 at 16.53.32.png" 
-                    alt="Design Project 5" 
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  {/* Corner accents on image */}
-                  <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#BAFF57]/50 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]"></div>
-                  <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#BAFF57]/50 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]"></div>
-                </div>
-                
-                {/* Content - bottom part */}
-                <div className="p-6 bg-[#212121]/80">
-                  <span className="text-[#BAFF57]/40 text-xs font-mono uppercase tracking-wider">WEB DESIGN</span>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-[#BAFF57] mt-2">Autoškola Zvyky</h3>
-                  <p className="text-[#BAFF57]/60 text-sm mt-2 font-light">
-                    Dizajn webstránky pre autoškolu
-                  </p>
-                </div>
-                
-                {/* Bottom corner accents */}
-                <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#BAFF57]/30 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]/60"></div>
-                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#BAFF57]/30 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]/60"></div>
-              </div>
-            </div>
-
-            {/* Project 6 */}
-            <div className="group relative transition-all duration-700 ease-out h-full">
-              {/* Card container */}
-              <div className="relative border border-[#BAFF57]/20 bg-[#BAFF57]/5 backdrop-blur-sm overflow-hidden h-full flex flex-col">
-                {/* Image container - top part */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image 
-                    src="/fonts/Screenshot 2026-01-25 at 16.55.23.png" 
-                    alt="Design Project 6" 
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  {/* Corner accents on image */}
-                  <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#BAFF57]/50 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]"></div>
-                  <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#BAFF57]/50 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]"></div>
-                </div>
-                
-                {/* Content - bottom part */}
-                <div className="p-6 bg-[#212121]/80">
-                  <span className="text-[#BAFF57]/40 text-xs font-mono uppercase tracking-wider">WEB DESIGN</span>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-[#BAFF57] mt-2">QR eshop</h3>
-                  <p className="text-[#BAFF57]/60 text-sm mt-2 font-light">
-                    Dizajn moderného eshopu a identity značky
-                  </p>
-                </div>
-                
-                {/* Bottom corner accents */}
-                <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#BAFF57]/30 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]/60"></div>
-                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#BAFF57]/30 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]/60"></div>
-              </div>
-            </div>
-
-            {/* Project 7 */}
-            <div className="group relative transition-all duration-700 ease-out h-full">
-              {/* Card container */}
-              <div className="relative border border-[#BAFF57]/20 bg-[#BAFF57]/5 backdrop-blur-sm overflow-hidden h-full flex flex-col">
-                {/* Image container - top part */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image 
-                    src="/fonts/Screenshot 2026-01-25 at 16.56.20 1.png" 
-                    alt="Design Project 7" 
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  {/* Corner accents on image */}
-                  <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#BAFF57]/50 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]"></div>
-                  <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#BAFF57]/50 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]"></div>
-                </div>
-                
-                {/* Content - bottom part */}
-                <div className="p-6 bg-[#212121]/80">
-                  <span className="text-[#BAFF57]/40 text-xs font-mono uppercase tracking-wider">Brand Design</span>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-[#BAFF57] mt-2">Visual Identity</h3>
-                  <p className="text-[#BAFF57]/60 text-sm mt-2 font-light">
-                    Komplexná vizuálna identita značky
-                  </p>
-                </div>
-                
-                {/* Bottom corner accents */}
-                <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#BAFF57]/30 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]/60"></div>
-                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#BAFF57]/30 transition-all duration-500 group-hover:w-10 group-hover:h-10 group-hover:border-[#BAFF57]/60"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="min-h-screen h-screen snap-start snap-always flex items-center justify-center px-8 md:px-16 lg:px-24 xl:px-32 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-[#BAFF57]/10 rotate-45"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-[#BAFF57]/10"></div>
-        </div>
-
-        <div className="text-center relative z-10">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#BAFF57] mb-8">
-            Poďme tvoriť spolu
-          </h2>
-          <p className="text-lg md:text-xl text-[#BAFF57]/60 mb-12 max-w-xl mx-auto font-light">
-            Máte víziu? My ju pretvoríme na vizuálnu realitu. Kontaktujte nás.
-          </p>
-          <Link 
-            href="/#kontakt"
-            className="inline-flex items-center gap-4 px-8 py-4 bg-[#BAFF57] text-[#212121] font-medium uppercase tracking-wider hover:bg-[#BAFF57]/90 transition-colors"
-          >
-            Kontaktujte nás
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </Link>
-        </div>
-      </section>
+      <PageFooter />
     </div>
   );
 }
