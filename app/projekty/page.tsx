@@ -18,24 +18,37 @@ type Project = {
   link: string | null;
   year: string;
   contain?: boolean;
+  imageBg?: string;
+  imageAspect?: "4/3" | "3/2";
+  objectPosition?: string;
+  /** Small brand logo: shown padded and centered instead of filling the frame */
+  logo?: boolean;
+  handle?: string;
+};
+
+const aspectClasses: Record<NonNullable<Project["imageAspect"]>, string> = {
+  "4/3": "aspect-[4/3]",
+  "3/2": "aspect-[3/2]",
 };
 
 const projects: Project[] = [
-  { id: 1, title: "Karin Art", category: "development", description: "Profesionálne tetovanie Bratislava", tag: "Web Development", image: "/fonts/karinart.png", link: "https://www.karinart.sk", year: "2024" },
-  { id: 2, title: "Beauty Institute", category: "development", description: "Permanent Beauty Institute Bratislava", tag: "Web Development", image: "/fonts/sisi.png", link: "https://www.sisikovacsova.com", year: "2024" },
-  { id: 3, title: "Natus Volare", category: "development", description: "Profesionálne dronové služby", tag: "Web Development", image: "/fonts/natus.png", link: "https://misk0o.github.io/Michal-Pipa-X-Natus-Volare/sluzby.html", year: "2024" },
+  { id: 1, title: "Karin Art", category: "development", description: "Profesionálne tetovanie Bratislava", tag: "Web Development", image: "/screenshots/karin-art-portfolio-mockup-v3.jpg", link: "https://www.karinart.sk", year: "2024", imageBg: "#1C1428", objectPosition: "center" },
+  { id: 2, title: "Beauty Institute", category: "development", description: "Permanent Beauty Institute Bratislava", tag: "Web Development", image: "/screenshots/sisi-kovacsova-portfolio-mockup-v5.jpg", link: "https://www.sisikovacsova.com", year: "2024", objectPosition: "center" },
+  { id: 26, title: "Onko klub", category: "development", description: "Členská platforma a aplikácia pre onkologických pacientov a ich blízkych", tag: "Web & App Development", image: "/screenshots/onkoklub-portfolio.jpg", link: "https://www.onkoklub.sk/", year: "2026", imageBg: "#FDF2F8", objectPosition: "center" },
+  { id: 20, title: "Know3D", category: "development", description: "E-shop pre 3D tlač a filament", tag: "E-shop Development", image: "/screenshots/know3d-portfolio-mockup.jpg", link: "https://www.know3d.sk", year: "2026", imageBg: "#E8F0F8", objectPosition: "center" },
+  { id: 21, title: "JVD Cars", category: "development", description: "Web pre autobazár a autoslužby", tag: "Web Development", image: "/screenshots/jvdcars-portfolio-mockup.jpg", link: "https://www.jvdcars.sk/", year: "2026", imageBg: "#1A1A1A", objectPosition: "center" },
+  { id: 27, title: "Autoškola Zvyky", category: "development", description: "Web pre autoškolu v Bratislave a Malackách", tag: "Web Development", image: "/screenshots/zvyky-portfolio.jpg", link: "https://www.zvyky.sk", year: "2026", imageBg: "#EEEEEE", objectPosition: "center" },
+  { id: 14, title: "Michal Kurka", category: "development", description: "Web pre finančného poradcu", tag: "Web Development", image: "/screenshots/michal-kurka-portfolio-mockup.jpg", link: "https://michal-kurka-web.vercel.app/domov", year: "2024", imageBg: "#1A1A1A", objectPosition: "center" },
+  { id: 15, title: "Karolína Pifflová", category: "development", description: "Portfólio umelkyňe", tag: "Web Development", image: "/screenshots/karolina-pifflova-portfolio-mockup.jpg", link: "https://www.karolinaromanapifflova.com/", year: "2024", imageBg: "#F5D4D8", objectPosition: "center" },
+  { id: 23, title: "New Era Microblading", category: "development", description: "E-shop pre kozmetické studio Beauty Institute", tag: "E-shop Development", image: "/screenshots/sisi-eshop.png", link: "https://www.sisikovacsova.com", year: "2026" },
+  { id: 17, title: "Andrej Paulička", category: "development", description: "Osobné portfólio developera", tag: "Web Development", image: "/image copy 8.png", link: "https://www.andrejpaulicka.com", year: "2024" },
   { id: 4, title: "Dashboard", category: "development", description: "Cloud Storage & Project Management", tag: "SaaS Dashboard System", image: "/fonts/dashboard.png", link: "https://dashboard-blue-alpha.vercel.app", year: "2024" },
   { id: 5, title: "Invoice Generator", category: "development", description: "PBSQ Invoice Generator", tag: "Automatizácia", image: "/fonts/invoice.png", link: "https://next-js-invoice-generator-six.vercel.app/login", year: "2024" },
   { id: 6, title: "Name Sorting Tool", category: "development", description: "My Contacts App", tag: "Application Development", image: "/fonts/name.png", link: "https://name-sorting-tool.vercel.app", year: "2024" },
-  { id: 14, title: "Michal Kurka", category: "development", description: "Web pre finančného poradcu", tag: "Web Development", image: "/image copy 5.png", link: "https://michal-kurka-web.vercel.app/domov", year: "2024" },
-  { id: 15, title: "Karolína Pifflová", category: "development", description: "Portfólio umelkyňe", tag: "Web Development", image: "/image copy 6.png", link: "https://www.karolinaromanapifflova.com/", year: "2024" },
   { id: 16, title: "Účtovníctvo App", category: "development", description: "Aplikácia na zjednodušenie vedenia účtovníctva", tag: "Automatizácia", image: "/image copy 7.png", link: null, year: "2024" },
-  { id: 17, title: "Andrej Paulička", category: "development", description: "Osobné portfólio developera", tag: "Web Development", image: "/image copy 8.png", link: "https://www.andrejpaulicka.com", year: "2024" },
-  { id: 23, title: "New Era Microblading", category: "development", description: "E-shop pre kozmetické studio Beauty Institute", tag: "E-shop Development", image: "/screenshots/sisi-eshop.png", link: "https://www.sisikovacsova.com", year: "2026" },
-  { id: 20, title: "Know3D", category: "development", description: "E-shop pre 3D tlač a filament", tag: "E-shop Development", image: "/screenshots/know3d.png", link: "https://www.know3d.sk", year: "2026" },
-  { id: 21, title: "JVD Cars", category: "development", description: "Web pre autobazár a autoslužby", tag: "Web Development", image: "/screenshots/jvd-cars.png", link: "https://www.jvdcars.sk/", year: "2026" },
-  { id: 18, title: "Bombafasada", category: "marketing", description: "Profesionálna fasádna spoločnosť — brand na sociálnych sieťach", tag: "Social Media Production", image: "/logos/bombafasada.png", link: "https://www.instagram.com/bombafasada", year: "2026", contain: true },
-  { id: 19, title: "Kávička u Janíčka", category: "marketing", description: "Kaviareň — video produkcia a správa profilu", tag: "Social Media Production", image: "/screenshots/janicko-post.png", link: "https://www.instagram.com/kavicka_u_janicka", year: "2026" },
+  { id: 18, title: "Bombafasada", category: "marketing", description: "Profesionálna fasádna spoločnosť — brand na sociálnych sieťach", tag: "Social Media Production", image: "/logos/bombafasada-clean.png", link: "https://www.instagram.com/bombafasada/", year: "2026", logo: true, imageBg: "#206CD3", handle: "@bombafasada" },
+  { id: 24, title: "Karin Art", category: "marketing", description: "Tetovacie štúdio — obsah a správa Instagramu", tag: "Social Media Production", image: "/logos/karinart.png", link: "https://www.instagram.com/karin_art_tattoo?igsh=N3lqejRsenR5MWd0", year: "2026", logo: true, imageBg: "#FFFFFF", handle: "@karin_art_tattoo" },
+  { id: 25, title: "Autoškola Zvyky", category: "marketing", description: "Autoškola — obsah a správa Instagramu", tag: "Social Media Production", image: "/logos/zvyky.webp", link: "https://www.instagram.com/autoskola.zvyky/", year: "2026", logo: true, imageBg: "#EEF6FD", handle: "@autoskola.zvyky" },
   { id: 22, title: "NIE RAKOVINE — Redesign", category: "design", description: "Redesign webu pre onkologické združenie", tag: "Web Design", image: "/screenshots/nie-rakovine-redesign.png", link: "https://onkoklub.sk", year: "2026" },
   { id: 7, title: "Hlavičkový papier", category: "design", description: "ukážka moderného technologického dizajnu", tag: "Brand Identity", image: "/fonts/Screenshot 2026-01-25 at 16.50.43.png", link: null, year: "2024", contain: true },
   { id: 8, title: "Dizajn letáčiku", category: "design", description: "jednoduchý a prehľadný dizajn", tag: "Brand Identity", image: "/fonts/Screenshot 2026-01-25 at 16.51.43.png", link: null, year: "2024", contain: true },
@@ -119,17 +132,33 @@ export default function ProjektyPage() {
                   {...(project.link ? { href: project.link, target: "_blank", rel: "noopener noreferrer" } : {})}
                   className="group relative bg-white p-2 hover:p-3 flex flex-col h-full border border-black/10 hover:border-black transition-all duration-300"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden bg-[#212121]">
+                  <div
+                    className={`relative overflow-hidden ${aspectClasses[project.imageAspect ?? "4/3"]}`}
+                    style={{ backgroundColor: project.imageBg ?? "#212121" }}
+                  >
                     <Image
                       src={project.image}
                       alt={project.title}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className={`${project.contain ? "object-contain p-3" : "object-cover object-top"} group-hover:scale-105 transition-transform duration-700`}
+                      style={project.objectPosition ? { objectPosition: project.objectPosition } : undefined}
+                      className={`${
+                        project.logo
+                          ? "object-contain p-[18%]"
+                          : project.contain
+                            ? "object-contain object-center"
+                            : `object-cover${project.objectPosition ? "" : " object-top"}`
+                      } group-hover:scale-105 transition-transform duration-700`}
                     />
                     <span className="absolute top-0 left-0 bg-[#BAFF57] text-black text-[10px] font-mono uppercase tracking-wider px-2 py-1">
                       {categoryLabels[project.category]}
                     </span>
+                    {project.handle && (
+                      <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 bg-black text-[#BAFF57] text-[10px] font-mono tracking-wider px-2 py-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor"></circle></svg>
+                        {project.handle}
+                      </span>
+                    )}
                   </div>
 
                   <div className="flex-1 flex flex-col pt-4 pb-2 px-1">

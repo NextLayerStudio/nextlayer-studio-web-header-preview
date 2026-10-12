@@ -7,9 +7,6 @@ import emailjs from '@emailjs/browser';
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [displayedText, setDisplayedText] = useState("");
-  const [loadingFadeOut, setLoadingFadeOut] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -38,29 +35,9 @@ export default function Home() {
 
   const showHamburger = isMobile ? true : scrollY > 400;
 
-  const loadingText = "Budujeme značky, ktoré sa nezabúdajú.";
-
   useEffect(() => {
     emailjs.init('VBkXVCwNKLhntRGyJ');
   }, []);
-
-  useEffect(() => {
-    if (!isLoading) return;
-    let currentIndex = 0;
-    const typingInterval = setInterval(() => {
-      if (currentIndex <= loadingText.length) {
-        setDisplayedText(loadingText.slice(0, currentIndex));
-        currentIndex++;
-      } else {
-        clearInterval(typingInterval);
-        setTimeout(() => {
-          setLoadingFadeOut(true);
-          setTimeout(() => setIsLoading(false), 800);
-        }, 500);
-      }
-    }, 50);
-    return () => clearInterval(typingInterval);
-  }, [isLoading]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -68,7 +45,7 @@ export default function Home() {
     const handleScroll = () => setScrollY(container.scrollTop);
     container.addEventListener("scroll", handleScroll, { passive: true });
     return () => container.removeEventListener("scroll", handleScroll);
-  }, [isLoading]);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -168,15 +145,6 @@ export default function Home() {
 
   return (
     <div ref={containerRef} className="bg-[#BAFF57] h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
-
-      {/* Loading Screen */}
-      {isLoading && (
-        <div className={`fixed inset-0 z-50 bg-[#BAFF57] flex items-center justify-center transition-opacity duration-700 ${loadingFadeOut ? 'opacity-0' : 'opacity-100'}`}>
-          <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-normal text-black text-center px-8 max-w-4xl">
-            {displayedText}<span className="animate-pulse">|</span>
-          </p>
-        </div>
-      )}
 
       {/* Hamburger Button */}
       {showHamburger && !isMenuOpen && (
@@ -464,8 +432,18 @@ export default function Home() {
           style={{ opacity: section3Progress, transform: `translateY(${(1 - section3Progress) * 40}px)` }}
         >
           <div className={`group relative bg-black overflow-hidden ${isMobile ? 'aspect-[4/5]' : 'col-span-7 row-span-2'}`}>
-            <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" src="https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/bombafasada/video1.mp4" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            <div className="absolute inset-0 grid grid-cols-2 gap-1 bg-[#BAFF57]">
+              {["video1", "video2"].map((name) => (
+                <div key={name} className="relative overflow-hidden bg-black">
+                  <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover object-center" src={`https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/bombafasada/${name}.mp4`} />
+                </div>
+              ))}
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent pointer-events-none"></div>
+            <div className="absolute top-4 left-4 md:top-5 md:left-5 flex items-center gap-2 bg-black/70 text-white px-2.5 py-1.5 text-[10px] font-mono uppercase tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#BAFF57] animate-pulse"></span>
+              @bombafasada · Reels
+            </div>
             <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
               <span className="bg-[#BAFF57] text-black text-[10px] font-mono uppercase tracking-wider px-2 py-0.5">Social Media</span>
               <p className="mt-3 text-white text-2xl md:text-4xl font-bold">Bombafasada</p>
@@ -473,12 +451,12 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={`group relative bg-white overflow-hidden ${isMobile ? 'aspect-[16/10]' : 'col-span-5 row-span-1'}`}>
-            <Image src="/screenshots/janicko-post.png" alt="Kávička u Janíčka" fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover object-top group-hover:scale-105 transition-transform duration-700" />
+          <div className={`group relative bg-[#FDF2F8] overflow-hidden ${isMobile ? 'aspect-[16/10]' : 'col-span-5 row-span-1'}`}>
+            <Image src="/screenshots/onkoklub-portfolio.jpg" alt="ONKO KLUB" fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover object-center group-hover:scale-105 transition-transform duration-700" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
             <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
-              <span className="bg-black text-[#BAFF57] text-[10px] font-mono uppercase tracking-wider px-2 py-0.5">Social Media</span>
-              <p className="mt-2 text-white text-xl md:text-2xl font-bold">Kávička u Janíčka</p>
+              <span className="bg-black text-[#BAFF57] text-[10px] font-mono uppercase tracking-wider px-2 py-0.5">Web & App Development</span>
+              <p className="mt-2 text-white text-xl md:text-2xl font-bold">ONKO KLUB</p>
             </div>
           </div>
 
@@ -556,7 +534,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── ČÍSLA — typography + client marquee ── */}
+      {/* ── ČÍSLA — typography + client marquee (hidden for now) ──
       <section className={`bg-[#BAFF57] relative snap-start snap-always overflow-hidden ${isMobile ? 'min-h-screen py-20 flex flex-col justify-center' : 'min-h-screen h-screen flex flex-col justify-between py-12'}`}>
         <div className="px-5 md:px-12 lg:px-16" style={{ opacity: section5Progress }}>
           <div className="flex items-center gap-3 mb-3">
@@ -594,6 +572,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      */}
 
       {/* ── KONTAKT — giant type + white form ── */}
       <section id="kontakt" className="relative min-h-screen h-screen bg-[#BAFF57] overflow-hidden snap-start snap-always flex flex-col">
