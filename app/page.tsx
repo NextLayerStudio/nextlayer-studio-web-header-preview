@@ -358,6 +358,7 @@ export default function Home() {
                 src={src}
                 className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
                 style={{ opacity: i === aboutVideoIndex ? 1 : 0, pointerEvents: i === aboutVideoIndex ? "auto" : "none" }}
+                priority={i === aboutVideoIndex}
                 playWhenVisible={i === aboutVideoIndex}
               />
             ))}
@@ -403,6 +404,7 @@ export default function Home() {
                 src={src}
                 className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
                 style={{ opacity: i === aboutVideoIndex ? 1 : 0, pointerEvents: i === aboutVideoIndex ? "auto" : "none" }}
+                priority={i === aboutVideoIndex}
                 playWhenVisible={i === aboutVideoIndex}
               />
             ))}
@@ -435,7 +437,11 @@ export default function Home() {
             <div className="absolute inset-0 grid grid-cols-2 gap-1 bg-[#BAFF57]">
               {["video1", "video2"].map((name) => (
                 <div key={name} className="relative overflow-hidden bg-black">
-                  <LazyVideo src={`/kampane/bombafasada/${name}.mp4`} className="absolute inset-0 w-full h-full object-cover object-center" />
+                  <LazyVideo
+                    src={`/kampane/bombafasada/${name}.mp4`}
+                    className="absolute inset-0 w-full h-full object-cover object-center"
+                    priority
+                  />
                 </div>
               ))}
             </div>
