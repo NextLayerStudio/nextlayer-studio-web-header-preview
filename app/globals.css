@@ -75,10 +75,13 @@ body {
   }
 }
 
-/* Scroll snap improvements */
-html, body {
-  overflow: hidden;
+/* Snap pages scroll inside their own h-screen overflow-y-scroll wrapper */
+html {
   height: 100%;
+}
+
+body {
+  min-height: 100%;
 }
 
 /* Hide scrollbar but keep functionality */

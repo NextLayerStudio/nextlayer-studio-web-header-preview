@@ -37,6 +37,10 @@ const palette = [
 ];
 
 const works = [
+  { image: "/design/bombafasada/jesen-letak-cta.jpg", tag: "Offline kampaň", title: "Bombafasáda — jesenná akcia", fit: "contain" },
+  { image: "/design/bombafasada/jesen-prenosna-zlava.jpg", tag: "Offline kampaň", title: "Bombafasáda — prenosná zľava", fit: "contain" },
+  { image: "/design/bombafasada/recenzia-sused-qr.jpg", tag: "Offline kampaň", title: "Bombafasáda — recenzia pre susedov", fit: "contain" },
+  { image: "/design/bombafasada/recenzia-google.png", tag: "Offline kampaň", title: "Bombafasáda — výzva na recenziu", fit: "contain" },
   { image: "/fonts/Screenshot 2026-01-25 at 16.50.43.png", tag: "Brand Identity", title: "Hlavičkový papier", fit: "contain" },
   { image: "/fonts/Screenshot 2026-01-25 at 16.51.43.png", tag: "Brand Identity", title: "Dizajn letáčiku", fit: "contain" },
   { image: "/fonts/Screenshot 2026-01-25 at 16.51.14.png", tag: "Brand Identity", title: "Voucher dizajn", fit: "cover" },
@@ -171,10 +175,10 @@ export default function DesignPage() {
           </div>
         </Reveal>
 
-        <Reveal className={`flex-1 grid min-h-0 ${isMobile ? "grid-cols-1 gap-5" : "grid-cols-2 grid-rows-4 lg:grid-cols-4 lg:grid-rows-2 gap-3 lg:gap-4"}`} delay={100}>
+        <Reveal className={`flex-1 grid min-h-0 ${isMobile ? "grid-cols-1 gap-5 auto-rows-fr" : "grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 auto-rows-fr"}`} delay={100}>
           {works.map((work) => (
-            <div key={work.image} className="group relative bg-white p-2 hover:p-3 flex flex-col border border-black/10 hover:border-black transition-all duration-300">
-              <div className={`relative overflow-hidden bg-[#212121] ${isMobile ? "aspect-[4/3]" : "flex-1 min-h-0"}`}>
+            <div key={work.image} className="group relative bg-white p-2 hover:p-3 flex flex-col border border-black/10 hover:border-black transition-all duration-300 min-h-[220px] md:min-h-0">
+              <div className={`relative overflow-hidden bg-[#f4f4f4] ${isMobile ? "aspect-[3/4]" : "flex-1 min-h-[200px]"}`}>
                 <Image
                   src={work.image}
                   alt={work.title}

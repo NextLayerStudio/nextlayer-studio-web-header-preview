@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import SiteMenu from "../components/SiteMenu";
 import PageHero from "../components/PageHero";
 import PageCta from "../components/PageCta";
 import PageFooter from "../components/PageFooter";
 import Reveal from "../components/Reveal";
+import { campaigns } from "./kampane/data";
 
 type Project = {
   id: number;
@@ -35,6 +37,7 @@ const projects: Project[] = [
   { id: 1, title: "Karin Art", category: "development", description: "Profesionálne tetovanie Bratislava", tag: "Web Development", image: "/screenshots/karin-art-portfolio-mockup-v3.jpg", link: "https://www.karinart.sk", year: "2024", imageBg: "#1C1428", objectPosition: "center" },
   { id: 2, title: "Beauty Institute", category: "development", description: "Permanent Beauty Institute Bratislava", tag: "Web Development", image: "/screenshots/sisi-kovacsova-portfolio-mockup-v5.jpg", link: "https://www.sisikovacsova.com", year: "2024", objectPosition: "center" },
   { id: 26, title: "Onko klub", category: "development", description: "Členská platforma a aplikácia pre onkologických pacientov a ich blízkych", tag: "Web & App Development", image: "/screenshots/onkoklub-portfolio.jpg", link: "https://www.onkoklub.sk/", year: "2026", imageBg: "#FDF2F8", objectPosition: "center" },
+  { id: 29, title: "Stužka nádeje", category: "development", description: "Kampaňová stránka PINK OKTÓBER pre NIE RAKOVINE", tag: "Web Development", image: "/screenshots/stuzka-portfolio.jpg", link: "https://www.nierakovine.sk/stuzka", year: "2026", imageBg: "#FDF2F8", objectPosition: "center" },
   { id: 20, title: "Know3D", category: "development", description: "E-shop pre 3D tlač a filament", tag: "E-shop Development", image: "/screenshots/know3d-portfolio-mockup.jpg", link: "https://www.know3d.sk", year: "2026", imageBg: "#E8F0F8", objectPosition: "center" },
   { id: 21, title: "JVD Cars", category: "development", description: "Web pre autobazár a autoslužby", tag: "Web Development", image: "/screenshots/jvdcars-portfolio-mockup.jpg", link: "https://www.jvdcars.sk/", year: "2026", imageBg: "#1A1A1A", objectPosition: "center" },
   { id: 27, title: "Autoškola Zvyky", category: "development", description: "Web pre autoškolu v Bratislave a Malackách", tag: "Web Development", image: "/screenshots/zvyky-portfolio.jpg", link: "https://www.zvyky.sk", year: "2026", imageBg: "#EEEEEE", objectPosition: "center" },
@@ -49,6 +52,11 @@ const projects: Project[] = [
   { id: 18, title: "Bombafasada", category: "marketing", description: "Profesionálna fasádna spoločnosť — brand na sociálnych sieťach", tag: "Social Media Production", image: "/logos/bombafasada-clean.png", link: "https://www.instagram.com/bombafasada/", year: "2026", logo: true, imageBg: "#206CD3", handle: "@bombafasada" },
   { id: 24, title: "Karin Art", category: "marketing", description: "Tetovacie štúdio — obsah a správa Instagramu", tag: "Social Media Production", image: "/logos/karinart.png", link: "https://www.instagram.com/karin_art_tattoo?igsh=N3lqejRsenR5MWd0", year: "2026", logo: true, imageBg: "#FFFFFF", handle: "@karin_art_tattoo" },
   { id: 25, title: "Autoškola Zvyky", category: "marketing", description: "Autoškola — obsah a správa Instagramu", tag: "Social Media Production", image: "/logos/zvyky.webp", link: "https://www.instagram.com/autoskola.zvyky/", year: "2026", logo: true, imageBg: "#EEF6FD", handle: "@autoskola.zvyky" },
+  { id: 28, title: "Kvety pre Vás", category: "marketing", description: "Rodinné kvetinárstvo — online kampane pre e-shop", tag: "Online kampane", image: "/logos/kvetyprevas.svg", link: "https://kvetyprevas.sk/", year: "2026", logo: true, imageBg: "#FBEFF0" },
+  { id: 30, title: "Bombafasáda — jesenná akcia", category: "design", description: "Leták offline kampane — jeseň 2026, zľava 10 % a CTA na termín", tag: "Offline kampaň", image: "/design/bombafasada/jesen-letak-cta.jpg", link: "https://bombafasada.sk", year: "2026", contain: true, imageBg: "#f4f4f4", objectPosition: "center" },
+  { id: 31, title: "Bombafasáda — prenosná zľava", category: "design", description: "Leták s promo kódom JESEN10 — zľava prenosná susedom a rodine", tag: "Offline kampaň", image: "/design/bombafasada/jesen-prenosna-zlava.jpg", link: "https://bombafasada.sk", year: "2026", contain: true, imageBg: "#f4f4f4", objectPosition: "center" },
+  { id: 32, title: "Bombafasáda — recenzia pre susedov", category: "design", description: "Leták po realizácii s QR kódom na Google recenziu", tag: "Offline kampaň", image: "/design/bombafasada/recenzia-sused-qr.jpg", link: "https://bombafasada.sk", year: "2026", contain: true, imageBg: "#f4f4f4", objectPosition: "center" },
+  { id: 33, title: "Bombafasáda — výzva na recenziu", category: "design", description: "Follow-up materiál pre zákazníkov po vyčistení fasády", tag: "Offline kampaň", image: "/design/bombafasada/recenzia-google.png", link: "https://bombafasada.sk", year: "2026", contain: true, imageBg: "#f4f4f4", objectPosition: "center" },
   { id: 22, title: "NIE RAKOVINE — Redesign", category: "design", description: "Redesign webu pre onkologické združenie", tag: "Web Design", image: "/screenshots/nie-rakovine-redesign.png", link: "https://onkoklub.sk", year: "2026" },
   { id: 7, title: "Hlavičkový papier", category: "design", description: "ukážka moderného technologického dizajnu", tag: "Brand Identity", image: "/fonts/Screenshot 2026-01-25 at 16.50.43.png", link: null, year: "2024", contain: true },
   { id: 8, title: "Dizajn letáčiku", category: "design", description: "jednoduchý a prehľadný dizajn", tag: "Brand Identity", image: "/fonts/Screenshot 2026-01-25 at 16.51.43.png", link: null, year: "2024", contain: true },
@@ -78,10 +86,22 @@ function projectCountLabel(count: number) {
   return "projektov";
 }
 
+/** Two rows on a 3-column desktop grid */
+const PROJECTS_PREVIEW_COUNT = 6;
+const CAMPAIGNS_PREVIEW_COUNT = 3;
+
 export default function ProjektyPage() {
   const [activeFilter, setActiveFilter] = useState<string>("all");
+  const [showAllProjects, setShowAllProjects] = useState(false);
 
   const filtered = activeFilter === "all" ? projects : projects.filter((p) => p.category === activeFilter);
+  const hasMoreProjects = filtered.length > PROJECTS_PREVIEW_COUNT;
+  const visibleProjects = showAllProjects ? filtered : filtered.slice(0, PROJECTS_PREVIEW_COUNT);
+
+  const setFilter = (key: string) => {
+    setActiveFilter(key);
+    setShowAllProjects(false);
+  };
 
   return (
     <div className="bg-[#BAFF57] text-black h-screen overflow-y-scroll scroll-smooth">
@@ -95,7 +115,7 @@ export default function ProjektyPage() {
         lead="Prezrite si výber našich najlepších prác z oblasti vývoja, dizajnu a marketingu. Každý projekt je príbeh úspechu."
         wordmark="Projekty"
         panelLabel="Čo v portfóliu nájdeš"
-        panelItems={["Weby & e-shopy", "Interné aplikácie", "Brand identity", "Social media produkcia"]}
+        panelItems={["Weby & e-shopy", "Kampane & reklamy", "Brand identity", "Social media produkcia"]}
       />
 
       {/* ── FILTER ── */}
@@ -105,7 +125,7 @@ export default function ProjektyPage() {
           {filters.map((filter) => (
             <button
               key={filter.key}
-              onClick={() => setActiveFilter(filter.key)}
+              onClick={() => setFilter(filter.key)}
               className={`px-4 py-2 text-xs uppercase tracking-wider transition-colors duration-300 ${
                 activeFilter === filter.key
                   ? "bg-black text-[#BAFF57]"
@@ -124,7 +144,7 @@ export default function ProjektyPage() {
       {/* ── GRID ── */}
       <section className="bg-[#BAFF57] px-5 md:px-12 lg:px-16 py-10 md:py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-          {filtered.map((project, i) => {
+          {visibleProjects.map((project, i) => {
             const Wrapper = project.link ? "a" : "div";
             return (
               <Reveal key={project.id} delay={Math.min(i, 5) * 60} offset={24}>
@@ -171,7 +191,7 @@ export default function ProjektyPage() {
 
                     {project.link && (
                       <span className="mt-4 inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-black/40 group-hover:text-black transition-colors">
-                        {project.category === "marketing" ? "Navštíviť sociálne siete" : "Navštíviť web"}
+                        {project.handle ? "Navštíviť sociálne siete" : "Navštíviť web"}
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                       </span>
                     )}
@@ -180,6 +200,85 @@ export default function ProjektyPage() {
               </Reveal>
             );
           })}
+        </div>
+
+        {hasMoreProjects && !showAllProjects && (
+          <div className="mt-10 md:mt-12 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setShowAllProjects(true)}
+              className="inline-flex items-center gap-3 bg-black text-[#BAFF57] uppercase px-8 py-4 text-xs tracking-wider hover:bg-white hover:text-black transition-colors"
+            >
+              Zobraziť viac
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
+        )}
+      </section>
+
+      {/* ── KAMPANE ── */}
+      <section id="kampane" className="relative bg-[#212121] text-[#BAFF57] overflow-hidden px-5 md:px-12 lg:px-16 py-16 md:py-24">
+        <p className="absolute -right-6 bottom-0 text-[18vw] font-bold leading-none tracking-tighter text-[#BAFF57]/[0.05] select-none pointer-events-none">
+          ADS
+        </p>
+
+        <div className="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-12">
+          <Reveal>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-[#BAFF57]/40 text-xs font-mono">02</span>
+              <div className="w-8 h-px bg-[#BAFF57]"></div>
+              <span className="text-[#BAFF57]/50 text-xs uppercase tracking-widest font-mono">Kampane</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-[0.95] tracking-tight">
+              Kampane,<br />ktoré predávajú.
+            </h2>
+            <p className="mt-5 text-sm md:text-base leading-relaxed text-[#BAFF57]/60 max-w-xl">
+              Stratégia, produkcia, reklamy a reporting. Klikni na klienta a pozri si čísla, postup a kreatívy z kampane.
+            </p>
+          </Reveal>
+          <Reveal delay={120}>
+            <Link
+              href="/projekty/kampane"
+              className="inline-flex items-center gap-3 bg-[#BAFF57] text-black uppercase px-6 py-4 text-xs tracking-wider hover:bg-white transition-colors shrink-0"
+            >
+              Všetky kampane
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </Link>
+          </Reveal>
+        </div>
+
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+          {campaigns.slice(0, CAMPAIGNS_PREVIEW_COUNT).map((c, i) => (
+            <Reveal key={c.slug} delay={i * 100}>
+              <Link
+                href={`/projekty/kampane/${c.slug}`}
+                className="group block bg-[#BAFF57] p-2 hover:p-3 transition-all duration-300 h-full"
+              >
+                <div className="bg-white text-black p-5 md:p-6 flex flex-col h-full min-h-[280px]">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="relative w-16 h-16 shrink-0 border border-black/10" style={{ backgroundColor: c.logoBg }}>
+                      <Image src={c.logo} alt="" fill sizes="64px" className="object-contain p-2" />
+                    </div>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-black/40">{c.period}</span>
+                  </div>
+                  <h3 className="mt-5 text-2xl font-bold leading-tight">{c.client}</h3>
+                  <p className="mt-2 text-sm text-black/55 leading-relaxed line-clamp-2">{c.goal}</p>
+                  <div className="mt-6 grid grid-cols-3 gap-2 border-t border-black/10 pt-5">
+                    {c.stats.slice(0, 3).map((s) => (
+                      <div key={s.label}>
+                        <p className="text-lg md:text-xl font-bold tracking-tighter leading-none whitespace-nowrap">{s.value}</p>
+                        <p className="mt-1.5 text-[8px] md:text-[9px] font-mono uppercase tracking-wider text-black/45 leading-tight">{s.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <span className="mt-auto pt-5 flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-black/45 group-hover:text-black transition-colors">
+                    Detail kampane
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                  </span>
+                </div>
+              </Link>
+            </Reveal>
+          ))}
         </div>
       </section>
 
