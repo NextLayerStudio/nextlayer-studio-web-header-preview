@@ -7,6 +7,7 @@ import PageHero from "../components/PageHero";
 import PageCta from "../components/PageCta";
 import PageFooter from "../components/PageFooter";
 import Reveal from "../components/Reveal";
+import LazyVideo from "../components/LazyVideo";
 
 const steps = [
   {
@@ -37,19 +38,19 @@ const steps = [
 
 const reels = [
   {
-    src: "https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/bombafasada/video1.mp4",
+    src: "/kampane/bombafasada/video1.mp4",
     client: "Bombafasada",
     tag: "Reels",
     desc: "Edukačný reel o fasádnych povrchoch — profesionálny tón, odborný obsah, expert positioning.",
   },
   {
-    src: "https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/bombafasada/video2.mp4",
+    src: "/kampane/bombafasada/video2.mp4",
     client: "Bombafasada",
     tag: "Reels",
     desc: "Ukážka práce v teréne — záber na proces čistenia fasády s odborným komentárom.",
   },
   {
-    src: "https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/janicko/video1.mp4",
+    src: "/marketing/janicko/video1.mp4",
     client: "Kávička u Janíčka",
     tag: "Reels",
     desc: "Atmosferický video obsah pre kaviareň — zachytáva autenticitu miesta a priťahuje nových hostí.",
@@ -167,7 +168,7 @@ export default function MarketingPage() {
         <Reveal className={`relative z-10 flex-1 grid min-h-0 ${isMobile ? "grid-cols-1 gap-6" : "grid-cols-3 gap-4"}`}>
           {reels.map((reel) => (
             <div key={reel.src} className={`group relative bg-black overflow-hidden ${isMobile ? "aspect-[4/5]" : ""}`}>
-              <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" src={reel.src} />
+              <LazyVideo src={reel.src} className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
                 <span className="bg-[#BAFF57] text-black text-[10px] font-mono uppercase tracking-wider px-2 py-0.5">{reel.tag}</span>

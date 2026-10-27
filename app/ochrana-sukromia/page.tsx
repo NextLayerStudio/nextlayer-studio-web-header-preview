@@ -60,7 +60,7 @@ export default function OchranaSukromia() {
 
           <section>
             <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">5. Príjemcovia a sprostredkovatelia</h2>
-            <p className="mb-3">Odosielanie správ cez kontaktný formulár je zabezpečené prostredníctvom služby <strong className="text-[#BAFF57]/90">EmailJS</strong> (EmailJS Ltd., emailjs.com), ktorá plní úlohu sprostredkovateľa v zmysle GDPR. EmailJS má sídlo v EÚ a spĺňa požiadavky ochrany osobných údajov.</p>
+            <p className="mb-3">Odosielanie správ cez kontaktný formulár je zabezpečené prostredníctvom služby <strong className="text-[#BAFF57]/90">Resend</strong> (Resend, Inc., resend.com), ktorá plní úlohu sprostredkovateľa v zmysle GDPR pri doručení emailu na team@nextlayer.studio.</p>
             <p>Osobné údaje neposkytujeme tretím stranám na marketingové účely ani ich nepredávame. K údajom môžu mať prístup len vybrané osoby v rámci spoločnosti NextLayer Studio s.r.o. nevyhnutné pre spracovanie tvojho dopytu.</p>
           </section>
 

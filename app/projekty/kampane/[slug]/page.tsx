@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import CampaignAdMedia from "../../../components/CampaignAdMedia";
 import { notFound } from "next/navigation";
 import SiteMenu from "../../../components/SiteMenu";
 import PageCta from "../../../components/PageCta";
@@ -162,11 +163,7 @@ export default async function KampanDetailPage({ params }: { params: Promise<Par
               <Reveal key={ad.src} delay={i * 80}>
                 <figure className="group bg-[#BAFF57] p-2 hover:p-3 transition-all duration-300">
                   <div className={`relative overflow-hidden bg-black ${ad.format.includes("9:16") ? "aspect-[9/16]" : ad.format.includes("4:5") ? "aspect-[4/5]" : "aspect-square"}`}>
-                    {ad.type === "video" ? (
-                      <video autoPlay muted loop playsInline preload="metadata" poster={ad.poster} className="absolute inset-0 w-full h-full object-cover" src={ad.src} />
-                    ) : (
-                      <Image src={ad.src} alt={ad.title} fill sizes="(max-width: 768px) 50vw, 25vw" className="object-cover" />
-                    )}
+                    <CampaignAdMedia ad={ad} />
                     <span className="absolute top-0 left-0 bg-black text-[#BAFF57] text-[10px] font-mono uppercase tracking-wider px-2 py-1">{ad.platform}</span>
                   </div>
                   <figcaption className="pt-3 pb-1 px-1">

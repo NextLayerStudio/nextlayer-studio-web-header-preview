@@ -76,8 +76,6 @@ export type Campaign = {
   sample?: boolean;
 };
 
-const BLOB = "https://akinb3uuwih4cf6s.public.blob.vercel-storage.com";
-
 const allCampaigns: Campaign[] = [
   {
     slug: "bombafasada",
@@ -105,8 +103,8 @@ const allCampaigns: Campaign[] = [
       { title: "Optimalizácia", desc: "Každý týždeň sme vyhodnocovali výkon a rozpočet presúvali na víťazné kreatívy." },
     ],
     ads: [
-      { type: "video", src: `${BLOB}/bombafasada/video1.mp4`, title: "Edukačný reel — fasádne povrchy", platform: "Instagram", format: "Reels 9:16" },
-      { type: "video", src: `${BLOB}/bombafasada/video2.mp4`, title: "Realizácia v teréne", platform: "Facebook", format: "Reels 9:16" },
+      { type: "video", src: "/kampane/bombafasada/video1.mp4", title: "Edukačný reel — fasádne povrchy", platform: "Instagram", format: "Reels 9:16" },
+      { type: "video", src: "/kampane/bombafasada/video2.mp4", title: "Realizácia v teréne", platform: "Facebook", format: "Reels 9:16" },
     ],
     result: "Z firmy, ktorá na sieťach nebola vidieť, sa stal rozpoznateľný odborník s pravidelným prísunom dopytov.",
     sample: true,

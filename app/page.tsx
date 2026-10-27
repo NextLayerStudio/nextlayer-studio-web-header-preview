@@ -3,19 +3,14 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import emailjs from '@emailjs/browser';
-
+import LazyVideo from "./components/LazyVideo";
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [aboutVideoIndex, setAboutVideoIndex] = useState(0);
-  const aboutVideos = [
-    "https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/andrej.mp4",
-    "https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/andrej2.mp4",
-    "https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/andrej3.mp4",
-  ];
+  const aboutVideos = ["/site/andrej.mp4", "/site/andrej2.mp4", "/site/andrej3.mp4"];
 
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,10 +29,6 @@ export default function Home() {
   }, []);
 
   const showHamburger = isMobile ? true : scrollY > 400;
-
-  useEffect(() => {
-    emailjs.init('VBkXVCwNKLhntRGyJ');
-  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -91,12 +82,27 @@ export default function Home() {
     setIsSubmitting(true);
     setSubmitStatus('idle');
     setFormErrors({});
+    const formData = new FormData(formRef.current);
+    const payload = {
+      name: formData.get("user_name") as string,
+      email: formData.get("user_email") as string,
+      message: formData.get("message") as string,
+    };
+
     try {
-      await emailjs.sendForm('service_1fedtkm', 'template_6u08llf', formRef.current, 'VBkXVCwNKLhntRGyJ');
-      setSubmitStatus('success');
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        setSubmitStatus("error");
+        return;
+      }
+      setSubmitStatus("success");
       formRef.current.reset();
     } catch (error) {
-      console.error('EmailJS Error:', error);
+      console.error("Contact form error:", error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -347,15 +353,12 @@ export default function Home() {
         >
           <div className="relative aspect-video bg-black overflow-hidden">
             {aboutVideos.map((src, i) => (
-              <video
+              <LazyVideo
                 key={src}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
-                style={{ opacity: i === aboutVideoIndex ? 1 : 0 }}
                 src={src}
+                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+                style={{ opacity: i === aboutVideoIndex ? 1 : 0, pointerEvents: i === aboutVideoIndex ? "auto" : "none" }}
+                playWhenVisible={i === aboutVideoIndex}
               />
             ))}
             <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-5 py-3 bg-gradient-to-t from-black/70 to-transparent">
@@ -395,15 +398,12 @@ export default function Home() {
         <div className="md:hidden px-6 pb-10">
           <div className="relative aspect-video bg-black overflow-hidden">
             {aboutVideos.map((src, i) => (
-              <video
+              <LazyVideo
                 key={src}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
-                style={{ opacity: i === aboutVideoIndex ? 1 : 0 }}
                 src={src}
+                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+                style={{ opacity: i === aboutVideoIndex ? 1 : 0, pointerEvents: i === aboutVideoIndex ? "auto" : "none" }}
+                playWhenVisible={i === aboutVideoIndex}
               />
             ))}
           </div>
@@ -435,7 +435,7 @@ export default function Home() {
             <div className="absolute inset-0 grid grid-cols-2 gap-1 bg-[#BAFF57]">
               {["video1", "video2"].map((name) => (
                 <div key={name} className="relative overflow-hidden bg-black">
-                  <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover object-center" src={`https://akinb3uuwih4cf6s.public.blob.vercel-storage.com/bombafasada/${name}.mp4`} />
+                  <LazyVideo src={`/kampane/bombafasada/${name}.mp4`} className="absolute inset-0 w-full h-full object-cover object-center" />
                 </div>
               ))}
             </div>

@@ -8,7 +8,9 @@ import PageHero from "../components/PageHero";
 import PageCta from "../components/PageCta";
 import PageFooter from "../components/PageFooter";
 import Reveal from "../components/Reveal";
+import DesignGallery from "../components/DesignGallery";
 import { campaigns } from "./kampane/data";
+import { designWorks } from "./designWorks";
 
 type Project = {
   id: number;
@@ -52,19 +54,7 @@ const projects: Project[] = [
   { id: 18, title: "Bombafasada", category: "marketing", description: "Profesionálna fasádna spoločnosť — brand na sociálnych sieťach", tag: "Social Media Production", image: "/logos/bombafasada-clean.png", link: "https://www.instagram.com/bombafasada/", year: "2026", logo: true, imageBg: "#206CD3", handle: "@bombafasada" },
   { id: 24, title: "Karin Art", category: "marketing", description: "Tetovacie štúdio — obsah a správa Instagramu", tag: "Social Media Production", image: "/logos/karinart.png", link: "https://www.instagram.com/karin_art_tattoo?igsh=N3lqejRsenR5MWd0", year: "2026", logo: true, imageBg: "#FFFFFF", handle: "@karin_art_tattoo" },
   { id: 25, title: "Autoškola Zvyky", category: "marketing", description: "Autoškola — obsah a správa Instagramu", tag: "Social Media Production", image: "/logos/zvyky.webp", link: "https://www.instagram.com/autoskola.zvyky/", year: "2026", logo: true, imageBg: "#EEF6FD", handle: "@autoskola.zvyky" },
-  { id: 28, title: "Kvety pre Vás", category: "marketing", description: "Rodinné kvetinárstvo — online kampane pre e-shop", tag: "Online kampane", image: "/logos/kvetyprevas.svg", link: "https://kvetyprevas.sk/", year: "2026", logo: true, imageBg: "#FBEFF0" },
-  { id: 30, title: "Bombafasáda — jesenná akcia", category: "design", description: "Leták offline kampane — jeseň 2026, zľava 10 % a CTA na termín", tag: "Offline kampaň", image: "/design/bombafasada/jesen-letak-cta.jpg", link: "https://bombafasada.sk", year: "2026", contain: true, imageBg: "#f4f4f4", objectPosition: "center" },
-  { id: 31, title: "Bombafasáda — prenosná zľava", category: "design", description: "Leták s promo kódom JESEN10 — zľava prenosná susedom a rodine", tag: "Offline kampaň", image: "/design/bombafasada/jesen-prenosna-zlava.jpg", link: "https://bombafasada.sk", year: "2026", contain: true, imageBg: "#f4f4f4", objectPosition: "center" },
-  { id: 32, title: "Bombafasáda — recenzia pre susedov", category: "design", description: "Leták po realizácii s QR kódom na Google recenziu", tag: "Offline kampaň", image: "/design/bombafasada/recenzia-sused-qr.jpg", link: "https://bombafasada.sk", year: "2026", contain: true, imageBg: "#f4f4f4", objectPosition: "center" },
-  { id: 33, title: "Bombafasáda — výzva na recenziu", category: "design", description: "Follow-up materiál pre zákazníkov po vyčistení fasády", tag: "Offline kampaň", image: "/design/bombafasada/recenzia-google.png", link: "https://bombafasada.sk", year: "2026", contain: true, imageBg: "#f4f4f4", objectPosition: "center" },
-  { id: 22, title: "NIE RAKOVINE — Redesign", category: "design", description: "Redesign webu pre onkologické združenie", tag: "Web Design", image: "/screenshots/nie-rakovine-redesign.png", link: "https://onkoklub.sk", year: "2026" },
-  { id: 7, title: "Hlavičkový papier", category: "design", description: "ukážka moderného technologického dizajnu", tag: "Brand Identity", image: "/fonts/Screenshot 2026-01-25 at 16.50.43.png", link: null, year: "2024", contain: true },
-  { id: 8, title: "Dizajn letáčiku", category: "design", description: "jednoduchý a prehľadný dizajn", tag: "Brand Identity", image: "/fonts/Screenshot 2026-01-25 at 16.51.43.png", link: null, year: "2024", contain: true },
-  { id: 9, title: "Voucher dizajn", category: "design", description: "jednoduchý dizajn pre zľavovú kartičku", tag: "Brand Identity", image: "/fonts/Screenshot 2026-01-25 at 16.51.14.png", link: null, year: "2024" },
-  { id: 10, title: "New Era eshop", category: "design", description: "dizajn nového eshopu", tag: "Web Design", image: "/fonts/Screenshot 2026-01-25 at 16.53.00.png", link: null, year: "2024" },
-  { id: 11, title: "Autoškola Zvyky", category: "design", description: "Dizajn webstránky pre autoškolu", tag: "Web Design", image: "/fonts/Screenshot 2026-01-25 at 16.53.32.png", link: null, year: "2024" },
-  { id: 12, title: "QR eshop", category: "design", description: "Dizajn moderného eshopu a identity značky", tag: "Web Design", image: "/fonts/Screenshot 2026-01-25 at 16.55.23.png", link: null, year: "2024" },
-  { id: 13, title: "Visual Identity", category: "design", description: "Komplexná vizuálna identita značky", tag: "Brand Design", image: "/fonts/Screenshot 2026-01-25 at 16.56.20 1.png", link: null, year: "2024" },
+  { id: 28, title: "Kvety pre Vás", category: "marketing", description: "Rodinné kvetinárstvo — online kampane pre e-shop", tag: "Online kampane", image: "/logos/kvetyprevas.svg", link: "https://www.instagram.com/kvetyprevas.sk/?hl=sk", year: "2026", logo: true, imageBg: "#FBEFF0", handle: "@kvetyprevas.sk" },
 ];
 
 const filters = [
@@ -89,14 +79,30 @@ function projectCountLabel(count: number) {
 /** Two rows on a 3-column desktop grid */
 const PROJECTS_PREVIEW_COUNT = 6;
 const CAMPAIGNS_PREVIEW_COUNT = 3;
+const DESIGN_PREVIEW_COUNT = 8;
 
 export default function ProjektyPage() {
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [showAllProjects, setShowAllProjects] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
-  const filtered = activeFilter === "all" ? projects : projects.filter((p) => p.category === activeFilter);
+  const cardProjects = projects.filter((p) => p.category !== "design");
+  const filtered =
+    activeFilter === "all"
+      ? cardProjects
+      : activeFilter === "design"
+        ? []
+        : cardProjects.filter((p) => p.category === activeFilter);
   const hasMoreProjects = filtered.length > PROJECTS_PREVIEW_COUNT;
   const visibleProjects = showAllProjects ? filtered : filtered.slice(0, PROJECTS_PREVIEW_COUNT);
+  const showGallery = activeFilter === "all" || activeFilter === "design";
+  const visibleDesignWorks = activeFilter === "design" ? designWorks : designWorks.slice(0, DESIGN_PREVIEW_COUNT);
+  const filterCount =
+    activeFilter === "design"
+      ? designWorks.length
+      : activeFilter === "all"
+        ? cardProjects.length + designWorks.length
+        : filtered.length;
 
   const setFilter = (key: string) => {
     setActiveFilter(key);
@@ -104,7 +110,7 @@ export default function ProjektyPage() {
   };
 
   return (
-    <div className="bg-[#BAFF57] text-black h-screen overflow-y-scroll scroll-smooth">
+    <div className={`bg-[#BAFF57] text-black h-screen scroll-smooth ${lightboxOpen ? "overflow-hidden" : "overflow-y-scroll"}`}>
       <SiteMenu active="projekty" />
 
       <PageHero
@@ -136,12 +142,13 @@ export default function ProjektyPage() {
             </button>
           ))}
           <span className="ml-auto text-black/40 text-xs font-mono">
-            {filtered.length} {projectCountLabel(filtered.length)}
+            {filterCount} {projectCountLabel(filterCount)}
           </span>
         </div>
       </section>
 
       {/* ── GRID ── */}
+      {visibleProjects.length > 0 && (
       <section className="bg-[#BAFF57] px-5 md:px-12 lg:px-16 py-10 md:py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {visibleProjects.map((project, i) => {
@@ -215,8 +222,43 @@ export default function ProjektyPage() {
           </div>
         )}
       </section>
+      )}
+
+      {showGallery && (
+        <section id="design" className="bg-[#BAFF57] px-5 md:px-12 lg:px-16 py-14 md:py-20">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8 md:mb-12">
+            <Reveal>
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-black/40 text-xs font-mono">01</span>
+                <div className="w-8 h-px bg-black"></div>
+                <span className="text-black/50 text-xs uppercase tracking-widest font-mono">Design</span>
+              </div>
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-[0.95] tracking-tight">
+                Galéria vizuálov.
+              </h2>
+              <p className="mt-5 text-sm md:text-base leading-relaxed text-black/55 max-w-xl">
+                Social ads, print a brand. Klikni na vizuál a pozri ho naplno.
+              </p>
+            </Reveal>
+            {activeFilter !== "design" && designWorks.length > DESIGN_PREVIEW_COUNT && (
+              <Reveal delay={120}>
+                <button
+                  type="button"
+                  onClick={() => setFilter("design")}
+                  className="inline-flex items-center gap-3 bg-black text-[#BAFF57] uppercase px-6 py-4 text-xs tracking-wider hover:bg-white hover:text-black transition-colors shrink-0"
+                >
+                  Celá galéria
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </button>
+              </Reveal>
+            )}
+          </div>
+          <DesignGallery works={visibleDesignWorks} onOpenChange={setLightboxOpen} />
+        </section>
+      )}
 
       {/* ── KAMPANE ── */}
+      {activeFilter !== "design" && (
       <section id="kampane" className="relative bg-[#212121] text-[#BAFF57] overflow-hidden px-5 md:px-12 lg:px-16 py-16 md:py-24">
         <p className="absolute -right-6 bottom-0 text-[18vw] font-bold leading-none tracking-tighter text-[#BAFF57]/[0.05] select-none pointer-events-none">
           ADS
@@ -281,6 +323,7 @@ export default function ProjektyPage() {
           ))}
         </div>
       </section>
+      )}
 
       <PageCta
         num="07"
