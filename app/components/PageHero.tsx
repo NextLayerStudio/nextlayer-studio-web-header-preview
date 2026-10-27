@@ -129,7 +129,7 @@ export default function PageHero({
         </div>
       </div>
 
-      <p className="absolute bottom-0 left-0 right-0 z-30 text-[15vw] md:text-[11vw] font-bold leading-none tracking-tighter text-black text-center pointer-events-none mix-blend-multiply px-2 pb-1">
+      <p className="absolute bottom-0 left-0 right-0 z-30 text-[11vw] md:text-[11vw] font-bold leading-none tracking-tighter text-black text-center pointer-events-none mix-blend-multiply px-2 pb-1">
         {wordmark}
       </p>
     </section>

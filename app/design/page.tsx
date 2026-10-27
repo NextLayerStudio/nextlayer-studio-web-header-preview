@@ -83,7 +83,7 @@ export default function DesignPage() {
       />
 
       {/* ── DISCIPLÍNY — full-width index rows ── */}
-      <section className={`bg-[#BAFF57] relative snap-start snap-always overflow-hidden ${isMobile ? "min-h-screen py-20 flex flex-col justify-center" : "min-h-screen h-screen flex flex-col justify-center"}`}>
+      <section className={`bg-[#BAFF57] relative snap-start snap-always ${isMobile ? "min-h-screen py-16 overflow-y-auto flex flex-col justify-center" : "min-h-screen h-screen overflow-hidden flex flex-col justify-center"}`}>
         <Reveal className="px-5 md:px-12 lg:px-16 mb-8 md:mb-10">
           <div className="flex items-center gap-3 mb-3">
             <span className="text-black/40 text-xs font-mono">01</span>

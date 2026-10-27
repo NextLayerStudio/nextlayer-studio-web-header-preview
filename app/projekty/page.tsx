@@ -9,8 +9,21 @@ import PageCta from "../components/PageCta";
 import PageFooter from "../components/PageFooter";
 import Reveal from "../components/Reveal";
 import DesignGallery from "../components/DesignGallery";
+import ReelGallery from "../components/ReelGallery";
 import { campaigns } from "./kampane/data";
 import { designWorks } from "./designWorks";
+
+const campaignReels = campaigns.flatMap((campaign) =>
+  campaign.ads
+    .filter((ad) => ad.type === "video")
+    .map((ad) => ({
+      src: ad.src,
+      poster: ad.poster,
+      title: ad.title,
+      client: campaign.client,
+      tag: ad.platform,
+    }))
+);
 
 type Project = {
   id: number;
@@ -125,7 +138,7 @@ export default function ProjektyPage() {
       />
 
       {/* ── FILTER ── */}
-      <section className="sticky top-0 z-30 bg-[#BAFF57] border-b border-black/15 px-5 md:px-12 lg:px-16 py-4">
+      <section className="sticky top-0 z-30 bg-[#BAFF57] border-b border-black/15 px-5 pr-20 md:px-12 lg:px-16 py-4">
         <div className="flex flex-wrap items-center gap-2 md:gap-3">
           <span className="hidden sm:inline text-black/50 text-xs uppercase tracking-widest font-mono mr-2">Filter</span>
           {filters.map((filter) => (
@@ -322,6 +335,22 @@ export default function ProjektyPage() {
             </Reveal>
           ))}
         </div>
+
+        {campaignReels.length > 0 && (
+          <div className="relative z-10 mt-14 md:mt-16">
+            <Reveal>
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-[#BAFF57]/40 text-xs font-mono">03</span>
+                <div className="w-8 h-px bg-[#BAFF57]"></div>
+                <span className="text-[#BAFF57]/50 text-xs uppercase tracking-widest font-mono">Reels</span>
+              </div>
+              <h3 className="text-2xl md:text-4xl font-bold leading-none mb-6 md:mb-8">Videá z kampaní.</h3>
+            </Reveal>
+            <Reveal>
+              <ReelGallery reels={campaignReels} onOpenChange={setLightboxOpen} />
+            </Reveal>
+          </div>
+        )}
       </section>
       )}
 

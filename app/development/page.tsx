@@ -50,25 +50,28 @@ const services = [
 
 const projects = [
   {
-    image: "/fonts/dashboard.png",
-    tag: "SaaS Dashboard System",
-    title: "Dashboard",
-    desc: "Cloud storage & project management",
-    href: "https://dashboard-blue-alpha.vercel.app",
+    image: "/screenshots/sisi-kovacsova-portfolio-mockup-v5.jpg",
+    tag: "Web Development",
+    title: "Beauty Institute",
+    desc: "Web pre Permanent Beauty Institute Bratislava",
+    href: "https://www.sisikovacsova.com",
+    imageBg: "#FFFFFF",
   },
   {
-    image: "/fonts/invoice.png",
-    tag: "Automatizácia",
-    title: "Invoice Generator",
-    desc: "PBSQ Invoice Generator",
-    href: "https://next-js-invoice-generator-six.vercel.app/login",
+    image: "/screenshots/zvyky-portfolio.jpg",
+    tag: "Web Development",
+    title: "Autoškola Zvyky",
+    desc: "Web pre autoškolu v Bratislave a Malackách",
+    href: "https://www.zvyky.sk",
+    imageBg: "#EEEEEE",
   },
   {
-    image: "/fonts/name.png",
-    tag: "Application Development",
-    title: "Name Sorting Tool",
-    desc: "My Contacts App",
-    href: "https://name-sorting-tool.vercel.app",
+    image: "/screenshots/onkoklub-portfolio.jpg",
+    tag: "Web & App Development",
+    title: "ONKO KLUB",
+    desc: "Členská platforma a aplikácia pre pacientov",
+    href: "https://www.onkoklub.sk/",
+    imageBg: "#FDF2F8",
   },
 ];
 
@@ -100,7 +103,7 @@ export default function DevelopmentPage() {
       />
 
       {/* ── SLUŽBY — full-width index rows ── */}
-      <section className={`bg-[#BAFF57] relative snap-start snap-always overflow-hidden ${isMobile ? "min-h-screen py-20 flex flex-col justify-center" : "min-h-screen h-screen flex flex-col justify-center"}`}>
+      <section className={`bg-[#BAFF57] relative snap-start snap-always ${isMobile ? "min-h-screen py-16 overflow-y-auto flex flex-col justify-center" : "min-h-screen h-screen overflow-hidden flex flex-col justify-center"}`}>
         <Reveal className="px-5 md:px-12 lg:px-16 mb-6 md:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="text-black/40 text-xs font-mono">01</span>
@@ -178,8 +181,11 @@ export default function DevelopmentPage() {
               rel="noopener noreferrer"
               className="group relative bg-white p-2 hover:p-3 flex flex-col transition-all duration-300 border border-black/10 hover:border-black"
             >
-              <div className={`relative overflow-hidden bg-black ${isMobile ? "aspect-[4/3]" : "flex-1 min-h-0"}`}>
-                <Image src={project.image} alt={project.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover object-top group-hover:scale-105 transition-transform duration-700" />
+              <div
+                className={`relative overflow-hidden ${isMobile ? "aspect-[4/3]" : "flex-1 min-h-0"}`}
+                style={{ backgroundColor: project.imageBg ?? "#212121" }}
+              >
+                <Image src={project.image} alt={project.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover object-center group-hover:scale-105 transition-transform duration-700" />
               </div>
               <div className="pt-4 pb-2 px-1">
                 <span className="bg-[#BAFF57] text-black text-[10px] font-mono uppercase tracking-wider px-2 py-0.5">{project.tag}</span>

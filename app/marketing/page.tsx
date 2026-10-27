@@ -7,7 +7,8 @@ import PageHero from "../components/PageHero";
 import PageCta from "../components/PageCta";
 import PageFooter from "../components/PageFooter";
 import Reveal from "../components/Reveal";
-import LazyVideo from "../components/LazyVideo";
+import ReelGallery from "../components/ReelGallery";
+import { campaigns } from "../projekty/kampane/data";
 
 const steps = [
   {
@@ -36,26 +37,17 @@ const steps = [
   },
 ];
 
-const reels = [
-  {
-    src: "/kampane/bombafasada/video1.mp4",
-    client: "Bombafasada",
-    tag: "Reels",
-    desc: "Edukačný reel o fasádnych povrchoch — profesionálny tón, odborný obsah, expert positioning.",
-  },
-  {
-    src: "/kampane/bombafasada/video2.mp4",
-    client: "Bombafasada",
-    tag: "Reels",
-    desc: "Ukážka práce v teréne — záber na proces čistenia fasády s odborným komentárom.",
-  },
-  {
-    src: "/marketing/janicko/video1.mp4",
-    client: "Kávička u Janíčka",
-    tag: "Reels",
-    desc: "Atmosferický video obsah pre kaviareň — zachytáva autenticitu miesta a priťahuje nových hostí.",
-  },
-];
+const reels = campaigns.flatMap((campaign) =>
+  campaign.ads
+    .filter((ad) => ad.type === "video")
+    .map((ad) => ({
+      src: ad.src,
+      poster: ad.poster,
+      title: ad.title,
+      client: campaign.client,
+      tag: ad.platform,
+    }))
+);
 
 const platforms = [
   { label: "Instagram", sub: "Reels, Stories, Karusely", icon: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" },
@@ -73,6 +65,7 @@ const principles = [
 export default function MarketingPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [stepHover, setStepHover] = useState<string | null>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -82,7 +75,7 @@ export default function MarketingPage() {
   }, []);
 
   return (
-    <div className="bg-[#BAFF57] text-black h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
+    <div className={`bg-[#BAFF57] text-black h-screen scroll-smooth ${lightboxOpen ? "overflow-hidden" : "overflow-y-scroll snap-y snap-mandatory"}`}>
       <SiteMenu active="marketing" />
 
       <PageHero
@@ -96,7 +89,7 @@ export default function MarketingPage() {
       />
 
       {/* ── PROCES — full-width index rows ── */}
-      <section className={`bg-[#BAFF57] relative snap-start snap-always overflow-hidden ${isMobile ? "min-h-screen py-20 flex flex-col justify-center" : "min-h-screen h-screen flex flex-col justify-center"}`}>
+      <section className={`bg-[#BAFF57] relative snap-start snap-always ${isMobile ? "min-h-screen py-16 overflow-y-auto flex flex-col justify-center" : "min-h-screen h-screen overflow-hidden flex flex-col justify-center"}`}>
         <Reveal className="px-5 md:px-12 lg:px-16 mb-8 md:mb-10">
           <div className="flex items-center gap-3 mb-3">
             <span className="text-black/40 text-xs font-mono">01</span>
@@ -148,9 +141,9 @@ export default function MarketingPage() {
         </Reveal>
       </section>
 
-      {/* ── UKÁŽKY — bento reels ── */}
-      <section className={`bg-[#BAFF57] relative snap-start snap-always flex flex-col ${isMobile ? "min-h-screen py-24 px-5 overflow-y-auto" : "min-h-screen h-screen px-8 lg:px-12 xl:px-16 py-10 overflow-hidden"}`}>
-        <Reveal className="relative z-10 flex items-end justify-between mb-6 md:mb-8 shrink-0">
+      {/* ── UKÁŽKY — reel gallery ── */}
+      <section className="bg-[#BAFF57] relative snap-start px-5 md:px-12 lg:px-16 py-16 md:py-20">
+        <Reveal className="relative z-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 mb-8 md:mb-10">
           <div>
             <div className="flex items-center gap-3 mb-2">
               <span className="text-black/40 text-xs font-mono">02</span>
@@ -158,30 +151,19 @@ export default function MarketingPage() {
               <span className="text-black/50 text-xs uppercase tracking-widest font-mono">Ukážky našej práce</span>
             </div>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-none">Reálne výstupy.</h2>
+            <p className="mt-4 text-sm md:text-base text-black/55 max-w-xl">
+              Klikni na reel a pozri ho naplno. Šípky alebo klávesy na ďalší.
+            </p>
           </div>
-          <Link href="/projekty" className="hidden sm:inline-flex items-center gap-2 bg-black text-[#BAFF57] px-5 py-3 text-xs uppercase tracking-wider hover:bg-white hover:text-black transition-colors">
-            Všetky
+          <Link href="/projekty" className="inline-flex items-center gap-2 bg-black text-[#BAFF57] px-5 py-3 text-xs uppercase tracking-wider hover:bg-white hover:text-black transition-colors shrink-0">
+            Všetky projekty
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
           </Link>
         </Reveal>
 
-        <Reveal className={`relative z-10 flex-1 grid min-h-0 ${isMobile ? "grid-cols-1 gap-6" : "grid-cols-3 gap-4"}`}>
-          {reels.map((reel) => (
-            <div key={reel.src} className={`group relative bg-black overflow-hidden ${isMobile ? "aspect-[4/5]" : ""}`}>
-              <LazyVideo src={reel.src} className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
-                <span className="bg-[#BAFF57] text-black text-[10px] font-mono uppercase tracking-wider px-2 py-0.5">{reel.tag}</span>
-                <p className="mt-3 text-white text-xl md:text-2xl font-bold">{reel.client}</p>
-                <p className="mt-1 text-white/70 text-xs md:text-sm font-light leading-relaxed">{reel.desc}</p>
-              </div>
-            </div>
-          ))}
+        <Reveal>
+          <ReelGallery reels={reels} onOpenChange={setLightboxOpen} />
         </Reveal>
-
-        <Link href="/projekty" className="sm:hidden mt-6 flex items-center justify-center gap-2 bg-black text-[#BAFF57] px-5 py-3 text-xs uppercase tracking-wider">
-          Všetky projekty
-        </Link>
       </section>
 
       {/* ── PLATFORMY — dark slab ── */}

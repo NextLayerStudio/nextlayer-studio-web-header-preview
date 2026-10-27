@@ -46,11 +46,11 @@ export default function Home() {
   }, []);
 
   const heroOpacity = Math.max(0, 1 - scrollY / 600);
-  const section2Progress = Math.min(1, Math.max(0, (scrollY - 300) / 500));
-  const section3Progress = Math.min(1, Math.max(0, (scrollY - 900) / 500));
-  const section4Progress = Math.min(1, Math.max(0, (scrollY - 1500) / 500));
-  const section5Progress = Math.min(1, Math.max(0, (scrollY - 2100) / 500));
-  const section6Progress = Math.min(1, Math.max(0, (scrollY - 2700) / 500));
+  const section2Progress = isMobile ? 1 : Math.min(1, Math.max(0, (scrollY - 300) / 500));
+  const section3Progress = isMobile ? 1 : Math.min(1, Math.max(0, (scrollY - 900) / 500));
+  const section4Progress = isMobile ? 1 : Math.min(1, Math.max(0, (scrollY - 1500) / 500));
+  const section5Progress = isMobile ? 1 : Math.min(1, Math.max(0, (scrollY - 2100) / 500));
+  const section6Progress = isMobile ? 1 : Math.min(1, Math.max(0, (scrollY - 2700) / 500));
 
   const scrollToSection = (sectionIndex: number) => {
     if (containerRef.current) {
@@ -150,7 +150,7 @@ export default function Home() {
   ];
 
   return (
-    <div ref={containerRef} className="bg-[#BAFF57] h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
+    <div ref={containerRef} className="bg-[#BAFF57] h-screen overflow-y-scroll scroll-smooth max-md:snap-none md:snap-y md:snap-mandatory">
 
       {/* Hamburger Button */}
       {showHamburger && !isMenuOpen && (
@@ -226,7 +226,7 @@ export default function Home() {
             <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Projekty</span>
             <span className="w-0 h-[1px] bg-[#BAFF57] group-hover:w-12 transition-all duration-300"></span>
           </Link>
-          <div className="absolute bottom-12 left-12 md:left-24 lg:left-32 text-[#BAFF57]/50 text-sm font-light">
+          <div className="absolute bottom-10 left-6 sm:left-12 md:left-24 lg:left-32 text-[#BAFF57]/50 text-sm font-light">
             <p>team@nextlayer.studio</p>
             <p>+421 902 238 309</p>
           </div>
@@ -346,22 +346,21 @@ export default function Home() {
       </main>
 
       {/* ── O NÁS — large landscape reel, text overlapping on lime ── */}
-      <section id="o-nas" className="relative min-h-screen h-screen bg-[#BAFF57] overflow-hidden snap-start snap-always">
+      <section
+        id="o-nas"
+        className="relative bg-[#BAFF57] flex flex-col max-md:h-[100dvh] max-md:min-h-[100dvh] max-md:overflow-hidden pt-12 pb-0 md:min-h-screen md:h-screen md:overflow-hidden md:snap-start md:snap-always md:pt-0 md:pb-0"
+      >
         <div
           className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-[62%] xl:w-[64%]"
           style={{ opacity: section2Progress }}
         >
           <div className="relative aspect-video bg-black overflow-hidden">
-            {aboutVideos.map((src, i) => (
-              <LazyVideo
-                key={src}
-                src={src}
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
-                style={{ opacity: i === aboutVideoIndex ? 1 : 0, pointerEvents: i === aboutVideoIndex ? "auto" : "none" }}
-                priority={i === aboutVideoIndex}
-                playWhenVisible={i === aboutVideoIndex}
-              />
-            ))}
+            <LazyVideo
+              key={aboutVideos[aboutVideoIndex]}
+              src={aboutVideos[aboutVideoIndex]}
+              className="absolute inset-0 w-full h-full object-cover"
+              priority
+            />
             <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-5 py-3 bg-gradient-to-t from-black/70 to-transparent">
               <a href="https://instagram.com/nextlayerstudio" target="_blank" rel="noopener noreferrer" className="text-[11px] font-mono uppercase tracking-wider text-white/80 hover:text-white">
                 @nextlayerstudio
@@ -372,48 +371,49 @@ export default function Home() {
         </div>
 
         <div
-          className="relative z-10 flex flex-col justify-center px-6 md:px-12 lg:px-16 xl:px-20 py-12 md:h-full max-w-xl lg:max-w-[32rem]"
-          style={{ opacity: section2Progress, transform: `translateX(${(1 - section2Progress) * -30}px)` }}
+          className="relative z-10 flex flex-col justify-center px-5 md:px-12 lg:px-16 xl:px-20 pt-2 pb-0 md:py-12 md:h-full max-w-xl lg:max-w-[32rem] shrink-0"
+          style={{ opacity: section2Progress, transform: isMobile ? undefined : `translateX(${(1 - section2Progress) * -30}px)` }}
         >
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-5 md:mb-6">
             <span className="text-black/40 text-xs font-mono">01</span>
             <div className="w-8 h-px bg-black"></div>
             <span className="text-black/50 text-xs uppercase tracking-widest font-mono">Kto sme</span>
           </div>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.9] tracking-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.9] tracking-tight">
             Všetko<br />v jednom.
           </h2>
-          <p className="mt-8 text-sm md:text-base leading-relaxed md:leading-[1.85] text-black/80">
+          <p className="mt-6 md:mt-8 text-sm md:text-base leading-relaxed md:leading-[1.85] text-black/80">
             Sme produkčné a marketingové štúdio. Pomáhame firmám budovať profesionálnu prítomnosť na sociálnych sieťach — so scenárom, produkciou, réžiou aj strihom.
           </p>
-          <p className="mt-4 text-sm md:text-base leading-relaxed md:leading-[1.85] text-black/55">
+          <p className="mt-3 md:mt-4 text-sm md:text-base leading-relaxed md:leading-[1.85] text-black/55">
             Vyvíjame aj weby, e-shopy a digitálne systémy, ktoré nielen dobre vyzerajú, ale hlavne fungujú.
           </p>
-          <div className="mt-8 flex gap-3 flex-wrap">
+          <div className="mt-6 md:mt-8 flex gap-3 flex-wrap">
             <a href="/marketing" className="bg-black text-[#BAFF57] uppercase px-6 py-3.5 text-xs tracking-wider hover:bg-[#212121] transition-colors">Marketing</a>
             <a href="/development" className="bg-white text-black uppercase px-6 py-3.5 text-xs tracking-wider hover:bg-black hover:text-[#BAFF57] transition-colors">Development</a>
           </div>
         </div>
 
-        {/* Mobile video */}
-        <div className="md:hidden px-6 pb-10">
-          <div className="relative aspect-video bg-black overflow-hidden">
-            {aboutVideos.map((src, i) => (
-              <LazyVideo
-                key={src}
-                src={src}
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
-                style={{ opacity: i === aboutVideoIndex ? 1 : 0, pointerEvents: i === aboutVideoIndex ? "auto" : "none" }}
-                priority={i === aboutVideoIndex}
-                playWhenVisible={i === aboutVideoIndex}
-              />
-            ))}
+        <div className="md:hidden flex-1 min-h-0 px-5 pt-4 pb-5">
+          <div className="relative h-full w-full bg-black overflow-hidden">
+            <LazyVideo
+              key={`m-${aboutVideos[aboutVideoIndex]}`}
+              src={aboutVideos[aboutVideoIndex]}
+              className="absolute inset-0 w-full h-full object-cover"
+              priority
+            />
+            <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-3 py-2.5 bg-gradient-to-t from-black/75 to-transparent">
+              <a href="https://instagram.com/nextlayerstudio" target="_blank" rel="noopener noreferrer" className="text-[10px] font-mono uppercase tracking-wider text-white/85">
+                @nextlayerstudio
+              </a>
+              <span className="text-[10px] font-mono text-white/50">0{aboutVideoIndex + 1} / 03</span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── PROJEKTY — bento: one large + two stacked ── */}
-      <section className={`bg-[#BAFF57] relative snap-start snap-always ${isMobile ? 'min-h-screen py-24 px-5 overflow-y-auto' : 'min-h-screen h-screen px-8 lg:px-12 xl:px-16 py-10 overflow-hidden'} flex flex-col`}>
+      <section className={`bg-[#BAFF57] relative md:snap-start md:snap-always ${isMobile ? 'pt-8 pb-16 px-5' : 'min-h-screen h-screen px-8 lg:px-12 xl:px-16 py-10 overflow-hidden'} flex flex-col`}>
         <div className="relative z-10 flex items-end justify-between mb-6 md:mb-8 shrink-0" style={{ opacity: section3Progress }}>
           <div>
             <div className="flex items-center gap-3 mb-2">
@@ -433,8 +433,11 @@ export default function Home() {
           className={`relative z-10 flex-1 grid min-h-0 ${isMobile ? 'grid-cols-1 gap-6' : 'grid-cols-12 grid-rows-2 gap-4'}`}
           style={{ opacity: section3Progress, transform: `translateY(${(1 - section3Progress) * 40}px)` }}
         >
-          <div className={`group relative bg-black overflow-hidden ${isMobile ? 'aspect-[4/5]' : 'col-span-7 row-span-2'}`}>
-            <div className="absolute inset-0 grid grid-cols-2 gap-1 bg-[#BAFF57]">
+          <Link
+            href="/projekty"
+            className={`group relative bg-black overflow-hidden block ${isMobile ? 'aspect-[4/5]' : 'col-span-7 row-span-2'}`}
+          >
+            <div className="absolute inset-0 grid grid-cols-2 gap-1 bg-[#BAFF57] pointer-events-none">
               {["video1", "video2"].map((name) => (
                 <div key={name} className="relative overflow-hidden bg-black">
                   <LazyVideo
@@ -450,30 +453,30 @@ export default function Home() {
               <span className="w-1.5 h-1.5 rounded-full bg-[#BAFF57] animate-pulse"></span>
               @bombafasada · Reels
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
+            <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8 pointer-events-none">
               <span className="bg-[#BAFF57] text-black text-[10px] font-mono uppercase tracking-wider px-2 py-0.5">Social Media</span>
               <p className="mt-3 text-white text-2xl md:text-4xl font-bold">Bombafasada</p>
               <p className="mt-1 text-white/70 text-sm font-light">Profesionálna fasádna spoločnosť — brand na sieťach.</p>
             </div>
-          </div>
+          </Link>
 
-          <div className={`group relative bg-[#FDF2F8] overflow-hidden ${isMobile ? 'aspect-[16/10]' : 'col-span-5 row-span-1'}`}>
+          <Link href="/projekty" className={`group relative bg-[#FDF2F8] overflow-hidden block ${isMobile ? 'aspect-[16/10]' : 'col-span-5 row-span-1'}`}>
             <Image src="/screenshots/onkoklub-portfolio.jpg" alt="ONKO KLUB" fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover object-center group-hover:scale-105 transition-transform duration-700" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
             <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
               <span className="bg-black text-[#BAFF57] text-[10px] font-mono uppercase tracking-wider px-2 py-0.5">Web & App Development</span>
               <p className="mt-2 text-white text-xl md:text-2xl font-bold">ONKO KLUB</p>
             </div>
-          </div>
+          </Link>
 
-          <div className={`group relative bg-white overflow-hidden ${isMobile ? 'aspect-[16/10]' : 'col-span-5 row-span-1'}`}>
+          <Link href="/projekty" className={`group relative bg-white overflow-hidden block ${isMobile ? 'aspect-[16/10]' : 'col-span-5 row-span-1'}`}>
             <Image src="/screenshots/sisi-eshop.png" alt="New Era Microblading" fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover object-top group-hover:scale-105 transition-transform duration-700" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
             <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
               <span className="bg-black text-[#BAFF57] text-[10px] font-mono uppercase tracking-wider px-2 py-0.5">E-shop</span>
               <p className="mt-2 text-white text-xl md:text-2xl font-bold">New Era Microblading</p>
             </div>
-          </div>
+          </Link>
         </div>
 
         <Link href="/projekty" className="sm:hidden mt-6 flex items-center justify-center gap-2 bg-black text-[#BAFF57] px-5 py-3 text-xs uppercase tracking-wider">
@@ -482,7 +485,7 @@ export default function Home() {
       </section>
 
       {/* ── ČO ROBÍME — full-width index rows ── */}
-      <section className={`bg-[#BAFF57] relative snap-start snap-always overflow-hidden ${isMobile ? 'min-h-screen py-20 px-5 flex flex-col justify-center' : 'min-h-screen h-screen flex flex-col justify-center'}`}>
+      <section className={`bg-[#BAFF57] relative snap-start snap-always ${isMobile ? 'min-h-screen py-16 px-5 overflow-y-auto flex flex-col justify-center' : 'min-h-screen h-screen overflow-hidden flex flex-col justify-center'}`}>
         <div className="px-5 md:px-12 lg:px-16 mb-8 md:mb-10" style={{ opacity: section4Progress }}>
           <div className="flex items-center gap-3 mb-3">
             <span className="text-black/40 text-xs font-mono">03</span>
@@ -581,7 +584,12 @@ export default function Home() {
       */}
 
       {/* ── KONTAKT — giant type + white form ── */}
-      <section id="kontakt" className="relative min-h-screen h-screen bg-[#BAFF57] overflow-hidden snap-start snap-always flex flex-col">
+      <section
+        id="kontakt"
+        className={`relative bg-[#BAFF57] snap-start snap-always flex flex-col ${
+          isMobile ? "min-h-screen overflow-y-auto" : "min-h-screen h-screen overflow-hidden"
+        }`}
+      >
         <p className="absolute -left-4 md:-left-8 top-8 md:top-4 text-[22vw] font-bold leading-none tracking-tighter text-black/[0.08] select-none pointer-events-none whitespace-nowrap">
           KONTAKT
         </p>

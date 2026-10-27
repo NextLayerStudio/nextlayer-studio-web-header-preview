@@ -84,6 +84,15 @@ body {
   min-height: 100%;
 }
 
+@media (max-width: 767px) {
+  #o-nas {
+    min-height: 100dvh;
+    height: 100dvh;
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+  }
+}
+
 /* Hide scrollbar but keep functionality */
 .snap-y::-webkit-scrollbar {
   width: 0;
