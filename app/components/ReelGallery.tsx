@@ -2,8 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { mediaUrl } from "../../lib/media";
-import LazyVideo from "./LazyVideo";
+import { mediaUrl, reelPosterUrl, reelPreviewUrl } from "../../lib/media";
 
 export type GalleryReel = {
   src: string;
@@ -18,24 +17,163 @@ type ReelGalleryProps = {
   onOpenChange?: (open: boolean) => void;
 };
 
-/** Poster while the MP4 buffers (Bombafasáda reels have no JPG in data yet) */
 function gridPoster(reel: GalleryReel): string | undefined {
-  if (reel.poster) return reel.poster;
+  if (reel.poster) return mediaUrl(reel.poster);
+  const generated = reelPosterUrl(reel.src);
+  if (generated) return generated;
   if (reel.src.includes("/bombafasada/")) return "/logos/bombafasada-clean.png";
   return undefined;
+}
+
+function maxPlayingSlots() {
+  if (typeof window === "undefined") return 4;
+  return window.innerWidth < 768 ? 4 : 8;
+}
+
+type ReelGridCellProps = {
+  reel: GalleryReel;
+  canPlay: boolean;
+  onVisibility: (src: string, ratio: number, intersecting: boolean) => void;
+  onOpen: () => void;
+};
+
+function ReelGridCell({ reel, canPlay, onVisibility, onOpen }: ReelGridCellProps) {
+  const containerRef = useRef<HTMLButtonElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const posterUrl = gridPoster(reel);
+  const fullUrl = mediaUrl(reel.src);
+  const [videoUrl, setVideoUrl] = useState(() => reelPreviewUrl(reel.src) ?? fullUrl);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        onVisibility(reel.src, entry.intersectionRatio, entry.isIntersecting);
+      },
+      { rootMargin: "120px 0px", threshold: [0, 0.05, 0.15, 0.35, 0.6, 1] }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [reel.src, onVisibility]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (!canPlay) {
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+      return;
+    }
+
+    if (video.getAttribute("src") !== videoUrl) {
+      video.src = videoUrl;
+      video.load();
+    }
+    video.play().catch(() => {});
+  }, [canPlay, videoUrl]);
+
+  return (
+    <button
+      ref={containerRef}
+      type="button"
+      onClick={onOpen}
+      className="group relative aspect-[9/16] overflow-hidden bg-neutral-900 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+      aria-label={`Otvoriť reel: ${reel.title}`}
+    >
+      {posterUrl ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={posterUrl}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover pointer-events-none"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : null}
+
+      {canPlay ? (
+        <video
+          ref={videoRef}
+          className="absolute inset-0 h-full w-full object-cover pointer-events-none"
+          muted
+          loop
+          playsInline
+          preload="auto"
+          onError={() => {
+            if (videoUrl !== fullUrl) setVideoUrl(fullUrl);
+          }}
+        />
+      ) : null}
+
+      <span className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
+      <span className="absolute inset-x-0 bottom-0 p-3 md:p-4 pointer-events-none">
+        <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-wider text-[#BAFF57]">
+          {reel.client}
+          {reel.tag ? ` · ${reel.tag}` : ""}
+        </span>
+        <span className="mt-0.5 block text-sm md:text-base font-bold text-white leading-tight">
+          {reel.title}
+        </span>
+      </span>
+    </button>
+  );
 }
 
 export default function ReelGallery({ reels, onOpenChange }: ReelGalleryProps) {
   const [active, setActive] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
   const [lightboxReady, setLightboxReady] = useState(false);
+  const [playingSrcs, setPlayingSrcs] = useState<string[]>([]);
   const lightboxVideoRef = useRef<HTMLVideoElement>(null);
+  const visibilityRef = useRef(new Map<string, number>());
+  const rafRef = useRef<number | null>(null);
   const open = active !== null;
   const current = open ? reels[active] : null;
 
+  const recomputePlaying = useCallback(() => {
+    const max = maxPlayingSlots();
+    const next = [...visibilityRef.current.entries()]
+      .filter(([, ratio]) => ratio >= 0.08)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, max)
+      .map(([src]) => src);
+
+    setPlayingSrcs((prev) => {
+      if (prev.length === next.length && prev.every((s, i) => s === next[i])) {
+        return prev;
+      }
+      return next;
+    });
+  }, []);
+
+  const reportVisibility = useCallback(
+    (src: string, ratio: number, intersecting: boolean) => {
+      if (!intersecting || ratio < 0.02) {
+        visibilityRef.current.delete(src);
+      } else {
+        visibilityRef.current.set(src, ratio);
+      }
+
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null;
+        recomputePlaying();
+      });
+    },
+    [recomputePlaying]
+  );
+
   useEffect(() => {
     setMounted(true);
-  }, []);
+    const onResize = () => recomputePlaying();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [recomputePlaying]);
 
   const close = useCallback(() => {
     setActive(null);
@@ -91,19 +229,23 @@ export default function ReelGallery({ reels, onOpenChange }: ReelGalleryProps) {
     const url = mediaUrl(current.src);
     video.src = url;
     video.poster = current.poster ? mediaUrl(current.poster) : "";
-    video.load();
 
-    const onCanPlay = () => {
+    const markReady = () => {
       setLightboxReady(true);
       video.play().catch(() => {});
     };
-    video.addEventListener("canplay", onCanPlay, { once: true });
+
+    video.load();
+    video.addEventListener("loadeddata", markReady, { once: true });
+
+    const timeout = window.setTimeout(() => setLightboxReady(true), 8000);
 
     return () => {
-      video.removeEventListener("canplay", onCanPlay);
+      window.clearTimeout(timeout);
+      video.removeEventListener("loadeddata", markReady);
       video.pause();
     };
-  }, [open, active, current]);
+  }, [open, active, current?.src, current?.poster]);
 
   const dialog =
     open && current && mounted
@@ -205,32 +347,13 @@ export default function ReelGallery({ reels, onOpenChange }: ReelGalleryProps) {
     <>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
         {reels.map((reel, i) => (
-          <button
+          <ReelGridCell
             key={reel.src}
-            type="button"
-            onClick={() => show(i)}
-            className="group relative aspect-[9/16] overflow-hidden bg-black text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-black [content-visibility:auto]"
-            aria-label={`Otvoriť reel: ${reel.title}`}
-          >
-            <LazyVideo
-              src={reel.src}
-              poster={gridPoster(reel)}
-              playWhenVisible
-              autoPlay
-              unloadWhenHidden
-              visibilityThreshold={0.35}
-              rootMargin="48px"
-              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-            />
-            <span className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
-            <span className="absolute inset-x-0 bottom-0 p-3 md:p-4 pointer-events-none">
-              <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-wider text-[#BAFF57]">
-                {reel.client}
-                {reel.tag ? ` · ${reel.tag}` : ""}
-              </span>
-              <span className="mt-0.5 block text-sm md:text-base font-bold text-white leading-tight">{reel.title}</span>
-            </span>
-          </button>
+            reel={reel}
+            canPlay={playingSrcs.includes(reel.src)}
+            onVisibility={reportVisibility}
+            onOpen={() => show(i)}
+          />
         ))}
       </div>
       {dialog}

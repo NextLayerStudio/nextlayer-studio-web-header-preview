@@ -40,8 +40,8 @@ export default function LazyVideo({
   loop = true,
   playsInline = true,
   unloadWhenHidden = false,
-  visibilityThreshold = 0.15,
-  rootMargin = "80px",
+  visibilityThreshold = 0.12,
+  rootMargin = "120px",
 }: LazyVideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
   const [shouldLoad, setShouldLoad] = useState(priority);
@@ -73,7 +73,7 @@ export default function LazyVideo({
           if (playWhenVisible && autoPlay) {
             el.play().catch(() => {});
           }
-        } else {
+        } else if (playWhenVisible) {
           el.pause();
           if (unloadWhenHidden && !entry.isIntersecting) {
             setShouldLoad(false);
@@ -111,7 +111,7 @@ export default function LazyVideo({
       style={style}
       src={shouldLoad ? resolvedSrc : undefined}
       poster={resolvedPoster}
-      preload={shouldLoad ? "auto" : "none"}
+      preload={shouldLoad ? "metadata" : "none"}
       muted={muted}
       loop={loop}
       playsInline={playsInline}

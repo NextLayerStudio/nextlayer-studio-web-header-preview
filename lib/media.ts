@@ -40,6 +40,18 @@ export function legacyMediaUrl(path: string): string | null {
   return null;
 }
 
+/** Light grid preview made by `npm run previews:blob`; only exists in the Blob store */
+export function reelPreviewUrl(path: string): string | null {
+  if (!BLOB_BASE || !path.endsWith(".mp4")) return null;
+  return `${BLOB_BASE}${normalize(path).replace(/\.mp4$/, "-preview.mp4")}`;
+}
+
+/** Poster frame made by `npm run previews:blob` */
+export function reelPosterUrl(path: string): string | null {
+  if (!BLOB_BASE || !path.endsWith(".mp4")) return null;
+  return `${BLOB_BASE}${normalize(path).replace(/\.mp4$/, ".jpg")}`;
+}
+
 export function mediaUrl(path: string): string {
   if (!path) return path;
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
