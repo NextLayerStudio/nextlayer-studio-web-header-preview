@@ -16,6 +16,11 @@ type LazyVideoProps = {
   muted?: boolean;
   loop?: boolean;
   playsInline?: boolean;
+  /** Drop `src` when off-screen to free decoders (gallery grids) */
+  unloadWhenHidden?: boolean;
+  /** Min visible fraction before play (0–1) */
+  visibilityThreshold?: number;
+  rootMargin?: string;
 };
 
 function isInViewport(el: Element) {
@@ -34,6 +39,9 @@ export default function LazyVideo({
   muted = true,
   loop = true,
   playsInline = true,
+  unloadWhenHidden = false,
+  visibilityThreshold = 0.15,
+  rootMargin = "80px",
 }: LazyVideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
   const [shouldLoad, setShouldLoad] = useState(priority);
@@ -56,21 +64,31 @@ export default function LazyVideo({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        const ratio = entry.intersectionRatio;
+        const visibleEnough =
+          entry.isIntersecting && ratio >= visibilityThreshold;
+
+        if (visibleEnough) {
           setShouldLoad(true);
           if (playWhenVisible && autoPlay) {
             el.play().catch(() => {});
           }
-        } else if (playWhenVisible) {
+        } else {
           el.pause();
+          if (unloadWhenHidden && !entry.isIntersecting) {
+            setShouldLoad(false);
+          }
         }
       },
-      { rootMargin: "320px", threshold: 0.05 }
+      {
+        rootMargin,
+        threshold: [0, 0.1, 0.25, 0.35, 0.5, 0.75, 1],
+      }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [autoPlay, playWhenVisible]);
+  }, [autoPlay, playWhenVisible, unloadWhenHidden, visibilityThreshold, rootMargin]);
 
   useEffect(() => {
     const el = ref.current;
@@ -93,7 +111,7 @@ export default function LazyVideo({
       style={style}
       src={shouldLoad ? resolvedSrc : undefined}
       poster={resolvedPoster}
-      preload={shouldLoad ? "metadata" : "none"}
+      preload={shouldLoad ? "auto" : "none"}
       muted={muted}
       loop={loop}
       playsInline={playsInline}

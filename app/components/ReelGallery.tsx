@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { mediaUrl } from "../../lib/media";
 import LazyVideo from "./LazyVideo";
@@ -18,9 +18,18 @@ type ReelGalleryProps = {
   onOpenChange?: (open: boolean) => void;
 };
 
+/** Poster while the MP4 buffers (Bombafasáda reels have no JPG in data yet) */
+function gridPoster(reel: GalleryReel): string | undefined {
+  if (reel.poster) return reel.poster;
+  if (reel.src.includes("/bombafasada/")) return "/logos/bombafasada-clean.png";
+  return undefined;
+}
+
 export default function ReelGallery({ reels, onOpenChange }: ReelGalleryProps) {
   const [active, setActive] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [lightboxReady, setLightboxReady] = useState(false);
+  const lightboxVideoRef = useRef<HTMLVideoElement>(null);
   const open = active !== null;
   const current = open ? reels[active] : null;
 
@@ -68,6 +77,33 @@ export default function ReelGallery({ reels, onOpenChange }: ReelGalleryProps) {
       window.removeEventListener("keydown", onKey);
     };
   }, [open, close, step]);
+
+  useEffect(() => {
+    if (!open || active === null || !current) {
+      setLightboxReady(false);
+      return;
+    }
+
+    const video = lightboxVideoRef.current;
+    if (!video) return;
+
+    setLightboxReady(false);
+    const url = mediaUrl(current.src);
+    video.src = url;
+    video.poster = current.poster ? mediaUrl(current.poster) : "";
+    video.load();
+
+    const onCanPlay = () => {
+      setLightboxReady(true);
+      video.play().catch(() => {});
+    };
+    video.addEventListener("canplay", onCanPlay, { once: true });
+
+    return () => {
+      video.removeEventListener("canplay", onCanPlay);
+      video.pause();
+    };
+  }, [open, active, current]);
 
   const dialog =
     open && current && mounted
@@ -135,16 +171,20 @@ export default function ReelGallery({ reels, onOpenChange }: ReelGalleryProps) {
                 className="relative h-[min(72vh,720px)] w-auto aspect-[9/16] max-w-[min(92vw,420px)] bg-black"
                 onClick={(e) => e.stopPropagation()}
               >
+                {!lightboxReady && (
+                  <div className="absolute inset-0 flex items-center justify-center z-[1] bg-black/80">
+                    <span className="w-8 h-8 border-2 border-[#BAFF57]/30 border-t-[#BAFF57] rounded-full animate-spin" />
+                  </div>
+                )}
                 <video
-                  key={current.src}
-                  src={mediaUrl(current.src)}
-                  poster={current.poster ? mediaUrl(current.poster) : undefined}
+                  ref={lightboxVideoRef}
                   className="absolute inset-0 w-full h-full object-contain"
-                  autoPlay
                   muted
                   loop
                   playsInline
+                  autoPlay
                   controls
+                  preload="auto"
                 />
               </div>
             </div>
@@ -169,13 +209,18 @@ export default function ReelGallery({ reels, onOpenChange }: ReelGalleryProps) {
             key={reel.src}
             type="button"
             onClick={() => show(i)}
-            className="group relative aspect-[9/16] overflow-hidden bg-black text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+            className="group relative aspect-[9/16] overflow-hidden bg-black text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-black [content-visibility:auto]"
             aria-label={`Otvoriť reel: ${reel.title}`}
           >
             <LazyVideo
               src={reel.src}
-              poster={reel.poster}
-              className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-90 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-700"
+              poster={gridPoster(reel)}
+              playWhenVisible
+              autoPlay
+              unloadWhenHidden
+              visibilityThreshold={0.35}
+              rootMargin="48px"
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             />
             <span className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
             <span className="absolute inset-x-0 bottom-0 p-3 md:p-4 pointer-events-none">
