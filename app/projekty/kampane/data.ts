@@ -105,6 +105,11 @@ const allCampaigns: Campaign[] = [
     ads: [
       { type: "video", src: "/kampane/bombafasada/video1.mp4", title: "Edukačný reel — fasádne povrchy", platform: "Instagram", format: "Reels 9:16" },
       { type: "video", src: "/kampane/bombafasada/video2.mp4", title: "Realizácia v teréne", platform: "Facebook", format: "Reels 9:16" },
+      { type: "video", src: "/kampane/bombafasada/video3.mp4", title: "3 body — prečo fasáda", platform: "Instagram", format: "Reels 9:16" },
+      { type: "video", src: "/kampane/bombafasada/video4.mp4", title: "Roztok a príprava", platform: "Instagram", format: "Reels 9:16" },
+      { type: "video", src: "/kampane/bombafasada/video5.mp4", title: "Pracujeme tak isto", platform: "Instagram", format: "Reels 9:16" },
+      { type: "video", src: "/kampane/bombafasada/video6.mp4", title: "Porovnanie pred a po", platform: "Instagram", format: "Reels 9:16" },
+      { type: "video", src: "/kampane/bombafasada/video7.mp4", title: "Bombafasáda — reel #7", platform: "Instagram", format: "Reels 9:16" },
     ],
     result: "Z firmy, ktorá na sieťach nebola vidieť, sa stal rozpoznateľný odborník s pravidelným prísunom dopytov.",
     sample: true,

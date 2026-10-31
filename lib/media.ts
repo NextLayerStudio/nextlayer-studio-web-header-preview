@@ -12,7 +12,14 @@ const BLOB_BASE = process.env.NEXT_PUBLIC_BLOB_BASE_URL?.replace(/\/$/, "");
 export const LEGACY_BLOB_CDN = "https://akinb3uuwih4cf6s.public.blob.vercel-storage.com";
 
 /** Shipped with the Next.js deployment (do not rewrite to a possibly empty new Blob store) */
-const LOCAL_KAMPANE_PREFIXES = ["/kampane/karin-art/", "/kampane/kvety/", "/kampane/zvyky/"];
+const LOCAL_KAMPANE_PREFIXES = [
+  "/kampane/karin-art/",
+  "/kampane/kvety/",
+  "/kampane/zvyky/",
+];
+
+/** New Bombafasáda reels in `public/`; video1–2 stay on legacy CDN until mirrored locally */
+const LOCAL_BOMBA_REEL = /^video[3-7]\.mp4$/;
 
 function normalize(path: string) {
   return path.startsWith("/") ? path : `/${path}`;
@@ -39,19 +46,26 @@ export function mediaUrl(path: string): string {
 
   const n = normalize(path);
 
+  if (
+    BLOB_BASE &&
+    (n.startsWith("/kampane/") ||
+      n.startsWith("/site/") ||
+      n.startsWith("/marketing/"))
+  ) {
+    return `${BLOB_BASE}${n}`;
+  }
+
   if (LOCAL_KAMPANE_PREFIXES.some((prefix) => n.startsWith(prefix))) {
     return n;
   }
 
+  if (n.startsWith("/kampane/bombafasada/")) {
+    const file = n.slice("/kampane/bombafasada/".length);
+    if (LOCAL_BOMBA_REEL.test(file)) return n;
+  }
+
   const legacy = legacyMediaUrl(n);
   if (legacy) return legacy;
-
-  if (
-    BLOB_BASE &&
-    (n.startsWith("/kampane/") || n.startsWith("/site/") || n.startsWith("/marketing/"))
-  ) {
-    return `${BLOB_BASE}${n}`;
-  }
 
   return n;
 }

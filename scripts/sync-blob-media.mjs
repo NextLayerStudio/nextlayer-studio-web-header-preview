@@ -37,10 +37,21 @@ function loadEnvFile() {
 
 loadEnvFile();
 
-const token = process.env.BLOB_READ_WRITE_TOKEN;
+const token =
+  process.env.BLOB_READ_WRITE_TOKEN ?? process.env.NLS_BLOB_READ_WRITE_TOKEN;
 if (!token) {
-  console.error("Missing BLOB_READ_WRITE_TOKEN in environment or .env.");
+  console.error(
+    "Missing BLOB_READ_WRITE_TOKEN or NLS_BLOB_READ_WRITE_TOKEN in environment or .env.",
+  );
   process.exit(1);
+}
+
+/** Must match store type in Vercel Storage. Use "public" for browser/CDN playback. */
+const BLOB_ACCESS = process.env.BLOB_ACCESS === "private" ? "private" : "public";
+if (BLOB_ACCESS === "private") {
+  console.warn(
+    "BLOB_ACCESS=private — files upload to your store but the live site needs a Public store + BLOB_ACCESS=public for NEXT_PUBLIC_BLOB_BASE_URL.\n",
+  );
 }
 
 const LEGACY_BASE = "https://akinb3uuwih4cf6s.public.blob.vercel-storage.com";
@@ -75,10 +86,11 @@ async function uploadFile(localPath, pathname) {
         : undefined;
 
   const result = await put(pathname, body, {
-    access: "public",
+    access: BLOB_ACCESS,
     token,
     contentType,
     addRandomSuffix: false,
+    allowOverwrite: true,
   });
   return result;
 }
@@ -92,10 +104,11 @@ async function mirrorRemote({ url, pathname }) {
   const buffer = Buffer.from(await res.arrayBuffer());
   const contentType = res.headers.get("content-type") ?? "video/mp4";
   return put(pathname, buffer, {
-    access: "public",
+    access: BLOB_ACCESS,
     token,
     contentType,
     addRandomSuffix: false,
+    allowOverwrite: true,
   });
 }
 
@@ -135,8 +148,14 @@ async function main() {
   const baseUrl = blobOrigin(uploaded[0].url);
   const baseFile = path.join(ROOT, "lib", "blob-base-url.txt");
   fs.writeFileSync(baseFile, `${baseUrl}\n`, "utf8");
-  console.log(`\nBlob public base URL:\n${baseUrl}`);
-  console.log(`\nAdd to .env and Vercel:\nNEXT_PUBLIC_BLOB_BASE_URL=${baseUrl}`);
+  console.log(`\nBlob base URL (origin):\n${baseUrl}`);
+  if (BLOB_ACCESS === "public") {
+    console.log(`\nAdd to .env and Vercel (Production):\nNEXT_PUBLIC_BLOB_BASE_URL=${baseUrl}`);
+  } else {
+    console.log(
+      `\nUploaded ${uploaded.length} files. Switch the store to Public in Vercel → Storage, then run:\n  BLOB_ACCESS=public npm run sync:blob\nand set NEXT_PUBLIC_BLOB_BASE_URL=${baseUrl}`,
+    );
+  }
 }
 
 main().catch((err) => {
