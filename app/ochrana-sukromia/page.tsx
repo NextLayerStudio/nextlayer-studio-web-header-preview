@@ -26,7 +26,7 @@ export default function OchranaSukromia() {
           <span className="text-[#BAFF57]/40 text-xs uppercase tracking-widest font-mono">Právne dokumenty</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-bold text-[#BAFF57] mb-4">Ochrana osobných údajov</h1>
-        <p className="text-[#BAFF57]/40 text-sm font-mono mb-16">Platné od 1. januára 2026 · V súlade s nariadením GDPR (EÚ) 2016/679</p>
+        <p className="text-[#BAFF57]/40 text-sm font-mono mb-16">Platné od 1. januára 2026 · Aktualizované 8. novembra 2026 · V súlade s nariadením GDPR (EÚ) 2016/679</p>
 
         <div className="space-y-12 text-[#BAFF57]/70 text-sm leading-relaxed font-light">
 
@@ -38,37 +38,45 @@ export default function OchranaSukromia() {
 
           <section>
             <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">2. Aké osobné údaje zbierame</h2>
-            <p className="mb-3">Táto webová stránka zbiera osobné údaje výlučne prostredníctvom kontaktného formulára. Zbierané údaje zahŕňajú:</p>
+            <p className="mb-3">Osobné údaje zbierame prostredníctvom kontaktných formulárov na tejto stránke (vrátane formulára &bdquo;Bezplatná konzultácia&ldquo;) a formulárov v našich reklamách na Facebooku a Instagrame. Zbierané údaje zahŕňajú:</p>
             <ul className="list-none space-y-2 mb-3 pl-4">
               <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span>meno a priezvisko,</li>
               <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span>e-mailovú adresu,</li>
+              <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span>telefónne číslo (ak ho zadáš),</li>
+              <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span>názov firmy a odkaz na tvoj web alebo profil na sociálnej sieti (ak ich zadáš),</li>
               <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span>obsah správy (dobrovoľne zadaný text).</li>
             </ul>
-            <p>Iné osobné údaje (napr. IP adresa, technické údaje o prehliadači) nie sú cielene zbierané ani uchovávané.</p>
+            <p className="mb-3"><strong className="text-[#BAFF57]/90">Formuláre v reklamách na Facebooku a Instagrame.</strong> Ak vyplníš formulár priamo v našej reklame (napr. &bdquo;3 nápady na videá pre vašu firmu zadarmo&ldquo;), formulár technicky prevádzkuje spoločnosť Meta a údaje, ktoré do neho zadáš, nám odovzdá. Použijeme ich len na to, aby sme ti poslali sľúbené nápady, odpovedali na tvoj dopyt a prípadne ti zavolali alebo napísali s ponukou spolupráce.</p>
+            <p className="mb-3">Ak si udelíš súhlas s marketingovými cookies (bod 6), pri odoslaní formulára na webe spracúvame aj technické identifikátory potrebné na meranie reklamy (cookies <span className="font-mono text-xs">_fbp</span> a <span className="font-mono text-xs">_fbc</span>, IP adresu a údaj o prehliadači) a e-mail a telefón v pseudonymizovanej (hašovanej) podobe, ktoré odovzdávame spoločnosti Meta na priradenie dopytu ku kampani.</p>
+            <p>Bez udeleného marketingového súhlasu sa žiadne sledovacie identifikátory nezbierajú ani neodosielajú.</p>
           </section>
 
           <section>
             <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">3. Účel a právny základ spracovania</h2>
-            <p className="mb-3">Osobné údaje z kontaktného formulára spracúvame za účelom <strong className="text-[#BAFF57]/90">odpovedania na tvoj dopyt a prípadného nadviazania obchodnej spolupráce</strong>.</p>
+            <p className="mb-3">Osobné údaje z kontaktných formulárov spracúvame za účelom <strong className="text-[#BAFF57]/90">odpovedania na tvoj dopyt a prípadného nadviazania obchodnej spolupráce</strong>.</p>
             <p>Právnym základom spracovania je čl. 6 ods. 1 písm. b) nariadenia GDPR — spracúvanie je nevyhnutné na prijatie opatrení pred uzatvorením zmluvy, resp. čl. 6 ods. 1 písm. f) — oprávnený záujem prevádzkovateľa na komunikáciu s potenciálnymi klientmi.</p>
           </section>
 
           <section>
             <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">4. Doba uchovávania</h2>
-            <p>Osobné údaje z kontaktného formulára uchováme po dobu nevyhnutnú na vybavenie tvojho dopytu, najviac však 2 roky od jeho prijatia. Ak dôjde k uzatvoreniu zmluvného vzťahu, údaje sa spracúvajú po dobu trvania zmluvy a ďalej v súlade s účtovnými a daňovými predpismi (spravidla 5–10 rokov).</p>
+            <p>Osobné údaje z kontaktných formulárov uchováme po dobu nevyhnutnú na vybavenie tvojho dopytu, najviac však 2 roky od jeho prijatia. Ak dôjde k uzatvoreniu zmluvného vzťahu, údaje sa spracúvajú po dobu trvania zmluvy a ďalej v súlade s účtovnými a daňovými predpismi (spravidla 5–10 rokov).</p>
           </section>
 
           <section>
             <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">5. Príjemcovia a sprostredkovatelia</h2>
-            <p className="mb-3">Odosielanie správ cez kontaktný formulár je zabezpečené prostredníctvom služby <strong className="text-[#BAFF57]/90">Resend</strong> (Resend, Inc., resend.com), ktorá plní úlohu sprostredkovateľa v zmysle GDPR pri doručení emailu na team@nextlayer.studio.</p>
-            <p>Osobné údaje neposkytujeme tretím stranám na marketingové účely ani ich nepredávame. K údajom môžu mať prístup len vybrané osoby v rámci spoločnosti NextLayer Studio s.r.o. nevyhnutné pre spracovanie tvojho dopytu.</p>
+            <p className="mb-3">Odosielanie správ cez kontaktný formulár je zabezpečené prostredníctvom služby <strong className="text-[#BAFF57]/90">Resend</strong> (Resend, Inc., resend.com), ktorá plní úlohu sprostredkovateľa v zmysle GDPR pri doručení e-mailu na team@nextlayer.studio.</p>
+            <p className="mb-3">Prevádzku a hosting stránky zabezpečuje <strong className="text-[#BAFF57]/90">Vercel Inc.</strong> (USA), vrátane nástroja Vercel Analytics na anonymnú štatistiku návštevnosti bez cookies.</p>
+            <p className="mb-3">Formuláre v reklamách na Facebooku a Instagrame prevádzkuje a údaje z nich nám odovzdáva <strong className="text-[#BAFF57]/90">Meta Platforms Ireland Ltd.</strong> (Írsko). Ak si udelíš marketingový súhlas (bod 6), príjemcami pseudonymizovaných údajov o návštevách a odoslaných formulároch sú Meta Platforms Ireland Ltd. a <strong className="text-[#BAFF57]/90">Google Ireland Ltd.</strong> (Írsko), prípadne ich materské spoločnosti v USA. Prenos do USA je krytý štandardnými zmluvnými doložkami a rámcom EU–US Data Privacy Framework.</p>
+            <p>Osobné údaje nepredávame. K údajom majú prístup len osoby v rámci spoločnosti NextLayer Studio s.r.o. nevyhnutné pre spracovanie tvojho dopytu.</p>
           </section>
 
           <section>
             <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">6. Cookies a sledovacie technológie</h2>
-            <p className="mb-3">Táto webová stránka nepoužíva reklamné ani analytické cookies tretích strán. Používame výlučne <strong className="text-[#BAFF57]/90">funkčné cookies</strong>, ktoré sú nevyhnutné pre správne fungovanie stránky (napr. uloženie tvojej voľby ohľadom cookies).</p>
-            <p className="mb-3">Funkčné cookies nevyžadujú tvoj súhlas podľa § 55 ods. 5 zákona č. 452/2021 Z. z. o elektronických komunikáciách, nakoľko slúžia výlučne na prevádzku stránky.</p>
-            <p>Stránka neobsahuje Google Analytics, Facebook Pixel ani žiadne iné sledovacie skripty.</p>
+            <p className="mb-3"><strong className="text-[#BAFF57]/90">Nevyhnutné funkčné cookies.</strong> Používame ich na základné fungovanie stránky, napr. na uloženie tvojej voľby ohľadom cookies. Nevyžadujú tvoj súhlas podľa zákona č. 452/2021 Z. z. o elektronických komunikáciách.</p>
+            <p className="mb-3"><strong className="text-[#BAFF57]/90">Anonymná štatistika návštevnosti.</strong> Vercel Analytics meria návštevnosť bez cookies a bez identifikácie jednotlivých návštevníkov.</p>
+            <p className="mb-3"><strong className="text-[#BAFF57]/90">Marketingové nástroje (len s tvojím súhlasom).</strong> Ak v cookie lište klikneš &bdquo;Prijať&ldquo;, aktivujeme <strong className="text-[#BAFF57]/90">Meta Pixel</strong> a <strong className="text-[#BAFF57]/90">Meta Conversions API</strong> spoločnosti Meta a <strong className="text-[#BAFF57]/90">Google Ads</strong> (prípadne Google Analytics) spoločnosti Google. Slúžia na meranie účinnosti našich reklám (koľko ľudí po kliknutí na reklamu odoslalo formulár) a na zobrazovanie reklám ľuďom, ktorí našu stránku navštívili. Ukladajú sa cookies týchto služieb (napr. <span className="font-mono text-xs">_fbp</span>, <span className="font-mono text-xs">_fbc</span>, <span className="font-mono text-xs">_gcl_au</span>) s dobou platnosti spravidla do 90 dní. Právnym základom je tvoj súhlas podľa čl. 6 ods. 1 písm. a) GDPR.</p>
+            <p className="mb-3">Súhlas môžeš kedykoľvek odvolať vymazaním cookies v prehliadači alebo nás kontaktuj na team@nextlayer.studio. Do udelenia súhlasu sa žiadne marketingové skripty nenačítajú.</p>
+            <p>Zásady spracovania údajov: Meta &ndash; <span className="text-[#BAFF57]/90">facebook.com/privacy/policy</span>, Google &ndash; <span className="text-[#BAFF57]/90">policies.google.com/privacy</span>.</p>
           </section>
 
           <section>
