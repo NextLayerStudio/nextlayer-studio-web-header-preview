@@ -7,7 +7,9 @@ export const metadata = {
 };
 
 const summary = [
-  "Všetky služby sa platia vopred. Prácu začíname až po pripísaní platby.",
+  "Všetky služby sa platia vopred. Prácu začíname až po podpise zmluvy a pripísaní platby.",
+  "Komunikujeme výlučne e-mailom, oficiálne len cez team@nextlayer.studio. Čo nie je v e-maile, nie je záväzné.",
+  "Ak sa k niečomu, čo pošleme na schválenie, nevyjadríte do 2 pracovných dní, považuje sa to za schválené.",
   "Mesačné služby sa platia vždy vopred za mesiac, ktorý sa začína, so splatnosťou do 7. dňa mesiaca.",
   "Ak platba nepríde do 7. dňa, od 8. dňa pozastavíme prácu aj reklamy. Ak nepríde ani do 14. dňa, spolupráca končí.",
   "Bez viazanosti: mesačnú službu môžete kedykoľvek vypovedať s výpovednou lehotou jeden mesiac.",
@@ -44,7 +46,7 @@ const sections: LegalSection[] = [
   {
     title: "Cena a platba vopred",
     body: [
-      <><strong className="text-[#BAFF57]/90">Všetky služby sa platia vopred.</strong> Poskytovateľ nezačne poskytovať službu ani žiadnu jej časť skôr, ako je príslušná platba pripísaná na jeho účet.</>,
+      <><strong className="text-[#BAFF57]/90">Všetky služby sa platia vopred.</strong> Poskytovateľ nezačne poskytovať službu ani žiadnu jej časť skôr, ako je zmluva podpísaná (alebo ponuka potvrdená e-mailom) a príslušná platba pripísaná na jeho účet. Ústna ani iná nepotvrdená dohoda nezakladá povinnosť začať pracovať.</>,
       <>Mesačná služba: jednorazová odplata za nastavenie a odplata za prvý mesiac sa platia po uzatvorení zmluvy, so splatnosťou 7 dní. Odplata za každý ďalší kalendárny mesiac je splatná vopred, do 7. dňa tohto mesiaca. Poskytovateľ ju vyúčtuje k prvému dňu mesiaca e-mailom.</>,
       <>Jednorazové zákazky: celá cena je splatná pred začatím prác, ak v zmluve alebo ponuke nie je dohodnuté inak.</>,
       <>Formou vyúčtovania môže byť faktúra, zálohová faktúra alebo iná výzva na úhradu. Na povinnosti platiť vopred a na splatnosti forma nič nemení. Platba sa považuje za uhradenú dňom pripísania na účet poskytovateľa.</>,
@@ -86,6 +88,15 @@ const sections: LegalSection[] = [
       <>Mesačná služba: nastavenia a výsledky práce poskytovateľa (štruktúra kampaní, reklamy, texty reklám, publiká, formuláre, scenáre, šablóny a postupy) patria poskytovateľovi. Klient ich môže používať počas trvania zmluvy. Pri skončení spolupráce ich poskytovateľ z účtov klienta odstráni a ukončí svoj prístup, ak sa strany nedohodnú inak. Klientovi vždy zostávajú jeho účty, jeho vlastné materiály a dopyty, ktoré mu už boli doručené.</>,
       <>Jednorazové zákazky (videá, grafika, web): po úplnom zaplatení získava klient nevýhradnú licenciu na ich použitie na dohodnuté účely, ak zmluva neurčuje inak. Pred zaplatením ich klient nesmie používať.</>,
       <>Poskytovateľ môže výsledky práce uvádzať ako referenciu len so súhlasom klienta.</>,
+    ],
+  },
+  {
+    title: "Komunikácia a schvaľovanie",
+    body: [
+      <><strong className="text-[#BAFF57]/90">Komunikácia prebieha výlučne e-mailom.</strong> Za poskytovateľa je oficiálna iba komunikácia z adresy a na adresu team@nextlayer.studio. Za klienta je oficiálna komunikácia z adresy uvedenej v zmluve alebo v objednávke.</>,
+      <>Telefonát, osobné stretnutie, SMS, WhatsApp ani správy na sociálnych sieťach nie sú záväzné. Objednávka, zmena rozsahu, pokyn, schválenie, výhrada alebo reklamácia sú platné, len ak sú doručené e-mailom. Čo nie je v e-maile, sa nepovažuje za oficiálnu požiadavku.</>,
+      <><strong className="text-[#BAFF57]/90">Mlčanie znamená súhlas.</strong> Ak poskytovateľ pošle klientovi niečo na schválenie a klient sa k tomu nevyjadrí do 2 pracovných dní od odoslania, považuje sa to za schválené a poskytovateľ môže pokračovať. Neskoršie pripomienky poskytovateľ zapracuje v primeranej lehote.</>,
+      <>E-mail sa považuje za doručený dňom odoslania, ak sa odosielateľovi nevráti ako nedoručiteľný. Klient je povinný sledovať svoju e-mailovú schránku a zmenu adresy oznámiť vopred.</>,
     ],
   },
   {
