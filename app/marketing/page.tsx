@@ -4,10 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import SiteMenu from "../components/SiteMenu";
 import PageHero from "../components/PageHero";
-import PageCta from "../components/PageCta";
 import PageFooter from "../components/PageFooter";
 import Reveal from "../components/Reveal";
 import ReelGallery from "../components/ReelGallery";
+import PlanDopytovForm from "../components/PlanDopytovForm";
 import { campaigns } from "../projekty/kampane/data";
 
 const steps = [
@@ -109,7 +109,7 @@ export default function MarketingPage() {
               </p>
               <p className="mt-3 text-[10px] md:text-xs uppercase tracking-widest font-mono text-white/50">mesačne vopred, bez viazanosti</p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="/#kontakt" className="inline-flex items-center gap-3 bg-[#BAFF57] text-black uppercase px-6 py-4 text-xs tracking-wider hover:bg-white transition-colors">
+                <Link href="#dopyt" className="inline-flex items-center gap-3 bg-[#BAFF57] text-black uppercase px-6 py-4 text-xs tracking-wider hover:bg-white transition-colors">
                   Chcem viac dopytov
                   <ArrowIcon />
                 </Link>
@@ -146,13 +146,27 @@ export default function MarketingPage() {
         </Reveal>
       </section>
 
-      <PageCta
-        num="03"
-        eyebrow="Začnime"
-        title={<>Chceš viac<br />zákaziek?</>}
-        lead="Napíš nám, čo robíš a odkiaľ máš zákazníkov dnes. Do 24 hodín ti povieme, či ti systém na dopyty vie pomôcť."
-        ghost="DOPYTY"
-      />
+      {/* ── FORMULÁR: BEZPLATNÝ PLÁN DOPYTOV ── */}
+      <section id="dopyt" className="relative overflow-hidden px-5 md:px-12 lg:px-16 py-16 md:py-24 bg-[#BAFF57]">
+        <p className="absolute -left-4 md:-left-8 top-6 text-[22vw] font-bold leading-none tracking-tighter text-black/[0.08] select-none pointer-events-none whitespace-nowrap">DOPYTY</p>
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          <Reveal className="lg:col-span-4">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-black/40 text-xs font-mono">03</span>
+              <div className="w-8 h-px bg-black"></div>
+              <span className="text-black/50 text-xs uppercase tracking-widest font-mono">Začnime</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-bold leading-[0.9] tracking-tight">Bezplatný plán dopytov.</h2>
+            <p className="mt-6 text-sm md:text-lg leading-relaxed text-black/70">
+              Vyplňte krátky formulár a do 48 hodín vám pošleme plán: koľko dopytov vám reklama vie priniesť, za koľko a ako by vyzerala. Bez záväzkov.
+            </p>
+            <p className="mt-6 text-sm text-black/60">Od 290 € mesačne + rozpočet na reklamu. Platí sa mesačne vopred, bez viazanosti.</p>
+          </Reveal>
+          <div className="lg:col-span-8 min-w-0">
+            <PlanDopytovForm />
+          </div>
+        </div>
+      </section>
 
       <PageFooter />
     </div>

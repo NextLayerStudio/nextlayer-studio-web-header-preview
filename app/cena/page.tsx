@@ -107,7 +107,7 @@ export default function CenaPage() {
                 <p className="mt-1 text-xs text-white/45">Platíš mesačne vopred, bez viazanosti. Rozpočet na reklamu platíš priamo Facebooku / Googlu. Ceny sú konečné, nie sme platcami DPH.</p>
                 <p className="mt-3 text-xs text-white/60">Nemáš na webe Meta pixel, Google tag alebo Google Analytics? Nainštalujeme ich za 30 € jednorazovo, aby sme vedeli merať výsledky z viacerých zdrojov.</p>
 
-                <Link href="/#kontakt" className="mt-8 lg:mt-auto inline-flex items-center justify-between gap-3 bg-[#BAFF57] text-black uppercase px-6 py-4 text-xs tracking-wider hover:bg-white transition-colors">
+                <Link href="/marketing#dopyt" className="mt-8 lg:mt-auto inline-flex items-center justify-between gap-3 bg-[#BAFF57] text-black uppercase px-6 py-4 text-xs tracking-wider hover:bg-white transition-colors">
                   Chcem viac dopytov
                   <ArrowIcon />
                 </Link>

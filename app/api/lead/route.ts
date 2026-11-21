@@ -31,6 +31,21 @@ export async function POST(req: NextRequest) {
   const utmSource = (body.utm_source || "").trim();
   const utmCampaign = (body.utm_campaign || "").trim();
   const utmContent = (body.utm_content || "").trim();
+  const firma = (body.firma || "").trim();
+  const rozpocet = (body.rozpocet || "").trim();
+  const cenaOk = (body.cena_ok || "").trim();
+  const web = (body.web || "").trim();
+  const odbor = (body.odbor || "").trim();
+  const isPlan = source === "plan-dopytov-web";
+  // Rovnaké vyhodnotenie ako Meta formulár v5 (Lead Alert na Pi): A validný / B skontrolovať / X nevhodný
+  const grade = !isPlan
+    ? ""
+    : firma.startsWith("Zatiaľ") || firma.toLowerCase().startsWith("nie")
+      ? "X"
+      : firma === "Áno" && !rozpocet.startsWith("Menej") && rozpocet !== "" && cenaOk === "Áno"
+        ? "A"
+        : "B";
+  const gradeLabel = { A: "[A VALIDNÝ] ", B: "[B SKONTROLOVAŤ] ", X: "[X NEVHODNÝ] " }[grade as "A" | "B" | "X"] ?? "";
 
   if (!name || !email) {
     return NextResponse.json({ ok: false, error: "missing-fields" }, { status: 400 });
@@ -55,8 +70,16 @@ export async function POST(req: NextRequest) {
     `Telefón: ${phone || "—"}`,
     `Firma / web: ${company || "—"}`,
     "",
-    "Čo chce riešiť:",
-    note || "— (nevyplnené)",
+    ...(isPlan
+      ? [
+          `Web / FB: ${web || "—"}`,
+          `Čomu sa venuje: ${odbor || "—"}`,
+          `Firma alebo živnosť: ${firma || "—"}`,
+          `Rozpočet na reklamu: ${rozpocet || "—"}`,
+          `Cena od 290 € OK: ${cenaOk || "—"}`,
+          `Hodnotenie: ${gradeLabel.trim() || "—"}`,
+        ]
+      : ["Čo chce riešiť:", note || "— (nevyplnené)"]),
     "",
     `Zdroj (UTM): ${utmSource || "—"} / kampaň: ${utmCampaign || "—"} / kreatíva: ${utmContent || "—"}`,
   ].join("\n");
@@ -72,7 +95,7 @@ export async function POST(req: NextRequest) {
         from: FROM_EMAIL,
         to: [TO_EMAIL],
         reply_to: email,
-        subject: `Nový dopyt — ${name}${company ? ` (${company})` : ""}${utmContent ? ` [${utmContent}]` : ""}`,
+        subject: `${gradeLabel}Nový dopyt — ${name}${company ? ` (${company})` : ""}${utmContent ? ` [${utmContent}]` : ""}`,
         text,
       }),
     });
@@ -81,7 +104,13 @@ export async function POST(req: NextRequest) {
       console.error("Resend error:", result);
       return NextResponse.json({ ok: false, error: result }, { status: 502 });
     }
-    await sendAutoReply({ apiKey: RESEND_API_KEY, from: FROM_EMAIL, to: email, name });
+    await sendAutoReply({
+      apiKey: RESEND_API_KEY,
+      from: FROM_EMAIL,
+      to: email,
+      name,
+      variant: isPlan ? (grade === "X" ? "nevhodny" : "plan") : "kontakt",
+    });
     return NextResponse.json({ ok: true, id: result.id });
   } catch (err) {
     console.error("Odoslanie leadu zlyhalo:", err);
