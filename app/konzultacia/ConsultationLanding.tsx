@@ -539,7 +539,7 @@ export default function ConsultationLanding() {
           {[
             [
               "Koľko to stojí?",
-              "Mesačná spolupráca začína na 500 € (4 videá + správa jednej siete). Presnú ponuku dostaneš až po hovore, keď budeme vedieť, čo reálne potrebuješ. Reklamný rozpočet si platíš priamo.",
+              "Reklama, ktorá prináša dopyty, začína na 290 € mesačne + 290 € jednorazovo za nastavenie. Dopytový radar je za 49 € mesačne. Obsah natočíš mobilom podľa nášho scenára; natáčanie s nami je za 240 € za video. Všetky ceny nájdeš na nextlayer.studio/cena. Reklamný rozpočet si platíš priamo.",
             ],
             [
               "Musím sa hneď k niečomu zaviazať?",

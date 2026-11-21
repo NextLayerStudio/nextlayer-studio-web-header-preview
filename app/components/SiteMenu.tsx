@@ -7,7 +7,7 @@ type PageKey = "home" | "marketing" | "development" | "design" | "cena" | "proje
 
 const links: { key: PageKey; num: string; label: string; href: string }[] = [
   { key: "home", num: "01", label: "Home", href: "/" },
-  { key: "marketing", num: "02", label: "Marketing", href: "/marketing" },
+  { key: "marketing", num: "02", label: "Dopyty", href: "/marketing" },
   { key: "development", num: "03", label: "Development", href: "/development" },
   { key: "design", num: "04", label: "Design", href: "/design" },
   { key: "cena", num: "05", label: "Cena", href: "/cena" },

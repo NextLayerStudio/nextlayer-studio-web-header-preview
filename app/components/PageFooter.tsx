@@ -9,7 +9,7 @@ export default function PageFooter() {
           <Image src="/fonts/Group.png" alt="NextLayer Studio" width={80} height={80} className="h-12 w-auto brightness-0 invert" />
         </Link>
         <nav className="flex flex-wrap justify-end gap-x-6 gap-y-2 text-sm">
-          <Link href="/marketing" className="hover:text-white transition-colors">Marketing</Link>
+          <Link href="/marketing" className="hover:text-white transition-colors">Systém na dopyty</Link>
           <Link href="/development" className="hover:text-white transition-colors">Development</Link>
           <Link href="/design" className="hover:text-white transition-colors">Design</Link>
           <Link href="/cena" className="hover:text-white transition-colors">Cena</Link>

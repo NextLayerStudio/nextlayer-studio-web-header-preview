@@ -110,10 +110,10 @@ export default function Home() {
   };
 
   const produkciaItems = [
-    "Video produkcia",
-    "Správa sociálnych sietí",
-    "Reklamné kampane",
-    "Content stratégia",
+    "Reklama, ktorá prináša dopyty",
+    "Dopytový radar",
+    "Nastavenie sociálnych sietí",
+    "Natáčanie na želanie",
   ];
 
   const vyvojItems = [
@@ -124,10 +124,10 @@ export default function Home() {
   ];
 
   const produkciaExtras = [
-    "Scenár & réžia",
-    "Natáčanie",
-    "Strih & postprodukcia",
-    "Grafika pre siete",
+    "Reklama na Facebooku, Instagrame a Googli",
+    "Dopyty na mobil do pár minút",
+    "Dopytový radar každé ráno",
+    "Obsah natočíš mobilom podľa nášho scenára",
   ];
 
   const vyvojExtras = [
@@ -203,7 +203,7 @@ export default function Home() {
           </button>
           <button onClick={() => setIsMenuOpen(false)} className="group flex items-center gap-3 sm:gap-6 transition-all duration-300 touch-manipulation py-2">
             <span className="text-[#BAFF57]/40 text-xs sm:text-sm font-light">02</span>
-            <a href="/marketing" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Marketing</a>
+            <a href="/marketing" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#BAFF57] group-hover:tracking-[0.2em] sm:group-hover:tracking-[0.3em] transition-all duration-300">Dopyty</a>
             <span className="w-0 h-[1px] bg-[#BAFF57] group-hover:w-12 transition-all duration-300"></span>
           </button>
           <button onClick={() => setIsMenuOpen(false)} className="group flex items-center gap-3 sm:gap-6 transition-all duration-300 touch-manipulation py-2">
@@ -275,7 +275,7 @@ export default function Home() {
               <div className="w-8 h-px bg-black"></div>
             </div>
             <Link href="/marketing" className="block text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-[1.1] text-black">
-              Online prítomnosť a získavanie nových zákazníkov
+              Systém, ktorý ti prináša dopyty
             </Link>
             <div className={`h-[2px] bg-black mt-5 transition-all duration-300 ${heroHover === 'produkcia' ? 'w-16' : 'w-0'}`}></div>
             <div className="mt-4 flex items-center gap-2 text-black/50 text-xs uppercase tracking-wider font-mono">
@@ -383,13 +383,13 @@ export default function Home() {
             Všetko<br />v jednom.
           </h2>
           <p className="mt-6 md:mt-8 text-sm md:text-base leading-relaxed md:leading-[1.85] text-black/80">
-            Sme produkčné a marketingové štúdio. Pomáhame firmám budovať profesionálnu prítomnosť na sociálnych sieťach — so scenárom, produkciou, réžiou aj strihom.
+            Pomáhame firmám získavať dopyty online. Nastavíme sociálne siete a reklamu, každé ráno ti pošleme nové zákazky z tvojho odboru a obsah si natočíš mobilom podľa nášho scenára. <a href="/cena" className="underline font-medium">Pozri presné ceny.</a>
           </p>
           <p className="mt-3 md:mt-4 text-sm md:text-base leading-relaxed md:leading-[1.85] text-black/55">
             Vyvíjame aj weby, e-shopy a digitálne systémy, ktoré nielen dobre vyzerajú, ale hlavne fungujú.
           </p>
           <div className="mt-6 md:mt-8 flex gap-3 flex-wrap">
-            <a href="/marketing" className="bg-black text-[#BAFF57] uppercase px-6 py-3.5 text-xs tracking-wider hover:bg-[#212121] transition-colors">Marketing</a>
+            <a href="/marketing" className="bg-black text-[#BAFF57] uppercase px-6 py-3.5 text-xs tracking-wider hover:bg-[#212121] transition-colors">Systém na dopyty</a>
             <a href="/development" className="bg-white text-black uppercase px-6 py-3.5 text-xs tracking-wider hover:bg-black hover:text-[#BAFF57] transition-colors">Development</a>
           </div>
         </div>
@@ -497,7 +497,7 @@ export default function Home() {
 
         <div className="w-full" style={{ opacity: section4Progress, transform: `translateY(${(1 - section4Progress) * 30}px)` }}>
           {[
-            { id: 'produkcia' as const, num: '01', title: 'Online prítomnosť a získavanie nových zákazníkov', extras: produkciaExtras, href: '/marketing' },
+            { id: 'produkcia' as const, num: '01', title: 'Systém, ktorý ti prináša dopyty', extras: produkciaExtras, href: '/marketing' },
             { id: 'vyvoj' as const, num: '02', title: 'Softvérové riešenia na mieru', extras: vyvojExtras, href: '/development' },
           ].map((item) => {
             const extrasVisible = isMobile || disciplinesHover === item.id;
@@ -655,7 +655,7 @@ export default function Home() {
         <div className="flex items-start justify-between gap-8">
           <Image src="/fonts/Group.png" alt="NextLayer Studio" width={80} height={80} className="h-12 w-auto brightness-0 invert" />
           <nav className="flex flex-wrap justify-end gap-x-6 gap-y-2 text-sm">
-            <a href="/marketing" className="hover:text-white transition-colors">Marketing</a>
+            <a href="/marketing" className="hover:text-white transition-colors">Systém na dopyty</a>
             <a href="/development" className="hover:text-white transition-colors">Development</a>
             <a href="/design" className="hover:text-white transition-colors">Design</a>
             <a href="/cena" className="hover:text-white transition-colors">Cena</a>
