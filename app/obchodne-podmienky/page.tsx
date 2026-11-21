@@ -10,6 +10,8 @@ const summary = [
   "Všetky služby sa platia vopred. Prácu začíname až po podpise zmluvy a pripísaní platby.",
   "Komunikujeme výlučne e-mailom, oficiálne len cez team@nextlayer.studio. Čo nie je v e-maile, nie je záväzné.",
   "Ak sa k niečomu, čo pošleme na schválenie, nevyjadríte do 2 pracovných dní, považuje sa to za schválené.",
+  "Pracovný čas je v pracovné dni od 9:00 do 17:00. Mimo neho neodpovedáme.",
+  "Úvodné stretnutie a stretnutia, ktoré zvoláme my, sú zadarmo. Stretnutie na vašu žiadosť stojí 50 €.",
   "Mesačné služby sa platia vždy vopred za mesiac, ktorý sa začína, so splatnosťou do 7. dňa mesiaca.",
   "Ak platba nepríde do 7. dňa, od 8. dňa pozastavíme prácu aj reklamy. Ak nepríde ani do 14. dňa, spolupráca končí.",
   "Bez viazanosti: mesačnú službu môžete kedykoľvek vypovedať s výpovednou lehotou jeden mesiac.",
@@ -99,7 +101,9 @@ const sections: LegalSection[] = [
       <><strong className="text-[#BAFF57]/90">Komunikácia prebieha výlučne e-mailom.</strong> Za poskytovateľa je oficiálna iba komunikácia z adresy a na adresu team@nextlayer.studio. Za klienta je oficiálna komunikácia z adresy uvedenej v zmluve alebo v objednávke.</>,
       <>Telefonát, osobné stretnutie, SMS, WhatsApp ani správy na sociálnych sieťach nie sú záväzné. Objednávka, zmena rozsahu, pokyn, schválenie, výhrada alebo reklamácia sú platné, len ak sú doručené e-mailom. Čo nie je v e-maile, sa nepovažuje za oficiálnu požiadavku.</>,
       <><strong className="text-[#BAFF57]/90">Mlčanie znamená súhlas.</strong> Ak poskytovateľ pošle klientovi niečo na schválenie a klient sa k tomu nevyjadrí do 2 pracovných dní od odoslania, považuje sa to za schválené a poskytovateľ môže pokračovať. Neskoršie pripomienky poskytovateľ zapracuje v primeranej lehote.</>,
+      <><strong className="text-[#BAFF57]/90">Pracovný čas poskytovateľa je v pracovné dni od 9:00 do 17:00.</strong> Mimo neho poskytovateľ neodpovedá a nie je povinný byť k dispozícii. Správa doručená mimo pracovného času sa považuje za doručenú o 9:00 najbližšieho pracovného dňa a od tohto času plynú aj lehoty poskytovateľa. Automatické doručovanie dopytov funguje nepretržite.</>,
       <>E-mail sa považuje za doručený dňom odoslania, ak sa odosielateľovi nevráti ako nedoručiteľný. Klient je povinný sledovať svoju e-mailovú schránku a zmenu adresy oznámiť vopred.</>,
+      <><strong className="text-[#BAFF57]/90">Stretnutia.</strong> Úvodné stretnutie pred uzatvorením zmluvy a stretnutia, ktoré zvolá poskytovateľ, sú bezplatné. Stretnutie, o ktoré požiada klient (online alebo v kancelárii poskytovateľa, do 60 minút), stojí 50 € a platí sa vopred. Pri zrušení menej ako 24 hodín vopred alebo neúčasti sa platba nevracia.</>,
     ],
   },
   {

@@ -25,7 +25,7 @@ export default function PageFooter() {
         <div>
           <a href="mailto:team@nextlayer.studio" className="block text-sm hover:text-white">team@nextlayer.studio</a>
           <a href="tel:+421902238309" className="block text-sm hover:text-white">+421 902 238 309</a>
-          <p className="text-[#BAFF57]/40 text-xs mt-2">Bratislava, Slovensko</p>
+          <p className="text-[#BAFF57]/40 text-xs mt-2">Bratislava, Slovensko · Po–Pi 9:00–17:00</p>
         </div>
         <p className="text-[#BAFF57]/40 text-[10px] md:text-xs font-mono uppercase tracking-widest">© 2026 NextLayer Studio s.r.o. · IČO: 57141282</p>
         <div className="flex gap-4 text-[10px] md:text-xs font-mono uppercase">

@@ -22,13 +22,12 @@ const mainVariants = [
 ];
 
 const mainIncludes = [
-  "Úvodné online stretnutie, na ktorom si všetko spolu prejdeme",
+  "Úvodné online stretnutie zadarmo, ešte pred zmluvou",
   "Nastavíme reklamu a formulár na dopyty",
   "Reklamy pripravíme z tvojich fotiek a videí z mobilu",
   "Každý nový dopyt ti príde na mobil do pár minút",
   "Reklamu ladíme podľa tvojej spätnej väzby, ktoré dopyty boli dobré",
   "Každý mesiac podrobný report: koľko dopytov prišlo, koľko stál jeden a čo sme pre teba urobili",
-  "Výsledky si s tebou radi prejdeme na krátkom online hovore",
 ];
 
 const forYou = [
