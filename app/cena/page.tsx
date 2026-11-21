@@ -22,16 +22,18 @@ const mainVariants = [
 ];
 
 const mainIncludes = [
+  "Úvodné online stretnutie, na ktorom si všetko spolu prejdeme",
   "Nastavíme reklamu a formulár na dopyty",
   "Reklamy pripravíme z tvojich fotiek a videí z mobilu",
   "Každý nový dopyt ti príde na mobil do pár minút",
+  "Reklamu ladíme podľa tvojej spätnej väzby, ktoré dopyty boli dobré",
   "Každý mesiac podrobný report: koľko dopytov prišlo, koľko stál jeden a čo sme pre teba urobili",
   "Výsledky si s tebou radi prejdeme na krátkom online hovore",
 ];
 
 const forYou = [
   "Máš firmu, ktorá žije zo zákaziek alebo objednávok",
-  "Vieš raz za mesiac natočiť mobilom pár krátkych videí podľa nášho scenára",
+  "Vieš nám raz za mesiac poslať pár fotiek alebo videí z práce a povedať, ktoré dopyty boli dobré",
   "Na reklamu vieš dať aspoň 150 € mesačne (platíš priamo Facebooku / Googlu)",
 ];
 
@@ -55,7 +57,7 @@ export default function CenaPage() {
         lead="Nastavíme ti reklamu na Facebooku, Instagrame a Googli. Nové dopyty ti chodia na mobil do pár minút. Ty sa staráš len o zákazníkov."
         wordmark="Cena"
         panelLabel="Od 290 € mesačne"
-        panelItems={["Reklama na FB, IG a Google", "Dopyty na mobil do pár minút", "Mesačný report", "Obsah natočíš mobilom"]}
+        panelItems={["Reklama na FB, IG a Google", "Dopyty na mobil do pár minút", "Mesačný report", "Reklamy z tvojich fotiek a videí"]}
         ctaLabel="Pozrieť cenu"
         ctaHref="#cena"
       />
@@ -104,6 +106,7 @@ export default function CenaPage() {
                 <p className="mt-3 text-[10px] md:text-xs uppercase tracking-widest font-mono text-white/50">mesačne</p>
                 <p className="mt-4 text-sm text-white/70">+ {v.once} € jednorazovo za nastavenie</p>
                 <p className="mt-1 text-xs text-white/45">Platíš mesačne vopred, bez viazanosti. Rozpočet na reklamu platíš priamo Facebooku / Googlu. Ceny sú konečné, nie sme platcami DPH.</p>
+                <p className="mt-3 text-xs text-white/60">Nemáš na webe Meta pixel, Google tag alebo Google Analytics? Nainštalujeme ich za 30 € jednorazovo, aby sme vedeli merať výsledky z viacerých zdrojov.</p>
 
                 <Link href="/#kontakt" className="mt-8 lg:mt-auto inline-flex items-center justify-between gap-3 bg-[#BAFF57] text-black uppercase px-6 py-4 text-xs tracking-wider hover:bg-white transition-colors">
                   Chcem viac dopytov

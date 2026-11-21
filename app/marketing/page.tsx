@@ -18,8 +18,8 @@ const steps = [
   },
   {
     num: "02",
-    title: "Ty natočíš pár videí mobilom",
-    desc: "Raz za mesiac dostaneš presný scenár. Natočíš pár krátkych videí z práce, zaberie ti to asi 15 minút. Reklamy z nich spravíme my.",
+    title: "Pošleš nám fotky a videá z práce",
+    desc: "Stačí pár fotiek alebo krátkych videí z mobilu, napríklad z hotových zákaziek. Reklamy z nich spravíme my.",
   },
   {
     num: "03",
@@ -29,7 +29,7 @@ const steps = [
   {
     num: "04",
     title: "Každý mesiac vidíš výsledok",
-    desc: "Report ti povie, koľko dopytov prišlo a koľko stál jeden. Reklamu priebežne ladíme, aby boli dopyty lacnejšie.",
+    desc: "Report ti povie, koľko dopytov prišlo a koľko stál jeden. Ty nám povieš, ktoré dopyty boli dobré, a podľa toho reklamu ladíme, aby chodili lepší zákazníci.",
   },
 ];
 
@@ -60,10 +60,10 @@ export default function MarketingPage() {
         num="02"
         eyebrow="Systém na dopyty"
         title={<>Systém, ktorý ti<br />prináša dopyty.</>}
-        lead="Takto získavame zákazníkov pre firmy: reklama na Facebooku, Instagrame a Googli, dopyty na mobil do pár minút a každý mesiac jasný report. Obsah natočíš ty mobilom podľa nášho scenára."
+        lead="Takto získavame zákazníkov pre firmy: reklama na Facebooku, Instagrame a Googli, dopyty na mobil do pár minút a každý mesiac jasný report. Fotky a videá z práce nám pošleš z mobilu."
         wordmark="Dopyty"
         panelLabel="Od 290 € mesačne"
-        panelItems={["Reklama na FB, IG a Google", "Dopyty na mobil do pár minút", "Mesačný report", "Obsah natočíš mobilom"]}
+        panelItems={["Reklama na FB, IG a Google", "Dopyty na mobil do pár minút", "Mesačný report", "Reklamy z tvojich fotiek a videí"]}
         ctaLabel="Ako to funguje"
         ctaHref="#ako"
       />

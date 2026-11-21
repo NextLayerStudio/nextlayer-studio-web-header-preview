@@ -24,7 +24,7 @@ const sections: LegalSection[] = [
   {
     title: "Čo je možné reklamovať",
     body: [
-      <>Pri mesačnej službe (reklama, ktorá prináša dopyty), najmä: reklama nebola nastavená alebo spustená v dohodnutom termíne bez zavinenia klienta; dopyty z formulára neboli doručované na e-mail klienta; mesačný report alebo scenár nebol dodaný; chyba v nastavení reklamy, ktorú spôsobil poskytovateľ.</>,
+      <>Pri mesačnej službe (reklama, ktorá prináša dopyty), najmä: reklama nebola nastavená alebo spustená v dohodnutom termíne bez zavinenia klienta; dopyty z formulára neboli doručované na e-mail klienta; mesačný report nebol dodaný; chyba v nastavení reklamy, ktorú spôsobil poskytovateľ.</>,
       <>Pri jednorazových zákazkách (videá, grafika, web): výsledok nezodpovedá dohodnutému zadaniu alebo má technickú chybu.</>,
     ],
   },

@@ -539,7 +539,7 @@ export default function ConsultationLanding() {
           {[
             [
               "Koľko to stojí?",
-              "Reklama, ktorá prináša dopyty, začína na 290 € mesačne + 290 € jednorazovo za nastavenie. Platíš mesačne vopred, bez viazanosti. Obsah natočíš mobilom podľa nášho scenára. Reklamný rozpočet si platíš priamo Facebooku / Googlu. Podrobnosti nájdeš na nextlayer.studio/cena.",
+              "Reklama, ktorá prináša dopyty, začína na 290 € mesačne + 290 € jednorazovo za nastavenie. Platíš mesačne vopred, bez viazanosti. Reklamy pripravíme z tvojich fotiek a videí z mobilu. Reklamný rozpočet si platíš priamo Facebooku / Googlu. Podrobnosti nájdeš na nextlayer.studio/cena.",
             ],
             [
               "Musím sa hneď k niečomu zaviazať?",

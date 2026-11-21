@@ -127,7 +127,7 @@ export default function Home() {
     "Reklama na Facebooku, Instagrame a Googli",
     "Dopyty na mobil do pár minút",
     "Dopytový radar každé ráno",
-    "Obsah natočíš mobilom podľa nášho scenára",
+    "Reklamy z tvojich fotiek a videí z mobilu",
   ];
 
   const vyvojExtras = [
@@ -383,7 +383,7 @@ export default function Home() {
             Všetko<br />v jednom.
           </h2>
           <p className="mt-6 md:mt-8 text-sm md:text-base leading-relaxed md:leading-[1.85] text-black/80">
-            Pomáhame firmám získavať dopyty online. Nastavíme sociálne siete a reklamu, každé ráno ti pošleme nové zákazky z tvojho odboru a obsah si natočíš mobilom podľa nášho scenára. <a href="/cena" className="underline font-medium">Pozri presné ceny.</a>
+            Pomáhame firmám získavať dopyty online. Nastavíme ti reklamu, ktorá prináša dopyty, a každý dopyt ti pošleme na e-mail do pár minút. Reklamy pripravíme z tvojich fotiek a videí z mobilu. <a href="/cena" className="underline font-medium">Pozri presné ceny.</a>
           </p>
           <p className="mt-3 md:mt-4 text-sm md:text-base leading-relaxed md:leading-[1.85] text-black/55">
             Vyvíjame aj weby, e-shopy a digitálne systémy, ktoré nielen dobre vyzerajú, ale hlavne fungujú.
