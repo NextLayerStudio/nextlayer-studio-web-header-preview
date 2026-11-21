@@ -12,6 +12,7 @@ const summary = [
   "Ak platba nepríde do 7. dňa, od 8. dňa pozastavíme prácu aj reklamy. Ak nepríde ani do 14. dňa, spolupráca končí.",
   "Bez viazanosti: mesačnú službu môžete kedykoľvek vypovedať s výpovednou lehotou jeden mesiac.",
   "Nastavenia reklám, ktoré vytvoríme, môžete používať počas spolupráce. Po jej skončení ich odstránime, ak sa nedohodneme inak.",
+  "Pri oneskorenej platbe máme právo na úrok z omeškania, paušálnu náhradu 40 € a zmluvnú pokutu 0,05 % denne.",
   "Reklamácie vybavujeme podľa Reklamačného poriadku, stačí e-mail na team@nextlayer.studio.",
 ];
 
@@ -56,6 +57,18 @@ const sections: LegalSection[] = [
       <>Ak mesačná odplata nie je uhradená do 7. dňa mesiaca, poskytovateľ je od 8. dňa oprávnený pozastaviť poskytovanie služby vrátane všetkých reklám klienta. Po uhradení ju obnoví do jedného pracovného dňa.</>,
       <>Ak mesačná odplata nie je uhradená ani do 14. dňa mesiaca, zmluva o mesačnej službe uplynutím tohto dňa zaniká, ak zmluva neurčuje inak.</>,
       <>K platbe posiela poskytovateľ najviac tri e-maily: vyúčtovanie, pripomienku deň pred uplynutím splatnosti a oznámenie o pozastavení.</>,
+      <>Zánikom zmluvy nezaniká nárok poskytovateľa na úhradu splatných súm ani na sankcie podľa týchto podmienok.</>,
+    ],
+  },
+  {
+    title: "Sankcie a náhrady pri omeškaní",
+    body: [
+      <>Ak je klient v omeškaní s úhradou akejkoľvek sumy, poskytovateľ má právo na: (a) úrok z omeškania vo výške podľa § 369 Obchodného zákonníka a nariadenia vlády SR č. 21/2013 Z. z., (b) paušálnu náhradu nákladov spojených s uplatnením pohľadávky 40 € za každú omeškanú platbu podľa § 369c Obchodného zákonníka a (c) zmluvnú pokutu 0,05 % z dlžnej sumy za každý, aj začatý, deň omeškania.</>,
+      <>Ak poskytovateľ odovzdá pohľadávku na vymáhanie (advokát, inkasná spoločnosť, súd), klient nahradí aj účelne vynaložené náklady vymáhania nad rámec paušálnej náhrady.</>,
+      <>Ak klient po skončení spolupráce používa, kopíruje alebo poskytne tretej osobe nastavenia poskytovateľa bez písomnej dohody, zaplatí zmluvnú pokutu vo výške trojnásobku mesačnej odplaty za každé porušenie. Ak ide o jednorazovú zákazku, klient nesmie výsledky používať pred úplným zaplatením; pri porušení zaplatí zmluvnú pokutu vo výške ceny zákazky.</>,
+      <>Zaplatením zmluvnej pokuty nezaniká nárok na náhradu škody, ktorá pokutu prevyšuje.</>,
+      <>Klient nie je oprávnený zadržať platbu ani si jednostranne započítať svoje pohľadávky proti pohľadávkam poskytovateľa. Poskytovateľ môže svoje pohľadávky postúpiť tretej osobe. Úhrady sa započítavajú najprv na náklady vymáhania, potom na sankcie a úroky a nakoniec na istinu.</>,
+      <>Uplatnenie týchto práv je na rozhodnutí poskytovateľa.</>,
     ],
   },
   {
@@ -84,7 +97,9 @@ const sections: LegalSection[] = [
   {
     title: "Zodpovednosť",
     body: [
-      <>Poskytovateľ nezodpovedá za rozhodnutia reklamných platforiem (napr. zamietnutie reklamy, obmedzenie účtu), ak postupoval podľa ich pravidiel, ani za škodu spôsobenú nesprávnymi alebo neúplnými podkladmi klienta.</>,
+      <>Poskytovateľ nezodpovedá za rozhodnutia reklamných platforiem (napr. zamietnutie reklamy, obmedzenie účtu), ak postupoval podľa ich pravidiel, za škodu spôsobenú nesprávnymi alebo neúplnými podkladmi klienta, za výsledky v čase, keď mu klient odobral prístup, ani za okolnosti vylučujúce zodpovednosť (§ 374 Obchodného zákonníka), napríklad výpadky platforiem alebo vyššiu moc.</>,
+      <>Poskytovateľ nezodpovedá za ušlý zisk ani nepriame škody.</>,
+      <>Klient zodpovedá za to, že dodané materiály a údaje neporušujú práva tretích osôb ani právne predpisy. Ak si tretia osoba alebo úrad uplatní z tohto dôvodu nárok voči poskytovateľovi, klient ho odškodní v plnej výške vrátane nákladov právneho zastúpenia.</>,
       <>Celková zodpovednosť poskytovateľa za škodu je obmedzená výškou odplaty za službu, v súvislosti s ktorou škoda vznikla (pri mesačnej službe výškou odplaty za jeden mesiac), v rozsahu, v akom to dovoľuje zákon.</>,
     ],
   },
@@ -105,7 +120,8 @@ const sections: LegalSection[] = [
   {
     title: "Záverečné ustanovenia",
     body: [
-      <>Podmienky sa riadia právnym poriadkom Slovenskej republiky. Spory strany riešia prednostne dohodou, inak ich rozhodne príslušný súd v Slovenskej republike.</>,
+      <>Podmienky sa riadia právnym poriadkom Slovenskej republiky. Spory strany riešia prednostne dohodou. Ak je klient podnikateľ, strany sa dohodli, že miestne príslušný je súd podľa sídla poskytovateľa (§ 89a Civilného sporového poriadku).</>,
+      <>Ak je niektoré ustanovenie neplatné alebo nevykonateľné, ostatné ustanovenia zostávajú v platnosti.</>,
       <>Poskytovateľ môže podmienky meniť. Pre existujúce zmluvy platí znenie účinné v deň ich uzatvorenia, ak sa strany nedohodnú inak.</>,
       <>Tieto podmienky sú platné a účinné od 22. novembra 2026 a nahrádzajú podmienky platné od 1. januára 2026.</>,
     ],
