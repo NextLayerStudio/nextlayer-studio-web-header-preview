@@ -24,7 +24,7 @@ const steps = [
   {
     num: "03",
     title: "Dopyty ti chodia na mobil",
-    desc: "Každý nový dopyt ti príde do pár minút. Zákazník hneď dostane automatickú odpoveď, takže ťa konkurencia nepredbehne.",
+    desc: "Každý nový dopyt ti príde na e-mail do pár minút, s menom, telefónom aj tým, čo zákazník potrebuje. Ozveš sa mu skôr ako konkurencia.",
   },
   {
     num: "04",
@@ -107,7 +107,7 @@ export default function MarketingPage() {
                 <span className="text-7xl md:text-8xl font-bold leading-[0.8] tracking-tighter">290</span>
                 <span className="text-4xl font-bold leading-none">€</span>
               </p>
-              <p className="mt-3 text-[10px] md:text-xs uppercase tracking-widest font-mono text-white/50">mesačne, minimálne 3 mesiace</p>
+              <p className="mt-3 text-[10px] md:text-xs uppercase tracking-widest font-mono text-white/50">mesačne vopred, bez viazanosti</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link href="/#kontakt" className="inline-flex items-center gap-3 bg-[#BAFF57] text-black uppercase px-6 py-4 text-xs tracking-wider hover:bg-white transition-colors">
                   Chcem viac dopytov
@@ -121,11 +121,6 @@ export default function MarketingPage() {
           </div>
         </Reveal>
 
-        <Reveal className="mt-4" delay={100}>
-          <p className="text-sm md:text-base leading-relaxed text-black/70 max-w-4xl border-l-2 border-black pl-5 md:pl-7">
-            Sociálne siete ti vieme aj nastaviť a natáčanie s nami je tiež možné, ale je výrazne drahšie (240 € za video). Tieto služby nájdeš v <Link href="/cena" className="underline font-medium">cenníku</Link>.
-          </p>
-        </Reveal>
       </section>
 
       {/* ── UKÁŽKY ── */}

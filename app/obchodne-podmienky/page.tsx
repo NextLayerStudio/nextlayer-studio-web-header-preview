@@ -1,133 +1,125 @@
 import Link from "next/link";
-import Image from "next/image";
+import LegalPage, { type LegalSection } from "../components/LegalPage";
 
 export const metadata = {
   title: "Obchodné podmienky — NextLayer Studio",
   description: "Obchodné podmienky spoločnosti NextLayer Studio s.r.o.",
 };
 
+const summary = [
+  "Všetky služby sa platia vopred. Prácu začíname až po pripísaní platby.",
+  "Mesačné služby sa platia vždy vopred za mesiac, ktorý sa začína, so splatnosťou do 7. dňa mesiaca.",
+  "Ak platba nepríde do 7. dňa, od 8. dňa pozastavíme prácu aj reklamy. Ak nepríde ani do 14. dňa, spolupráca končí.",
+  "Bez viazanosti: mesačnú službu môžete kedykoľvek vypovedať s výpovednou lehotou jeden mesiac.",
+  "Nastavenia reklám, ktoré vytvoríme, môžete používať počas spolupráce. Po jej skončení ich odstránime, ak sa nedohodneme inak.",
+  "Reklamácie vybavujeme podľa Reklamačného poriadku, stačí e-mail na team@nextlayer.studio.",
+];
+
+const sections: LegalSection[] = [
+  {
+    title: "Základné ustanovenia",
+    body: [
+      <>Tieto obchodné podmienky (ďalej len „podmienky“) upravujú zmluvný vzťah medzi spoločnosťou NextLayer Studio s.r.o. (ďalej len „poskytovateľ“) a osobami, ktoré si objednávajú jej služby (ďalej len „klient“).</>,
+      <>Poskytovateľ: <strong className="text-[#BAFF57]/90">NextLayer Studio s.r.o.</strong>, Wienerova alej 929/20, 900 42 Miloslavov, IČO: 57141282, DIČ: 2122583133, nie je platiteľom DPH. Kontakt: team@nextlayer.studio, +421 902 238 309.</>,
+      <>Služby sú určené predovšetkým podnikateľom a zmluvný vzťah sa riadi zákonom č. 513/1991 Zb. Obchodný zákonník. Ak je klient spotrebiteľ, má práva podľa predpisov na ochranu spotrebiteľa a tieto podmienky ich neobmedzujú.</>,
+      <>Ak sa zmluva s klientom a tieto podmienky líšia, platí zmluva.</>,
+    ],
+  },
+  {
+    title: "Služby",
+    body: [
+      <>Hlavnou službou poskytovateľa je reklama, ktorá prináša dopyty: nastavenie a mesačná správa reklamy na Facebooku, Instagrame a v Google, doručovanie dopytov na e-mail klienta a mesačné reporty (ďalej len „mesačná služba“). Aktuálne ceny sú na <Link href="/cena" className="underline">nextlayer.studio/cena</Link>.</>,
+      <>Na požiadanie klienta poskytovateľ poskytuje aj jednorazové zákazky (najmä nastavenie sociálnych sietí, natáčanie videí, tvorbu a servis webu) podľa ponuky.</>,
+      <>Presný rozsah služby, cena a termíny sú uvedené v zmluve alebo v ponuke, ktorú klient potvrdil.</>,
+    ],
+  },
+  {
+    title: "Uzatvorenie zmluvy",
+    body: [
+      <>Zmluvný vzťah vzniká podpisom zmluvy oboma stranami (aj elektronicky alebo naskenovanej), alebo potvrdením ponuky klientom e-mailom a jej akceptáciou poskytovateľom.</>,
+      <>Ponuka je platná 14 dní od doručenia, ak v nej nie je uvedené inak.</>,
+    ],
+  },
+  {
+    title: "Cena a platba vopred",
+    body: [
+      <><strong className="text-[#BAFF57]/90">Všetky služby sa platia vopred.</strong> Poskytovateľ nezačne poskytovať službu ani žiadnu jej časť skôr, ako je príslušná platba pripísaná na jeho účet.</>,
+      <>Mesačná služba: jednorazová odplata za nastavenie a odplata za prvý mesiac sa platia po uzatvorení zmluvy, so splatnosťou 7 dní. Odplata za každý ďalší kalendárny mesiac je splatná vopred, do 7. dňa tohto mesiaca. Poskytovateľ ju vyúčtuje k prvému dňu mesiaca e-mailom.</>,
+      <>Jednorazové zákazky: celá cena je splatná pred začatím prác, ak v zmluve alebo ponuke nie je dohodnuté inak.</>,
+      <>Formou vyúčtovania môže byť faktúra, zálohová faktúra alebo iná výzva na úhradu. Na povinnosti platiť vopred a na splatnosti forma nič nemení. Platba sa považuje za uhradenú dňom pripísania na účet poskytovateľa.</>,
+      <>Ceny sú konečné, poskytovateľ nie je platiteľom DPH. Rozpočet na samotnú reklamu (platby spoločnostiam Meta alebo Google) nie je súčasťou ceny, klient ho platí priamo reklamnej platforme.</>,
+    ],
+  },
+  {
+    title: "Neuhradenie platby",
+    body: [
+      <>Ak mesačná odplata nie je uhradená do 7. dňa mesiaca, poskytovateľ je od 8. dňa oprávnený pozastaviť poskytovanie služby vrátane všetkých reklám klienta. Po uhradení ju obnoví do jedného pracovného dňa.</>,
+      <>Ak mesačná odplata nie je uhradená ani do 14. dňa mesiaca, zmluva o mesačnej službe uplynutím tohto dňa zaniká, ak zmluva neurčuje inak.</>,
+      <>K platbe posiela poskytovateľ najviac tri e-maily: vyúčtovanie, pripomienku deň pred uplynutím splatnosti a oznámenie o pozastavení.</>,
+    ],
+  },
+  {
+    title: "Dodanie a súčinnosť",
+    body: [
+      <>Klient poskytne včas potrebné prístupy (napr. partnerský prístup k stránke a reklamnému účtu), podklady a materiály. Termíny poskytovateľa sa predlžujú o čas, o ktorý sa klient omešká.</>,
+      <>Výsledky práce sa odovzdávajú elektronicky (e-mailom, v reklamných účtoch klienta alebo cez cloudové úložisko).</>,
+      <>Na dopyty, ktoré cez reklamu prídu, odpovedá klient sám. Poskytovateľ ich doručuje na e-mail klienta.</>,
+      <>Poskytovateľ nezaručuje konkrétny počet dopytov ani ich cenu, výsledok závisí aj od rozpočtu, odboru, sezóny, konkurencie a od rýchlosti odpovede klienta.</>,
+    ],
+  },
+  {
+    title: "Vlastníctvo práce a licencia",
+    body: [
+      <>Mesačná služba: nastavenia a výsledky práce poskytovateľa (štruktúra kampaní, reklamy, texty reklám, publiká, formuláre, scenáre, šablóny a postupy) patria poskytovateľovi. Klient ich môže používať počas trvania zmluvy. Pri skončení spolupráce ich poskytovateľ z účtov klienta odstráni a ukončí svoj prístup, ak sa strany nedohodnú inak. Klientovi vždy zostávajú jeho účty, jeho vlastné materiály a dopyty, ktoré mu už boli doručené.</>,
+      <>Jednorazové zákazky (videá, grafika, web): po úplnom zaplatení získava klient nevýhradnú licenciu na ich použitie na dohodnuté účely, ak zmluva neurčuje inak. Pred zaplatením ich klient nesmie používať.</>,
+      <>Poskytovateľ môže výsledky práce uvádzať ako referenciu len so súhlasom klienta.</>,
+    ],
+  },
+  {
+    title: "Reklamácie",
+    body: [
+      <>Reklamácie sa riadia <Link href="/reklamacny-poriadok" className="underline">Reklamačným poriadkom</Link>. Reklamáciu stačí poslať e-mailom na team@nextlayer.studio. Reklamácia nemá vplyv na splatnosť platby.</>,
+    ],
+  },
+  {
+    title: "Zodpovednosť",
+    body: [
+      <>Poskytovateľ nezodpovedá za rozhodnutia reklamných platforiem (napr. zamietnutie reklamy, obmedzenie účtu), ak postupoval podľa ich pravidiel, ani za škodu spôsobenú nesprávnymi alebo neúplnými podkladmi klienta.</>,
+      <>Celková zodpovednosť poskytovateľa za škodu je obmedzená výškou odplaty za službu, v súvislosti s ktorou škoda vznikla (pri mesačnej službe výškou odplaty za jeden mesiac), v rozsahu, v akom to dovoľuje zákon.</>,
+    ],
+  },
+  {
+    title: "Mlčanlivosť a osobné údaje",
+    body: [
+      <>Obe strany zachovávajú mlčanlivosť o dôverných informáciách druhej strany aj po skončení spolupráce.</>,
+      <>Pri doručovaní dopytov spracúva poskytovateľ osobné údaje zákazníkov klienta ako sprostredkovateľ podľa čl. 28 GDPR, výlučne na doručenie dopytu a súhrnnú štatistiku. Podrobnosti sú v zmluve a v dokumente <Link href="/ochrana-sukromia" className="underline">Ochrana osobných údajov</Link>.</>,
+    ],
+  },
+  {
+    title: "Ukončenie spolupráce",
+    body: [
+      <>Mesačnú službu môže ktorákoľvek strana vypovedať aj bez udania dôvodu, e-mailom. Výpovedná lehota je jeden mesiac a začína plynúť prvým dňom mesiaca nasledujúceho po doručení výpovede.</>,
+      <>Pri jednorazovej zákazke, ktorú klient zruší po začatí prác, má poskytovateľ nárok na odplatu za doteraz vykonanú prácu a vynaložené náklady.</>,
+    ],
+  },
+  {
+    title: "Záverečné ustanovenia",
+    body: [
+      <>Podmienky sa riadia právnym poriadkom Slovenskej republiky. Spory strany riešia prednostne dohodou, inak ich rozhodne príslušný súd v Slovenskej republike.</>,
+      <>Poskytovateľ môže podmienky meniť. Pre existujúce zmluvy platí znenie účinné v deň ich uzatvorenia, ak sa strany nedohodnú inak.</>,
+      <>Tieto podmienky sú platné a účinné od 22. novembra 2026 a nahrádzajú podmienky platné od 1. januára 2026.</>,
+    ],
+  },
+];
+
 export default function ObchodnePodmienky() {
   return (
-    <div className="min-h-screen bg-[#212121] text-[#BAFF57]">
-      {/* Header */}
-      <header className="border-b border-[#BAFF57]/10 px-8 lg:px-24 py-6 flex items-center justify-between">
-        <Link href="/">
-          <Image src="/fonts/Group.png" alt="NextLayer Studio" width={60} height={60} className="h-10 w-auto brightness-0 invert" />
-        </Link>
-        <Link href="/" className="text-[#BAFF57]/50 text-xs uppercase tracking-widest font-mono hover:text-[#BAFF57] transition-colors flex items-center gap-2">
-          ← Späť na hlavnú
-        </Link>
-      </header>
-
-      {/* Content */}
-      <main className="max-w-3xl mx-auto px-8 py-16 lg:py-24">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="w-8 h-[1px] bg-[#BAFF57]/40"></div>
-          <span className="text-[#BAFF57]/40 text-xs uppercase tracking-widest font-mono">Právne dokumenty</span>
-        </div>
-        <h1 className="text-4xl md:text-5xl font-bold text-[#BAFF57] mb-4">Obchodné podmienky</h1>
-        <p className="text-[#BAFF57]/40 text-sm font-mono mb-16">Platné od 1. januára 2026 · NextLayer Studio s.r.o.</p>
-
-        <div className="space-y-12 text-[#BAFF57]/70 text-sm leading-relaxed font-light">
-
-          <section>
-            <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">1. Základné ustanovenia</h2>
-            <p className="mb-3">Tieto obchodné podmienky (ďalej len &bdquo;Podmienky&ldquo;) upravujú zmluvný vzťah medzi spoločnosťou NextLayer Studio s.r.o. (ďalej len &bdquo;Poskytovateľ&ldquo;) a fyzickými alebo právnickými osobami, ktoré si objednávajú jej služby (ďalej len &bdquo;Klient&ldquo;).</p>
-            <p className="mb-3">Poskytovateľom je spoločnosť <strong className="text-[#BAFF57]/90">NextLayer Studio s.r.o.</strong>, so sídlom Wienerova alej 929/20, 900 42 Miloslavov, IČO: 57141282, DIČ: 2122583133 (nie je platcom DPH). Kontakt: team@nextlayer.studio.</p>
-            <p>Odoslaním objednávky alebo podpísaním zmluvy o dielo Klient potvrdzuje, že sa oboznámil s týmito Podmienkami a súhlasí s nimi v plnom rozsahu.</p>
-          </section>
-
-          <section>
-            <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">2. Predmet zmluvy</h2>
-            <p className="mb-3">Poskytovateľ vykonáva pre Klienta služby v oblasti:</p>
-            <ul className="list-none space-y-2 mb-3 pl-4">
-              <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span>správy sociálnych sietí, video produkcie a content marketingu,</li>
-              <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span>vývoja webových stránok, e-shopov a webových aplikácií,</li>
-              <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span>grafického dizajnu, vizuálnej identity a UI/UX dizajnu,</li>
-              <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span>ďalších digitálnych a marketingových služieb podľa dohody.</li>
-            </ul>
-            <p>Presný rozsah, termíny a cena sú špecifikované v cenovej ponuke alebo zmluve o dielo, ktorá tvorí neoddeliteľnú súčasť zmluvného vzťahu.</p>
-          </section>
-
-          <section>
-            <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">3. Uzatvorenie zmluvy a objednávka</h2>
-            <p className="mb-3">Zmluvný vzťah vzniká:</p>
-            <ul className="list-none space-y-2 mb-3 pl-4">
-              <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span>podpísaním zmluvy o dielo oboma stranami, alebo</li>
-              <li className="flex gap-3"><span className="text-[#BAFF57]/30">—</span>písomným (e-mailovým) potvrdením objednávky zo strany Klienta a jej akceptáciou Poskytovateľom.</li>
-            </ul>
-            <p>Cenová ponuka je záväzná 14 dní od jej doručenia Klientovi, pokiaľ nie je v ponuke uvedené inak.</p>
-          </section>
-
-          <section>
-            <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">4. Cena a platobné podmienky</h2>
-            <p className="mb-3">Ceny za poskytnuté služby sú uvedené v cenovej ponuke alebo zmluve. Všetky ceny sú bez DPH — Poskytovateľ nie je platcom DPH.</p>
-            <p className="mb-3">Platby sa uskutočňujú na základe vystavenej faktúry na bankový účet Poskytovateľa. Splatnosť faktúry je 14 dní od jej doručenia, pokiaľ nie je dohodnuté inak.</p>
-            <p className="mb-3">Pri zákazkách nad 500 € je Poskytovateľ oprávnený požadovať zálohovú platbu vo výške 50 % z celkovej ceny pred začatím prác. Zostatok je splatný po odovzdaní výsledného diela.</p>
-            <p>V prípade omeškania s platbou má Poskytovateľ právo pozastaviť poskytovanie ďalších služieb až do úplného uhradenia záväzkov.</p>
-          </section>
-
-          <section>
-            <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">5. Dodanie a odovzdanie výsledkov</h2>
-            <p className="mb-3">Termín dodania je stanovený v cenovej ponuke alebo zmluve. Termíny sú orientačné a môžu byť ovplyvnené mierou spolupráce Klienta (poskytnutie podkladov, schválenia a pod.).</p>
-            <p className="mb-3">Výsledky práce sú odovzdané elektronicky (e-mailom, cez cloudové úložisko alebo projektové nástroje) alebo spôsobom dohodnutým v zmluve.</p>
-            <p>Klient je povinný poskytnúť Poskytovateľovi včas všetky potrebné podklady, prístupy a informácie. Omeškanie zo strany Klienta nekladie zodpovednosť za nedodanie v termíne na Poskytovateľa.</p>
-          </section>
-
-          <section>
-            <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">6. Autorské práva a licencia</h2>
-            <p className="mb-3">Všetky výstupy (grafika, kód, videá, texty a iné materiály) vytvorené Poskytovateľom sú predmetom autorského práva. Po úplnom uhradení dohodnutej ceny prechádza na Klienta nevýhradná licencia na ich použitie na dohodnuté účely.</p>
-            <p className="mb-3">Poskytovateľ si vyhradzuje právo na použitie vytvorených výstupov vo svojom portfóliu a marketingových materiáloch, pokiaľ Klient písomne nevznesie námietku.</p>
-            <p>Klient nesmie ďalej predávať ani sublicencovať výstupy tretím stranám bez predchádzajúceho písomného súhlasu Poskytovateľa.</p>
-          </section>
-
-          <section>
-            <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">7. Reklamácie</h2>
-            <p className="mb-3">Klient je oprávnený uplatniť reklamáciu písomne na adresu team@nextlayer.studio do 14 dní od odovzdania výsledkov práce.</p>
-            <p className="mb-3">Reklamácia musí obsahovať popis vady, zákazkové číslo alebo číslo faktúry a priložené relevantné podklady.</p>
-            <p>Poskytovateľ posúdi reklamáciu do 10 pracovných dní. Oprávnená reklamácia bude bezplatne opravená. Na opravách, ktoré presahujú dohodnutý rozsah pôvodnej zákazky, sa môžu strany dohodnúť na príplatku.</p>
-          </section>
-
-          <section>
-            <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">8. Zodpovednosť za škodu</h2>
-            <p className="mb-3">Poskytovateľ nezodpovedá za nepriame škody, ušlý zisk ani za straty spôsobené nesprávnymi alebo neúplnými podkladmi poskytnutými Klientom.</p>
-            <p>Celková náhrada škody zo strany Poskytovateľa je limitovaná výškou ceny zaplatenej za konkrétnu zákazku, v súvislosti s ktorou škoda vznikla.</p>
-          </section>
-
-          <section>
-            <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">9. Mlčanlivosť a ochrana informácií</h2>
-            <p className="mb-3">Obe strany sa zaväzujú zachovávať mlčanlivosť o dôverných informáciách druhej strany, ku ktorým získajú prístup v rámci spolupráce, a to aj po skončení zmluvného vzťahu.</p>
-            <p>Za dôverné informácie sa nepovažujú informácie, ktoré sú verejne dostupné, alebo také, ktoré strana poznala pred začatím spolupráce.</p>
-          </section>
-
-          <section>
-            <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">10. Ukončenie spolupráce</h2>
-            <p className="mb-3">Každá zo strán môže ukončiť zmluvu písomnou výpoveďou s výpovednou dobou 30 dní, ak nie je v zmluve dohodnuté inak.</p>
-            <p>Pri predčasnom ukončení zo strany Klienta bez zavinenia Poskytovateľa je Klient povinný uhradiť hodnotu doteraz vykonaných prác, ako aj prípadné storno náklady (napr. zakúpený softvér, licencie).</p>
-          </section>
-
-          <section>
-            <h2 className="text-[#BAFF57] text-lg font-bold uppercase tracking-wider mb-4">11. Záverečné ustanovenia</h2>
-            <p className="mb-3">Tieto Podmienky sa riadia právnym poriadkom Slovenskej republiky. Prípadné spory sa strany zaväzujú riešiť prednostne dohodou. Ak nedôjde k dohode, spory bude riešiť príslušný súd v Slovenskej republike.</p>
-            <p className="mb-3">Poskytovateľ si vyhradzuje právo na zmenu týchto Podmienok. O zmene informuje Klientov zverejnením na webovej stránke alebo priamou komunikáciou.</p>
-            <p>Tieto Podmienky nadobúdajú platnosť a účinnosť dňa 1. januára 2026.</p>
-          </section>
-
-        </div>
-
-        <div className="mt-16 pt-8 border-t border-[#BAFF57]/10 flex flex-col sm:flex-row gap-6">
-          <Link href="/ochrana-sukromia" className="text-[#BAFF57]/50 text-xs font-mono uppercase tracking-wider hover:text-[#BAFF57] transition-colors">
-            Ochrana osobných údajov →
-          </Link>
-          <Link href="/informacie-o-firme" className="text-[#BAFF57]/50 text-xs font-mono uppercase tracking-wider hover:text-[#BAFF57] transition-colors">
-            Informácie o firme →
-          </Link>
-        </div>
-      </main>
-
-      <footer className="border-t border-[#BAFF57]/10 px-8 lg:px-24 py-6 text-center">
-        <p className="text-[#BAFF57]/25 text-xs font-mono uppercase tracking-widest">© 2026 NextLayer Studio s.r.o. · IČO: 57141282</p>
-      </footer>
-    </div>
+    <LegalPage
+      title="Obchodné podmienky"
+      validFrom="Platné od 22. novembra 2026"
+      summary={summary}
+      sections={sections}
+      current="/obchodne-podmienky"
+    />
   );
 }

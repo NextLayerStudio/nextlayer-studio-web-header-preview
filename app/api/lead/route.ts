@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sendAutoReply } from "../../lib/autoReply";
 
 export const runtime = "nodejs";
 
@@ -80,6 +81,7 @@ export async function POST(req: NextRequest) {
       console.error("Resend error:", result);
       return NextResponse.json({ ok: false, error: result }, { status: 502 });
     }
+    await sendAutoReply({ apiKey: RESEND_API_KEY, from: FROM_EMAIL, to: email, name });
     return NextResponse.json({ ok: true, id: result.id });
   } catch (err) {
     console.error("Odoslanie leadu zlyhalo:", err);

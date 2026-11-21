@@ -218,8 +218,8 @@ export default function ConsultationLanding() {
         </h1>
 
         <p className="mt-7 text-base sm:text-lg leading-relaxed text-black/70 max-w-2xl">
-          Robíme video produkciu a správu sociálnych sietí pre firmy, ktoré si už vybudovali meno.
-          Scenár pred každým natáčaním, mesačný plán obsahu, jasné výsledky. Žiadne náhodné posty.
+          Robíme reklamu, ktorá firmám prináša dopyty. Nastavíme ju na Facebooku, Instagrame aj Googli,
+          dopyty ti chodia na e-mail do pár minút a každý mesiac vidíš, koľko stál jeden.
         </p>
 
         <div className="mt-9 flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -368,7 +368,7 @@ export default function ConsultationLanding() {
           {[
             ["01", "Nezáväzný hovor", "Zistíme, kde si a čo potrebuješ. 20–30 minút, bez prezentácií."],
             ["02", "Návrh na mieru", "Ak dáva spolupráca zmysel, pošleme konkrétny plán a cenu. Ak nie, povieme ti to na rovinu."],
-            ["03", "Spustíme produkciu", "Scenáre, natáčanie, prvý obsah vonku. Minimálna spolupráca sú 3 mesiace."],
+            ["03", "Spustíme reklamu", "Nastavíme reklamu a formulár, dopyty ti začnú chodiť na e-mail. Platíš mesačne vopred, bez viazanosti."],
           ].map(([num, title, desc]) => (
             <div key={num} className="border border-black/15 p-6">
               <span className="text-black/30 text-xs font-mono uppercase tracking-widest">{num}</span>
@@ -539,7 +539,7 @@ export default function ConsultationLanding() {
           {[
             [
               "Koľko to stojí?",
-              "Reklama, ktorá prináša dopyty, začína na 290 € mesačne + 290 € jednorazovo za nastavenie. Dopytový radar je za 49 € mesačne. Obsah natočíš mobilom podľa nášho scenára; natáčanie s nami je za 240 € za video. Všetky ceny nájdeš na nextlayer.studio/cena. Reklamný rozpočet si platíš priamo.",
+              "Reklama, ktorá prináša dopyty, začína na 290 € mesačne + 290 € jednorazovo za nastavenie. Platíš mesačne vopred, bez viazanosti. Obsah natočíš mobilom podľa nášho scenára. Reklamný rozpočet si platíš priamo Facebooku / Googlu. Podrobnosti nájdeš na nextlayer.studio/cena.",
             ],
             [
               "Musím sa hneď k niečomu zaviazať?",

@@ -25,8 +25,8 @@ const mainIncludes = [
   "Nastavíme reklamu a formulár na dopyty",
   "Reklamy pripravíme z tvojich fotiek a videí z mobilu",
   "Každý nový dopyt ti príde na mobil do pár minút",
-  "Zákazník hneď dostane automatickú odpoveď",
-  "Každý mesiac report: koľko dopytov prišlo a koľko stál jeden",
+  "Každý mesiac podrobný report: koľko dopytov prišlo, koľko stál jeden a čo sme pre teba urobili",
+  "Výsledky si s tebou radi prejdeme na krátkom online hovore",
 ];
 
 const forYou = [
@@ -35,56 +35,12 @@ const forYou = [
   "Na reklamu vieš dať aspoň 150 € mesačne (platíš priamo Facebooku / Googlu)",
 ];
 
-/* ── ĎALŠIE SLUŽBY ── */
-
-type Extra = { id: string; title: string; price: string; priceNote?: string; desc: string; items: string[] };
-
-const extras: Extra[] = [
-  {
-    id: "radar",
-    title: "Dopytový radar",
-    price: "49 €",
-    priceNote: "mesačne, bez viazanosti",
-    desc: "Každé ráno e-mail s novými dopytmi a zákazkami z tvojho odboru.",
-    items: ["Dopytové portály, verejné zákazky (Vestník) aj európske tendre (TED)", "Nastavený na tvoj odbor a región", "Pri reklame s Googlom je v cene"],
-  },
-  {
-    id: "siete",
-    title: "Sociálne siete",
-    price: "od 290 €",
-    priceNote: "jednorazovo za nastavenie",
-    desc: "Siete ti nastavíme a pripravíme plán. Obsah natočíš ty mobilom.",
-    items: [
-      "Nastavenie profilov, šablóny, plán na 3 mesiace a scenáre: 290 € jednorazovo",
-      "Zverejňovanie z tvojich fotiek a videí (do 8 príspevkov): + 190 € mesačne",
-      "Príspevky (grafiky, karusely, texty) tvoríme my: + 340 € mesačne",
-    ],
-  },
-  {
-    id: "natacanie",
-    title: "Natáčanie s nami",
-    price: "240 €",
-    priceNote: "za 1 video, min. 2 videá",
-    desc: "Chceš, aby sme prišli s kamerou? Dá sa, ale je to výrazne drahšie.",
-    items: ["Scenár, natáčanie, strih, titulky a hudba", "Verzie pre Instagram, Facebook aj reklamu", "Doprava mimo Bratislavy 0,40 €/km"],
-  },
-  {
-    id: "web",
-    title: "Servis webu",
-    price: "od 20 €",
-    priceNote: "mesačne",
-    desc: "Hosting, aktualizácie, zálohy a drobné úpravy.",
-    items: ["Servis webu: 20 € mesačne", "Servis e-shopu: 30 € mesačne", "Nový web na mieru naceníme po krátkom hovore"],
-  },
-];
-
 const ArrowIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
 );
 
 export default function CenaPage() {
   const [variant, setVariant] = useState(mainVariants[0].id);
-  const [open, setOpen] = useState<string | null>(null);
   const v = mainVariants.find((x) => x.id === variant) ?? mainVariants[0];
 
   return (
@@ -147,7 +103,7 @@ export default function CenaPage() {
                 </p>
                 <p className="mt-3 text-[10px] md:text-xs uppercase tracking-widest font-mono text-white/50">mesačne</p>
                 <p className="mt-4 text-sm text-white/70">+ {v.once} € jednorazovo za nastavenie</p>
-                <p className="mt-1 text-xs text-white/45">Minimálne 3 mesiace. Rozpočet na reklamu platíš priamo Facebooku / Googlu.</p>
+                <p className="mt-1 text-xs text-white/45">Platíš mesačne vopred, bez viazanosti. Rozpočet na reklamu platíš priamo Facebooku / Googlu. Ceny sú konečné, nie sme platcami DPH.</p>
 
                 <Link href="/#kontakt" className="mt-8 lg:mt-auto inline-flex items-center justify-between gap-3 bg-[#BAFF57] text-black uppercase px-6 py-4 text-xs tracking-wider hover:bg-white transition-colors">
                   Chcem viac dopytov
@@ -172,66 +128,11 @@ export default function CenaPage() {
         </Reveal>
       </section>
 
-      {/* ── ĎALŠIE SLUŽBY ── */}
-      <section className="px-5 md:px-12 lg:px-16 pb-16 md:pb-24">
-        <Reveal className="max-w-3xl">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-black/40 text-xs font-mono">02</span>
-            <div className="w-8 h-px bg-black"></div>
-            <span className="text-black/50 text-xs uppercase tracking-widest font-mono">Ďalšie služby</span>
-          </div>
-          <h2 className="text-3xl md:text-5xl font-bold leading-[0.95] tracking-tight">Potrebuješ aj niečo iné?</h2>
-          <p className="mt-5 text-sm md:text-base text-black/70 max-w-xl">
-            Sociálne siete ti nastavíme, obsah natočíš ty mobilom. Natáčanie s nami sa dá, ale je výrazne drahšie. Klikni a uvidíš cenu.
-          </p>
-        </Reveal>
-
-        <div className="mt-8 border-t border-black/15">
-          {extras.map((e) => {
-            const isOpen = open === e.id;
-            return (
-              <div key={e.id} className="border-b border-black/15">
-                <button
-                  type="button"
-                  onClick={() => setOpen(isOpen ? null : e.id)}
-                  aria-expanded={isOpen}
-                  className="w-full flex items-center justify-between gap-4 py-5 md:py-6 text-left"
-                >
-                  <span>
-                    <span className="block text-lg md:text-2xl font-bold">{e.title}</span>
-                    <span className="block mt-1 text-sm text-black/60">{e.desc}</span>
-                  </span>
-                  <span className="shrink-0 w-9 h-9 flex items-center justify-center border border-black text-lg">{isOpen ? "−" : "+"}</span>
-                </button>
-                {isOpen && (
-                  <div className="pb-6 md:pb-8 grid grid-cols-1 md:grid-cols-12 gap-6">
-                    <ul className="md:col-span-8 space-y-2">
-                      {e.items.map((item) => (
-                        <li key={item} className="flex gap-3 text-sm md:text-base leading-relaxed">
-                          <span className="mt-2 w-1.5 h-1.5 bg-black rotate-45 shrink-0"></span>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="md:col-span-4 md:text-right">
-                      <p className="text-4xl md:text-5xl font-bold tracking-tighter">{e.price}</p>
-                      {e.priceNote && <p className="mt-1 text-[10px] md:text-xs uppercase tracking-widest font-mono text-black/50">{e.priceNote}</p>}
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        <p className="mt-6 text-black/45 text-[10px] font-mono uppercase tracking-[0.2em]">Ceny sú konečné, nie sme platcami DPH</p>
-      </section>
-
       <PageCta
         num="03"
-        eyebrow="Nevieš si vybrať?"
-        title={<>Poradíme ti,<br />čo sa oplatí.</>}
-        lead="Napíš nám, čo robíš a koľko zákaziek by si chcel navyše. Odporučíme, čo dáva zmysel — a čo netreba."
+        eyebrow="Máš otázku?"
+        title={<>Napíš nám,<br />poradíme ti.</>}
+        lead="Napíš nám, čo robíš a koľko zákaziek by si chcel navyše. Do 24 hodín ti povieme, koľko dopytov ti reklama vie priniesť."
         ghost="CENA"
       />
 

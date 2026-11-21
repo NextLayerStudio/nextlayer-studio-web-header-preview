@@ -112,8 +112,8 @@ export default function Home() {
   const produkciaItems = [
     "Reklama, ktorá prináša dopyty",
     "Dopytový radar",
-    "Nastavenie sociálnych sietí",
-    "Natáčanie na želanie",
+    "Dopyty na mobil do pár minút",
+    "Podrobný mesačný report",
   ];
 
   const vyvojItems = [
@@ -676,6 +676,7 @@ export default function Home() {
           <p className="text-[#BAFF57]/40 text-[10px] md:text-xs font-mono uppercase tracking-widest">© 2026 NextLayer Studio s.r.o. · IČO: 57141282</p>
           <div className="flex gap-4 text-[10px] md:text-xs font-mono uppercase">
             <a href="/obchodne-podmienky" className="hover:text-white">Podmienky</a>
+            <a href="/reklamacny-poriadok" className="hover:text-white">Reklamácie</a>
             <a href="/ochrana-sukromia" className="hover:text-white">Údaje</a>
             <a href="/informacie-o-firme" className="hover:text-white">O firme</a>
           </div>

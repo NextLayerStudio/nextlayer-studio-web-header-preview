@@ -30,6 +30,7 @@ export default function PageFooter() {
         <p className="text-[#BAFF57]/40 text-[10px] md:text-xs font-mono uppercase tracking-widest">© 2026 NextLayer Studio s.r.o. · IČO: 57141282</p>
         <div className="flex gap-4 text-[10px] md:text-xs font-mono uppercase">
           <Link href="/obchodne-podmienky" className="hover:text-white">Podmienky</Link>
+          <Link href="/reklamacny-poriadok" className="hover:text-white">Reklamácie</Link>
           <Link href="/ochrana-sukromia" className="hover:text-white">Údaje</Link>
           <Link href="/informacie-o-firme" className="hover:text-white">O firme</Link>
         </div>

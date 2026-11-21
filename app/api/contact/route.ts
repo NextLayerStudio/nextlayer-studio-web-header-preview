@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { sendAutoReply } from "../../lib/autoReply";
 
 function getResend() {
   const apiKey = process.env.NLS_NEW_RESEND_API_KEY;
@@ -83,6 +84,8 @@ export async function POST(request: Request) {
       console.error("Resend error:", error);
       return NextResponse.json({ error: "Správu sa nepodarilo odoslať." }, { status: 502 });
     }
+
+    await sendAutoReply({ apiKey: process.env.NLS_NEW_RESEND_API_KEY!, from, to: email, name, replyTo: to });
 
     return NextResponse.json({ ok: true });
   } catch (err) {
